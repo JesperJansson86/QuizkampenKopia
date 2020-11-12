@@ -5,6 +5,8 @@ import javafx.scene.layout.AnchorPane;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
+import java.util.Random;
 
 public class Controller {
 
@@ -17,24 +19,21 @@ public class Controller {
     Question q;
     ArrayList<String> answers = new ArrayList<>();
     ArrayList<Button> buttons = new ArrayList<>();
+    QuestionFactory questionsAndAnswers = new QuestionFactory();
+    List<Question> questionList;
     Button right;
 
     public void initialize() {
-        q = new Question("Which one is right?", "right", "left2", "left3", "left4");
-        question.setText(q.getQuestion());
 
-        answers.add(q.getAnswer2());
-        answers.add(q.getAnswer3());
-        answers.add(q.getAnswer4());
-        answers.add(q.getRightAnswer());
+        questionList = new ArrayList<>(questionsAndAnswers.getQuestionList());
 
-       setShuffled();
+        setOnStage();
+        setShuffled();
 
     }
 
 
     public void answerOn(ActionEvent actionEvent) {
-        System.out.println(right.getId());
         Button buttonCLicked = ((Button) actionEvent.getSource());
         if (buttonCLicked.getText().equals(q.getRightAnswer())) {
             buttonCLicked.setStyle("-fx-background-color: green");
@@ -45,12 +44,17 @@ public class Controller {
     }
 
     public void resetTest(ActionEvent actionEvent) {
-       for(Button button:buttons){
-           button.setStyle(null);
-       }
+        for (Button button : buttons) {
+            button.setStyle(null);
+        }
+        buttons.clear();
+        answers.clear();
+        question.setText(null);
+        setOnStage();
         setShuffled();
     }
-    public void setShuffled(){
+
+    public void setShuffled() {
         Collections.shuffle(answers);
 
         answer1.setText(answers.get(0));
@@ -67,6 +71,32 @@ public class Controller {
             if (b.getText().equals(q.getRightAnswer()))
                 right = b;
         }
+    }
+
+    public void setOnStage() {
+        q = takeAquestion();
+
+        question.setText(q.getQuestion());
+        answers.add(q.getAnswer2());
+        answers.add(q.getAnswer3());
+        answers.add(q.getAnswer4());
+        answers.add(q.getRightAnswer());
+    }
+
+    public Question takeAquestion() {
+        refillListIfEmpty();
+        Random rnd = new Random();
+        int index = rnd.nextInt(questionList.size());
+        Question question = questionList.get(index);
+        questionList.remove(index);
+
+        return question;
+    }
+
+    public void refillListIfEmpty() {
+        if (questionList.size() < 1)
+            questionList = new ArrayList<>(questionsAndAnswers.getQuestionList());
+
     }
 
 }
