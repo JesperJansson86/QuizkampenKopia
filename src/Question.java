@@ -1,7 +1,7 @@
 import java.util.*;
 
 /**
- * Created by NAME HERE
+ * Created by Lukas Aronsson
  * Date: 12/11/2020
  * Time: 13:20
  * Project: QuizkampenKopia
@@ -39,7 +39,7 @@ public class Question {
 
         int answer = scan.nextInt(); //takes in user input that is hopefully an int
 
-        scanCheck(answer); //Checks user input for correct or wrong answer
+        scanCheck(answer,questionRand,optionRand); //Checks user input for correct or wrong answer
     }
 
 
@@ -74,10 +74,22 @@ public class Question {
     }
 
 
+    /**
+     * checks if the answer in position 1 of question is the same as the one in the user inputted index
+     * @param answer user inputted answer
+     * @param questionRand the question
+     * @param optionRand the order of the options
+     */
+    public void scanCheck(int answer, int questionRand, Integer[] optionRand){
 
-    public void scanCheck(int answer){
+        if(question[questionRand][1].equals(question[questionRand][optionRand[answer-1]])){
 
-        System.out.println(answer + " was the user inputted answer ");
+            //you answered correctly
+            System.out.println("\nYou answered correctly ! :) \n");
+        } else{
+            //aka answer was wrong or something broke
+            System.out.println("\nyour answer was wrong! :( \n");
+        }
 
     }
 
