@@ -11,9 +11,18 @@ import java.util.List;
  * Project: QuizkampenKopia
  * Copyright: MIT
  */
+
+/**
+ * this class takes the text from a text with this format->
+ * 1. line->question
+ * 2. line->right answer
+ * 3. line->an answer
+ * 4. line->an answer
+ * 5. line->an answer
+ */
 public class QuestionFactory {
     List<Question> questionList = new ArrayList<>();
-    String fileName;
+
 
     QuestionFactory() {
         createQuestion();

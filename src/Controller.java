@@ -32,7 +32,8 @@ public class Controller {
 
     }
 
-
+//TODO: this logic has to be fixed, it needs a time thread, and stop it when user clicks in an answer.
+// the user can now click in every button.
     public void answerOn(ActionEvent actionEvent) {
         Button buttonCLicked = ((Button) actionEvent.getSource());
         if (buttonCLicked.getText().equals(q.getRightAnswer())) {
@@ -82,7 +83,7 @@ public class Controller {
         answers.add(q.getAnswer4());
         answers.add(q.getRightAnswer());
     }
-
+//TODO: a question can be repeated when list is refilled.I guess that the bigger the list the less chances to happen this.
     public Question takeAquestion() {
         refillListIfEmpty();
         Random rnd = new Random();
@@ -94,9 +95,8 @@ public class Controller {
     }
 
     public void refillListIfEmpty() {
-        if (questionList.size() < 1)
-            questionList = new ArrayList<>(questionsAndAnswers.getQuestionList());
-
+        if (questionList.size() < 1){
+            questionList = new ArrayList<>(questionsAndAnswers.getQuestionList());}
     }
 
 }
