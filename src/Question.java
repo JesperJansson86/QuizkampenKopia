@@ -1,4 +1,4 @@
-import java.io.FileReader;
+
 
 /**
  * Created by Hodei Eceiza
@@ -13,7 +13,9 @@ public class Question {
     private String answer2;
     private String answer3;
     private String answer4;
+
 Question(String question,String rightAnswer,String answer2,String answer3,String answer4){
+
     this.question =question ;
     this.rightAnswer =rightAnswer;
     this.answer2=answer2;
@@ -40,5 +42,16 @@ Question(String question,String rightAnswer,String answer2,String answer3,String
 
     public String getAnswer4() {
         return answer4;
+    }
+
+    @Override
+    public String toString() {
+        return "Question{" +
+                "question='" + question + '\'' +
+                ", rightAnswer='" + rightAnswer + '\'' +
+                ", answer2='" + answer2 + '\'' +
+                ", answer3='" + answer3 + '\'' +
+                ", answer4='" + answer4 + '\'' +
+                '}';
     }
 }
