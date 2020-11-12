@@ -32,6 +32,10 @@ public class QuestionFactory {
         return questionList;
     }
 
+
+    /**
+     * a method which takes a list of strings, save them in a question class, and adds this questions to the questionList
+     */
     public void createQuestion() {
         List<String> questions = updateList("src/uncategorizedQuestions.txt");
         for (int i = 0; i < questions.size(); i += 5) {
@@ -41,6 +45,11 @@ public class QuestionFactory {
 
     }
 
+    /**
+     * method which reads a file and puts its line in an element of a list
+     * @param filename the file to read
+     * @return an arraylist full of strings
+     */
     public List updateList(String filename) {
         ArrayList<String> readFile = new ArrayList<>();
         try (

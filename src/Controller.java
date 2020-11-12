@@ -23,6 +23,9 @@ public class Controller {
     List<Question> questionList;
     Button right;
 
+    /**
+     * at start initates questionList by copying the list from QuestionFactory
+     */
     public void initialize() {
 
         questionList = new ArrayList<>(questionsAndAnswers.getQuestionList());
@@ -34,6 +37,11 @@ public class Controller {
 
 //TODO: this logic has to be fixed, it needs a time thread, and stop it when user clicks in an answer.
 // the user can now click in every button.
+
+    /**
+     * actionlistener of question options. if its right it paints green, if not it paints red and paints green right answer
+     * @param actionEvent
+     */
     public void answerOn(ActionEvent actionEvent) {
         Button buttonCLicked = ((Button) actionEvent.getSource());
         if (buttonCLicked.getText().equals(q.getRightAnswer())) {
@@ -44,17 +52,25 @@ public class Controller {
         }
     }
 
+    /**
+     * method to clean all the styling and setup again
+     * @param actionEvent
+     */
     public void resetTest(ActionEvent actionEvent) {
         for (Button button : buttons) {
             button.setStyle(null);
         }
         buttons.clear();
         answers.clear();
-        question.setText(null);
+        question.setText(null); //this is not necessary, but, just in case, and its only one line
         setOnStage();
         setShuffled();
     }
 
+    /**
+     * method to shuffle.first shuffles the String list of answers.then puts those string in buttons. then, calls
+     * setRightAnswer to set the button with the right answer
+     */
     public void setShuffled() {
         Collections.shuffle(answers);
 
@@ -63,6 +79,13 @@ public class Controller {
         answer3.setText(answers.get(2));
         answer4.setText(answers.get(3));
 
+       setRightAnswer();
+    }
+
+    /**
+     * method to get the button with the right answer.
+     */
+    public void setRightAnswer(){
         buttons.add(answer1);
         buttons.add(answer2);
         buttons.add(answer3);
@@ -73,7 +96,6 @@ public class Controller {
                 right = b;
         }
     }
-
     public void setOnStage() {
         q = takeAquestion();
 
@@ -83,7 +105,7 @@ public class Controller {
         answers.add(q.getAnswer4());
         answers.add(q.getRightAnswer());
     }
-//TODO: a question can be repeated when list is refilled.I guess that the bigger the list the less chances to happen this.
+
     public Question takeAquestion() {
         refillListIfEmpty();
         Random rnd = new Random();

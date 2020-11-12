@@ -7,6 +7,10 @@
  * Project: QuizkampenKopia
  * Copyright: MIT
  */
+
+/**
+ * a simple question class. has in strings the question, right answer and three alternatives.
+ */
 public class Question {
     private String question;
     private String rightAnswer;
@@ -44,6 +48,7 @@ Question(String question,String rightAnswer,String answer2,String answer3,String
         return answer4;
     }
 
+    //used for testing
     @Override
     public String toString() {
         return "Question{" +
