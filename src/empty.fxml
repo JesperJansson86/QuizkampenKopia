@@ -4,13 +4,13 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
 
-
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="498.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller">
+<AnchorPane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="498.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller">
    <children>
-      <Button fx:id="answer1" layoutX="73.0" layoutY="230.0" mnemonicParsing="false" onAction="#answerOn" prefHeight="66.0" prefWidth="154.0" text="answer1" />
-      <Button fx:id="answer2" layoutX="256.0" layoutY="230.0" mnemonicParsing="false" onAction="#answerOn" prefHeight="66.0" prefWidth="154.0" text="answer2" />
-      <Button fx:id="answer3" layoutX="73.0" layoutY="306.0" mnemonicParsing="false" onAction="#answerOn" prefHeight="66.0" prefWidth="154.0" text="answer3" />
-      <Button fx:id="answer4" layoutX="256.0" layoutY="306.0" mnemonicParsing="false" onAction="#answerOn" prefHeight="66.0" prefWidth="154.0" text="answer4" />
-      <Label fx:id="question" layoutX="110.0" layoutY="90.0" prefHeight="81.0" prefWidth="262.0" text="this is the question" />
+      <Button fx:id="answer1" layoutX="73.0" layoutY="230.0" mnemonicParsing="false" onAction="#answerOn" prefHeight="66.0" prefWidth="154.0" styleClass="buttons" stylesheets="@questions.css" text="answer1" />
+      <Button fx:id="answer2" layoutX="256.0" layoutY="230.0" mnemonicParsing="false" onAction="#answerOn" prefHeight="66.0" prefWidth="154.0" styleClass="buttons" stylesheets="@questions.css" text="answer2" />
+      <Button fx:id="answer3" layoutX="73.0" layoutY="306.0" mnemonicParsing="false" onAction="#answerOn" prefHeight="66.0" prefWidth="154.0" styleClass="buttons" stylesheets="@questions.css" text="answer3" />
+      <Button fx:id="answer4" layoutX="256.0" layoutY="306.0" mnemonicParsing="false" onAction="#answerOn" prefHeight="66.0" prefWidth="154.0" styleClass="buttons" stylesheets="@questions.css" text="answer4" />
+      <Label fx:id="question" alignment="CENTER" contentDisplay="CENTER" layoutX="96.0" layoutY="93.0" prefHeight="82.0" prefWidth="321.0" text="this is the question" textAlignment="RIGHT" />
+      <Button layoutX="223.0" layoutY="22.0" mnemonicParsing="false" onAction="#resetTest" text="Reset" />
    </children>
 </AnchorPane>
