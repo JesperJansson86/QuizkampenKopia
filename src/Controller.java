@@ -24,7 +24,7 @@ public class Controller {
     Button right;
 
     /**
-     * at start initates questionList by copying the list from QuestionFactory
+     * at start initiates questionList by copying the list from QuestionFactory
      */
     public void initialize() {
 
