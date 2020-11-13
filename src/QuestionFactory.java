@@ -24,12 +24,12 @@ public class QuestionFactory {
     private Map<String, ArrayList<Question>> questionsByCategory = new HashMap<>();
     private List<String> categories = new ArrayList<>();
 
-
     QuestionFactory() {
         updateList("src/questionsfromOpenTDB1.txt");
         updateList("src/questionsFromOpenTDB2.txt");
-        updateList("https://opentdb.com/api.php?amount=10&category=18&difficulty=easy&type=multiple");
-
+        //Uncomment when live.
+//        updateList("https://opentdb.com/api.php?amount=10&category=18&difficulty=easy&type=multiple");
+//        updateList("https://opentdb.com/api.php?amount=10&category=9&difficulty=easy&type=multiple");
 
         for (String key : questionsByCategory.keySet()) {
             for (Question q : questionsByCategory.get(key)) {
@@ -95,6 +95,7 @@ public class QuestionFactory {
                 e.printStackTrace();
             } catch (IOException e) {
                 e.printStackTrace();
+
             }
         } else {
             try (Scanner scanner = new Scanner(new File(source))) {
@@ -132,7 +133,7 @@ public class QuestionFactory {
     }
 
     private String replaceChars(String string) {
-        string = string.replace("&quot", "\"");
+        string = string.replace("&quot;", "\"");
         string = string.replace("&#039;", "'");
         return string;
     }
