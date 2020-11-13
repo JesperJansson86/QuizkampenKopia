@@ -1,4 +1,4 @@
-
+package MainClasses;
 
 /**
  * Created by Hodei Eceiza
@@ -51,7 +51,7 @@ Question(String question,String rightAnswer,String answer2,String answer3,String
     //used for testing
     @Override
     public String toString() {
-        return "Question{" +
+        return "MainClasses.Question{" +
                 "question='" + question + '\'' +
                 ", rightAnswer='" + rightAnswer + '\'' +
                 ", answer2='" + answer2 + '\'' +

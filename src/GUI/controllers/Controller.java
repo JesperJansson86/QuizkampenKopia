@@ -1,3 +1,7 @@
+package GUI.controllers;
+
+import MainClasses.Question;
+import MainClasses.QuestionFactory;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -24,7 +28,7 @@ public class Controller {
     Button right;
 
     /**
-     * at start initiates questionList by copying the list from QuestionFactory
+     * at start initiates questionList by copying the list from MainClasses.QuestionFactory
      */
     public void initialize() {
 
