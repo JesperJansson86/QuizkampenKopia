@@ -1,4 +1,6 @@
 import java.io.*;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.*;
 
 /**
@@ -20,90 +22,108 @@ import java.util.*;
 public class QuestionFactory {
     private List<Question> questionList = new ArrayList<>();
     private Map<String, ArrayList<Question>> questionsByCategory = new HashMap<>();
+    private List<String> categories = new ArrayList<>();
 
 
     QuestionFactory() {
-//        createQuestion();
         updateList("src/questionsfromOpenTDB1.txt");
-        testRun();
+        updateList("src/questionsFromOpenTDB2.txt");
+        updateList("https://opentdb.com/api.php?amount=10&category=18&difficulty=easy&type=multiple");
+
+
+        for (String key : questionsByCategory.keySet()) {
+            for (Question q : questionsByCategory.get(key)) {
+                System.out.println(q);
+            }
+        }
+        System.out.println(categories.toString());
     }
 
     public List<Question> getQuestionList() {
         return questionList;
     }
 
-
     /**
      * a method which takes a list of strings, save them in a question class, and adds this questions to the questionList
      */
-//    public void createQuestion() {
-//        List<String> questions = updateList("src/uncategorizedQuestions.txt");
-//        for (int i = 0; i < questions.size(); i += 5) {
-//            Question q = new Question(questions.get(i), questions.get(i + 1), questions.get(i + 2), questions.get(i + 3), questions.get(i + 4));
-//            questionList.add(q);
-//        }
-//
-//    }
-    public void createQuestion() {
-
-    }
-
-    /**
-     * method which reads a file and puts its line in an element of a list
-     *
-     * @param filename the file to read
-     * @return an arraylist full of strings
-     */
-//    public List updateList(String filename) {
-//        ArrayList<String> readFile = new ArrayList<>();
-//        try (
-//                BufferedReader reader = new BufferedReader(new FileReader(filename))) {
-//            String reading;
-//            while ((reading = reader.readLine()) != null) {
-//                readFile.add(reading);
-//            }
-//
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//        return readFile;
-//    }
-
-    private void updateList(String filename){
-        try (Scanner scanner = new Scanner(new File(filename))) {
-            String stringFromFile = scanner.nextLine();
-            while(true){
-                int indexStart = stringFromFile.indexOf("category");
-                if(indexStart == -1) break;
-                int indexEnd = stringFromFile.indexOf("category", indexStart+1);
-                if(indexEnd == -1){
-                    indexEnd = stringFromFile.length();
-                }
-                String nextQuestion = stringFromFile.substring(0, indexEnd);
-
-                String category = grabBetween(nextQuestion, "category\":\"", "\",\"");
-                String question = grabBetween(nextQuestion, "question\":\"", "\",\"");
-                String correctAnswer = grabBetween(nextQuestion, "correct_answer\":\"", "\",\"");
-                String[] incorrectAnswer = grabBetween(nextQuestion, "incorrect_answers\":[\"", "\"]}").split("\",\"");
-
-                stringFromFile = stringFromFile.substring(indexEnd);
-
-                Question q = new Question(category, question, correctAnswer, incorrectAnswer[0], incorrectAnswer[1], incorrectAnswer[2]);
-                questionList.add(q);
-
-//                System.out.printf("Cat: %s Q: %s \nA: %s \nF1: %s \nF2: %s \nF3: %s\n",
-//                        category, question, correctAnswer, incorrectAnswer[0], incorrectAnswer[1], incorrectAnswer[2]);
+    public void createQuestion(String stringFromFile) {
+        while (true) {
+            int indexStart = stringFromFile.indexOf("category");
+            if (indexStart == -1) break;
+            int indexEnd = stringFromFile.indexOf("category", indexStart + 1);
+            if (indexEnd == -1) {
+                indexEnd = stringFromFile.length();
             }
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
+            String nextQuestion = stringFromFile.substring(0, indexEnd);
+
+            String category = grabBetween(nextQuestion, "category\":\"", "\",\"");
+            String question = grabBetween(nextQuestion, "question\":\"", "\",\"");
+            String correctAnswer = grabBetween(nextQuestion, "correct_answer\":\"", "\",\"");
+            String[] incorrectAnswer = grabBetween(nextQuestion, "incorrect_answers\":[\"", "\"]}").split("\",\"");
+
+            stringFromFile = stringFromFile.substring(indexEnd);
+
+            Question q = new Question(category, question, correctAnswer, incorrectAnswer[0], incorrectAnswer[1], incorrectAnswer[2]);
+            questionList.add(q);
+
+            if (!questionsByCategory.containsKey(q.getCategory())) {
+                questionsByCategory.put(q.getCategory(), new ArrayList<>());
+                questionsByCategory.get(q.getCategory()).add(q);
+            } else {
+                questionsByCategory.get(q.getCategory()).add(q);
+            }
+        }
+        for(String string: questionsByCategory.keySet()){
+            if(!categories.contains(string))
+                categories.add(string);
         }
     }
 
-    public void testRun(){
-        createQuestion();
+    /**
+     * method which reads a file or URL and fills both List questionList and Map questionsByCategory
+     * with questions from file or URL.
+     * @param source in form of path or URL of source to read.
+     * @return String with all questions and answers.
+     */
+    private void updateList(String source) {
+        if(source.startsWith("http")){
+            try{
+                URL url = new URL(source);
+                BufferedReader in = new BufferedReader(new InputStreamReader(url.openStream()));
+                createQuestion(in.readLine());
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        } else {
+            try (Scanner scanner = new Scanner(new File(source))) {
+                createQuestion(scanner.nextLine());
+
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
-    private String grabBetween(String source, String after, String before){
+    public Question getRandomQuestionByCategory(String category) {
+        Question question = null;
+        if (questionsByCategory.containsKey(category)) {
+            Random random = new Random();
+            question = questionsByCategory.get(category).get(random.nextInt(questionsByCategory.get(category).size()));
+        }
+        return question;
+    }
+
+    public List<String> getCategories(){
+        List<String> result = new ArrayList<>();
+        for(String string: questionsByCategory.keySet()){
+            result.add(string);
+        }
+        return result;
+    }
+
+    private String grabBetween(String source, String after, String before) {
         int indexStart = source.indexOf(after) + after.length();
         int indexEnd = source.indexOf(before, indexStart);
         String result = source.substring(indexStart, indexEnd);
@@ -111,9 +131,9 @@ public class QuestionFactory {
         return result;
     }
 
-    private String replaceChars(String string){
+    private String replaceChars(String string) {
         string = string.replace("&quot", "\"");
-        string = string.replace("&#039;","'");
+        string = string.replace("&#039;", "'");
         return string;
     }
 

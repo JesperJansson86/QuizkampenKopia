@@ -56,7 +56,8 @@ public class Question {
     @Override
     public String toString() {
         return "Question{" +
-                "question='" + question + '\'' +
+                "category='" + category + "'\'" +
+                ", question='" + question + '\'' +
                 ", rightAnswer='" + rightAnswer + '\'' +
                 ", answer2='" + answer2 + '\'' +
                 ", answer3='" + answer3 + '\'' +
