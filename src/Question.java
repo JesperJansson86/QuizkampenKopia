@@ -1,62 +1,62 @@
-import java.io.FileReader;
-import java.io.IOException;
-import java.util.*;
 
+
+/**
+ * Created by Hodei Eceiza
+ * Date: 11/12/2020
+ * Time: 14:33
+ * Project: QuizkampenKopia
+ * Copyright: MIT
+ */
+
+/**
+ * a simple question class. has in strings the question, right answer and three alternatives.
+ */
 public class Question {
+    private String question;
+    private String rightAnswer;
+    private String answer2;
+    private String answer3;
+    private String answer4;
 
-    String question;
-    String correctAnswer;
-    String incorrect1;
-    String incorrect2;
-    String incorrect3;
-    List<String> shuffled = new LinkedList<>();
-    public Question(String question,String correctAnswer,String incorrect1,String incorrect2,String incorrect3)
-    {
-     this.question=question;
-     this.correctAnswer=correctAnswer;
-     this.incorrect1=incorrect1;
-     this.incorrect2=incorrect2;
-     this.incorrect3=incorrect3;
-     shuffled.add(correctAnswer);
-     shuffled.add(incorrect1);
-     shuffled.add(incorrect2);
-     shuffled.add(incorrect3);
-     Collections.shuffle(shuffled);
-    }
-    public Question(){
+Question(String question,String rightAnswer,String answer2,String answer3,String answer4){
 
-    }
-    public List buildQuestions(int amountOfQuestions) {
-        List<Question> qlist = new LinkedList<>();
-        Random rand = new Random();
+    this.question =question ;
+    this.rightAnswer =rightAnswer;
+    this.answer2=answer2;
+    this.answer3=answer3;
+    this.answer4=answer4;
 
-        for (int j = 0; j < amountOfQuestions; j++) {
-            int rowInQuestionFile = rand.nextInt(4) + 1;
-            try (Scanner scan = new Scanner(new FileReader("src\\questions"))) {
-                scan.useDelimiter(",");
+}
 
-                for (int i = 0; i < rowInQuestionFile - 1; i++) {
-                    scan.nextLine();
-                    System.out.println("ny rad");
-                }
-                qlist.add(new Question(scan.next(), scan.next(), scan.next(), scan.next(), scan.next()));
-
-            } catch (IOException e) {
-                System.out.println("Det gick ej att läsa från filen");
-            }
-        }
-
-        return qlist;
+    public String getQuestion() {
+        return question;
     }
 
+    public String getRightAnswer() {
+        return rightAnswer;
+    }
 
+    public String getAnswer2() {
+        return answer2;
+    }
 
+    public String getAnswer3() {
+        return answer3;
+    }
+
+    public String getAnswer4() {
+        return answer4;
+    }
+
+    //used for testing
     @Override
     public String toString() {
-        String printOutput ="";
-        for (int i = 0; i < 4; i++) {
-           printOutput = printOutput+" / "+ shuffled.get(i);
-        }
-        return printOutput;
+        return "Question{" +
+                "question='" + question + '\'' +
+                ", rightAnswer='" + rightAnswer + '\'' +
+                ", answer2='" + answer2 + '\'' +
+                ", answer3='" + answer3 + '\'' +
+                ", answer4='" + answer4 + '\'' +
+                '}';
     }
 }
