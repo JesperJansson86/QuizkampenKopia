@@ -1,6 +1,6 @@
-import java.util.Collections;
-import java.util.LinkedList;
-import java.util.List;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.*;
 
 public class Question {
 
@@ -26,7 +26,28 @@ public class Question {
     public Question(){
 
     }
+    public List buildQuestions(int amountOfQuestions) {
+        List<Question> qlist = new LinkedList<>();
+        Random rand = new Random();
 
+        for (int j = 0; j < amountOfQuestions; j++) {
+            int rowInQuestionFile = rand.nextInt(4) + 1;
+            try (Scanner scan = new Scanner(new FileReader("src\\questions"))) {
+                scan.useDelimiter(",");
+
+                for (int i = 0; i < rowInQuestionFile - 1; i++) {
+                    scan.nextLine();
+                    System.out.println("ny rad");
+                }
+                qlist.add(new Question(scan.next(), scan.next(), scan.next(), scan.next(), scan.next()));
+
+            } catch (IOException e) {
+                System.out.println("Det gick ej att läsa från filen");
+            }
+        }
+
+        return qlist;
+    }
 
 
 
