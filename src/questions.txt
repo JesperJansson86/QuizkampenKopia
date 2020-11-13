@@ -1,0 +1,16 @@
+Category1#Question1-1#TrueAnswer#Fake1#Fake2#Fake3
+Category1#Question1-2#TrueAnswer#Fake1#Fake2#Fake3
+Category1#Question1-3#TrueAnswer#Fake1#Fake2#Fake3
+Category1#Question1-4#TrueAnswer#Fake1#Fake2#Fake3
+Category2#Question2-1#TrueAnswer#Fake1#Fake2#Fake3
+Category2#Question2-2#TrueAnswer#Fake1#Fake2#Fake3
+Category2#Question2-3#TrueAnswer#Fake1#Fake2#Fake3
+Category2#Question2-4#TrueAnswer#Fake1#Fake2#Fake3
+Category3#Question3-1#TrueAnswer#Fake1#Fake2#Fake3
+Category3#Question3-2#TrueAnswer#Fake1#Fake2#Fake3
+Category3#Question3-3#TrueAnswer#Fake1#Fake2#Fake3
+Category3#Question3-4#TrueAnswer#Fake1#Fake2#Fake3
+Category4#Question4-1#TrueAnswer#Fake1#Fake2#Fake3
+Category4#Question4-2#TrueAnswer#Fake1#Fake2#Fake3
+Category4#Question4-3#TrueAnswer#Fake1#Fake2#Fake3
+Category4#Question4-4#TrueAnswer#Fake1#Fake2#Fake3
