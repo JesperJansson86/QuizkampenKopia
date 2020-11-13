@@ -15,8 +15,8 @@ public class Question {
      this.question=question;
      this.correctAnswer=correctAnswer;
      this.incorrect1=incorrect1;
-     this.incorrect1=incorrect2;
-     this.incorrect1=incorrect3;
+     this.incorrect2=incorrect2;
+     this.incorrect3=incorrect3;
      shuffled.add(correctAnswer);
      shuffled.add(incorrect1);
      shuffled.add(incorrect2);
@@ -26,6 +26,9 @@ public class Question {
     public Question(){
 
     }
+
+
+
 
     @Override
     public String toString() {
