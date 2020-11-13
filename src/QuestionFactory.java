@@ -1,6 +1,7 @@
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,7 +21,7 @@ import java.util.List;
  * 4. line->an answer
  * 5. line->an answer
  */
-public class QuestionFactory {
+public class QuestionFactory implements Serializable {
     List<Question> questionList = new ArrayList<>();
 
 
