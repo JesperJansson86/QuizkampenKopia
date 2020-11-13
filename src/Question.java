@@ -12,21 +12,25 @@
  * a simple question class. has in strings the question, right answer and three alternatives.
  */
 public class Question {
+    private String category;
     private String question;
     private String rightAnswer;
     private String answer2;
     private String answer3;
     private String answer4;
 
-Question(String question,String rightAnswer,String answer2,String answer3,String answer4){
+    Question(String category, String question, String rightAnswer, String answer2, String answer3, String answer4) {
+        this.category = category;
+        this.question = question;
+        this.rightAnswer = rightAnswer;
+        this.answer2 = answer2;
+        this.answer3 = answer3;
+        this.answer4 = answer4;
 
-    this.question =question ;
-    this.rightAnswer =rightAnswer;
-    this.answer2=answer2;
-    this.answer3=answer3;
-    this.answer4=answer4;
-
-}
+    }
+    public String getCategory(){
+        return category;
+    }
 
     public String getQuestion() {
         return question;
