@@ -5,13 +5,13 @@ public class Question {
     private String answer3;
     private String answer4;
 
-    Question(String question,String rightAnswer,String answer2,String answer3,String answer4){
+    Question(String question, String rightAnswer, String answer2, String answer3, String answer4) {
 
-        this.question =question ;
-        this.rightAnswer =rightAnswer;
-        this.answer2=answer2;
-        this.answer3=answer3;
-        this.answer4=answer4;
+        this.question = question;
+        this.rightAnswer = rightAnswer;
+        this.answer2 = answer2;
+        this.answer3 = answer3;
+        this.answer4 = answer4;
 
     }
 

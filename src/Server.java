@@ -14,14 +14,14 @@ public class Server {
     }
 
     public Server() {
-        try (ServerSocket serverSocket = new ServerSocket(port)){
+        try (ServerSocket serverSocket = new ServerSocket(port)) {
             System.out.println("Server up and ready.");
             while (true) {
                 Socket socket = serverSocket.accept();
                 System.out.println("Client1 connected");
                 Socket socket2 = serverSocket.accept();
                 System.out.println("Client2 connected.");
-                new ServerThread(socket,socket2).start();
+                new ServerThread(socket, socket2).start();
             }
 
         } catch (IOException e) {

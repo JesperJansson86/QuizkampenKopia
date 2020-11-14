@@ -3,7 +3,7 @@ import java.net.Socket;
 import java.util.*;
 
 public class Client {
-GameRound gr;
+    GameRound gr;
 
     public static void main(String[] args) {
 
@@ -33,11 +33,13 @@ GameRound gr;
                 //om spelet är slut räknas totalpoäng ihop och en vinnare koras.
                 //PLACEHOLDER---
 
-                gr=(GameRound)in.readObject();
+                /*
+                Just nu skickas ett GameRound objekt och det en kan skriva strängar till skannern som sparas som GameRound.category
+                 */
+                gr = (GameRound) in.readObject();
                 System.out.println(gr.category);
                 gr.category = scan.next();
                 out.writeObject(gr);
-
 
 
 //                test = scan.next();

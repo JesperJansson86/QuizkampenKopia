@@ -10,9 +10,9 @@ public class GameRound implements Serializable {
     List<Boolean> player1Results = new ArrayList<>();
     List<Boolean> player2Results = new ArrayList<>();
 
-    public GameRound(int gameid,List qlist){
-        this.gameid=gameid;
-        this.qlist=qlist;
+    public GameRound(int gameid, List qlist) {
+        this.gameid = gameid;
+        this.qlist = qlist;
     }
 
 
