@@ -46,9 +46,13 @@ public class Controller {
         Button buttonCLicked = ((Button) actionEvent.getSource());
         if (buttonCLicked.getText().equals(q.getRightAnswer())) {
             buttonCLicked.setStyle("-fx-background-color: green");
+
+            PointCount.playerPointCount(1); // adds a point to the point counter
         } else if (!buttonCLicked.getText().equals(q.getRightAnswer())) {
             buttonCLicked.setStyle("-fx-background-color: red");
             right.setStyle("-fx-background-color: green");
+
+            PointCount.playerPointCount(0); // sends a 0 to the playerPointCount method in playerCount
         }
     }
 
