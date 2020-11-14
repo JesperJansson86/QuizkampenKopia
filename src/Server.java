@@ -9,6 +9,7 @@ public class Server {
     public static int port = 5000;
 
     public static void main(String[] args) {
+
         new Server();
     }
 
@@ -17,8 +18,10 @@ public class Server {
             System.out.println("Server up and ready.");
             while (true) {
                 Socket socket = serverSocket.accept();
-                System.out.println("Client connected.");
-                new ServerThread(socket).start();
+                System.out.println("Client1 connected");
+                Socket socket2 = serverSocket.accept();
+                System.out.println("Client2 connected.");
+                new ServerThread(socket,socket2).start();
             }
 
         } catch (IOException e) {
