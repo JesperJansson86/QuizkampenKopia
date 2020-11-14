@@ -3,7 +3,7 @@ import java.net.Socket;
 import java.util.*;
 
 public class Client {
-
+GameRound gr;
 
     public static void main(String[] args) {
 
@@ -19,33 +19,34 @@ public class Client {
             String test = null;
 //            if (in.readObject()=="StartingPlayer"){
 //                in.available();
-                // PLACEHOLDER---
-                //Metod för att välja kategori
-                //Som returneras till servern med out.writeObject();
-                //PLACEHOLDER---
+            // PLACEHOLDER---
+            //Metod för att välja kategori
+            //Som returneras till servern med out.writeObject();
+            //PLACEHOLDER---
 //            }
-           while (true) {
-               // PLACEHOLDER---
-               //Kontroll som kollar om det är din tur att välja kategori eller bara svara på frågor.
-               //Antingen skickas kategorin till servern eller så har en redan fått alla frågor en kan tänkas behöva.
-               //Resultatet av ens frågor skickas till motståndaren samt de resultat en fått från motståndaren visas
-               //när en svarat på ens frågor för rundan
-               //om spelet är slut räknas totalpoäng ihop och en vinnare koras.
-               //PLACEHOLDER---
+            while (true) {
+                // PLACEHOLDER---
+                //Kontroll som kollar om det är din tur att välja kategori eller bara svara på frågor.
+                //Antingen skickas kategorin till servern eller så har en redan fått alla frågor en kan tänkas behöva.
+                //Resultatet av ens frågor skickas till motståndaren samt de resultat en fått från motståndaren visas
+                //när en svarat på ens frågor för rundan
+                //om spelet är slut räknas totalpoäng ihop och en vinnare koras.
+                //PLACEHOLDER---
 
-                    test = scan.next();
-                    out.writeObject(test);
-               System.out.println(in.readObject());
-//                }
-//              if(in.readObject()!=null)
+                gr=(GameRound)in.readObject();
+                System.out.println(gr.category);
+                gr.category = scan.next();
+                out.writeObject(gr);
+
+
+
+//                test = scan.next();
+//                out.writeObject(test);
+//                System.out.println(in.readObject());
+
 
             }
-//            QuestionFactory questionsFromServer;
-//            while ((questionsFromServer = (QuestionFactory)in.readObject()) != null) {
-//
-//                System.out.println(questionsFromServer.toString());
-//
-//            }
+
 
         } catch (IOException e) {
             e.printStackTrace();

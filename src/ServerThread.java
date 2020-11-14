@@ -3,7 +3,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
-import java.awt.*;
+import java.util.*;
 
 public class ServerThread extends Thread {
     Socket socket;
@@ -29,15 +29,20 @@ public class ServerThread extends Thread {
 //                Thread t2 = new Thread(new ServerToClientThread(in2,out));
 //                t1.start();
 //                t2.start();
+            List<Question> qlist = new ArrayList<>();
             String svar = "start";
-//            out.writeObject("StartingPlayer");
+            GameRound gr = new GameRound(1,qlist);
 
             while (true) {
+                out.writeObject(gr);
+                gr=(GameRound)in.readObject();
+                out2.writeObject(gr);
+                gr=(GameRound)in2.readObject();
 
-                        svar = (String) in.readObject();
-                        out2.writeObject(svar);
-                        svar = (String) in2.readObject();
-                        out.writeObject(svar);
+//                        svar = (String) in.readObject();
+//                        out2.writeObject(svar);
+//                        svar = (String) in2.readObject();
+//                        out.writeObject(svar);
                     }
                 } catch (IOException | ClassNotFoundException e) {
                     e.printStackTrace();
