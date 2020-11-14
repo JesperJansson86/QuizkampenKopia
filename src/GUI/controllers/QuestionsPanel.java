@@ -29,7 +29,7 @@ public class QuestionsPanel {
     public AnchorPane mainPane;
     public Rectangle Qresult1;
     public Rectangle Qresult2;
-    public Rectangle Qresult3;
+    //public Rectangle Qresult3;
     public Label roundNumber;
     public ProgressBar timeLeft;
     Question q;
@@ -40,33 +40,30 @@ public class QuestionsPanel {
     Button right;
     @FXML
     Label categoryL;
-
+    static double progressTime=1;
     /**
      * at start initiates questionList by copying the list from MainClasses.QuestionFactory
      */
     public void initialize() {
 
         questionList = new ArrayList<>(questionsAndAnswers.getQuestionList());
-        timeLeft.setProgress(0.5);
+       timeLeft.setProgress(1);
         setOnStage();
 
-        Timeline timeline = new Timeline(
-                new KeyFrame(Duration.seconds(2), e -> {
-                    resetTest(e);
-                    setOnStage();
+        timeForAnswer();
+        timeForAnswer();
 
-                })
-
-        );
-        timeline.play();
     }
+public void timeForAnswer(){
+    Timeline timeline = new Timeline(
+            new KeyFrame(Duration.seconds(2), e -> {
+                resetTest(e);
+                setOnStage();
+            })
 
-
-
-
-
-//TODO: this logic has to be fixed, it needs a time thread, and stop it when user clicks in an answer.
-// the user can now click in every button.
+    );
+    timeline.play();
+}
 
     /**
      * actionlistener of question options. if its right it paints green, if not it paints red and paints green right answer

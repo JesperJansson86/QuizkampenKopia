@@ -28,7 +28,6 @@
       <Button layoutX="423.0" layoutY="430.0" mnemonicParsing="false" onAction="#resetTest" text="Reset" />
       <Rectangle fx:id="Qresult1" arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="26.0" layoutX="39.0" layoutY="32.0" stroke="TRANSPARENT" strokeType="INSIDE" style="-fx-arc-height: 10; -fx-arc-width: 10;" width="28.0" />
       <Rectangle fx:id="Qresult2" arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="26.0" layoutX="70.0" layoutY="32.0" stroke="TRANSPARENT" strokeType="INSIDE" style="-fx-arc-height: 10; -fx-arc-width: 10;" width="28.0" />
-      <Rectangle fx:id="Qresult3" arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="26.0" layoutX="101.0" layoutY="32.0" stroke="TRANSPARENT" strokeType="INSIDE" style="-fx-arc-height: 10; -fx-arc-width: 10;" width="28.0" />
       <Label fx:id="roundNumber" layoutX="257.0" layoutY="49.0" text="0" />
       <Label layoutX="242.0" layoutY="23.0" text="Round" />
       <Label fx:id="categoryL" alignment="CENTER" contentDisplay="CENTER" layoutX="177.0" layoutY="76.0" prefHeight="18.0" prefWidth="168.0" text="Category" textAlignment="CENTER" textFill="#ffffff" wrapText="true">

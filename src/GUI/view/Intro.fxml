@@ -9,7 +9,7 @@
    <children>
       <TextField fx:id="nameField" layoutX="176.0" layoutY="256.0" />
       <Label layoutX="234.0" layoutY="235.0" text="Name" textFill="WHITE" />
-      <Label fx:id="message" layoutX="236.0" layoutY="154.0" textFill="#ff4a4a" />
+      <Label fx:id="message" alignment="CENTER" layoutX="121.0" layoutY="154.0" prefHeight="18.0" prefWidth="244.0" text="message" textAlignment="CENTER" textFill="#ff4a4a" wrapText="true" />
       <Button fx:id="startB" layoutX="177.0" layoutY="301.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="149.0" text="START" />
    </children>
 </AnchorPane>

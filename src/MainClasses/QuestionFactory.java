@@ -39,7 +39,7 @@ public class QuestionFactory {
      * a method which takes a list of strings, save them in a question class, and adds this questions to the questionList
      */
     public void createQuestion() {
-        List<String> questions = updateList("src/uncategorizedQuestions.txt");
+        List<String> questions = updateList("src/testingQuestions.txt");
         for (int i = 0; i < questions.size(); i += 6) {
             Question q = new Question(questions.get(i), questions.get(i + 1), questions.get(i + 2), questions.get(i + 3), questions.get(i + 4),questions.get(i+5));
             questionList.add(q);
