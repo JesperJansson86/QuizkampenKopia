@@ -1,5 +1,6 @@
 package GUI.controllers;
 
+import GUI.models.GUIutils;
 import MainClasses.Question;
 import MainClasses.QuestionFactory;
 import javafx.animation.KeyFrame;
@@ -7,13 +8,18 @@ import javafx.animation.PauseTransition;
 import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.shape.Rectangle;
+import javafx.stage.Stage;
 import javafx.util.Duration;
 
+import java.awt.*;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -32,6 +38,9 @@ public class QuestionsPanel {
     //public Rectangle Qresult3;
     public Label roundNumber;
     public ProgressBar timeLeft;
+
+
+
     Question q;
     ArrayList<String> answers = new ArrayList<>();
     ArrayList<Button> buttons = new ArrayList<>();
@@ -41,27 +50,35 @@ public class QuestionsPanel {
     @FXML
     Label categoryL;
     static double progressTime=1;
+
+    GUIutils utils;
     /**
      * at start initiates questionList by copying the list from MainClasses.QuestionFactory
      */
     public void initialize() {
-
+        utils=new GUIutils(mainPane);
         questionList = new ArrayList<>(questionsAndAnswers.getQuestionList());
        timeLeft.setProgress(1);
         setOnStage();
 
         timeForAnswer();
-        timeForAnswer();
+
 
     }
 public void timeForAnswer(){
     Timeline timeline = new Timeline(
-            new KeyFrame(Duration.seconds(2), e -> {
+            new KeyFrame(Duration.seconds(5), e -> {
                 resetTest(e);
                 setOnStage();
-            })
+            }),
+    new KeyFrame(Duration.seconds(10), e -> {
+        try {
+            utils.changeScene("../view/ResultsAndReview.fxml");
+        } catch (IOException ioException) {
+            ioException.printStackTrace();
+        }
+    }));
 
-    );
     timeline.play();
 }
 
@@ -104,7 +121,7 @@ public void timeForAnswer(){
         buttons.clear();
         answers.clear();
         question.setText(null); //this is not necessary, but, just in case, and its only one line
-        setOnStage();
+     //   setOnStage();
 
     }
 
@@ -149,7 +166,7 @@ public void timeForAnswer(){
         categoryL.setText(q.getCategory());
         setShuffled();
     }
-
+/*
     public Question takeAquestion() {
         refillListIfEmpty();
         Random rnd = new Random();
@@ -160,11 +177,20 @@ public void timeForAnswer(){
         return question;
     }
 
+ */
+public Question takeAquestion() {
+
+    Question question = questionList.get(questionList.size()-1);
+    questionList.remove(questionList.size()-1);
+
+    return question;
+}
     public void refillListIfEmpty() {
         if (questionList.size() < 1) {
             questionList = new ArrayList<>(questionsAndAnswers.getQuestionList());
         }
     }
+
 
 }
 
