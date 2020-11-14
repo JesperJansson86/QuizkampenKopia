@@ -40,8 +40,8 @@ public class QuestionFactory {
      */
     public void createQuestion() {
         List<String> questions = updateList("src/uncategorizedQuestions.txt");
-        for (int i = 0; i < questions.size(); i += 5) {
-            Question q = new Question(questions.get(i), questions.get(i + 1), questions.get(i + 2), questions.get(i + 3), questions.get(i + 4));
+        for (int i = 0; i < questions.size(); i += 6) {
+            Question q = new Question(questions.get(i), questions.get(i + 1), questions.get(i + 2), questions.get(i + 3), questions.get(i + 4),questions.get(i+5));
             questionList.add(q);
         }
 

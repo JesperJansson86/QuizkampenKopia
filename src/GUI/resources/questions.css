@@ -16,3 +16,6 @@
     -fx-effect: dropshadow(three-pass-box,rgb(0,0,0),4,0,0,0);
 
 }
+.timeLeft{
+-fx-accent: green;
+}

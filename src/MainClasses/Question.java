@@ -17,14 +17,16 @@ public class Question {
     private String answer2;
     private String answer3;
     private String answer4;
+    private String category;
 
-Question(String question,String rightAnswer,String answer2,String answer3,String answer4){
+Question(String question,String rightAnswer,String answer2,String answer3,String answer4,String category){
 
     this.question =question ;
     this.rightAnswer =rightAnswer;
     this.answer2=answer2;
     this.answer3=answer3;
     this.answer4=answer4;
+    this.category=category;
 
 }
 
@@ -46,6 +48,10 @@ Question(String question,String rightAnswer,String answer2,String answer3,String
 
     public String getAnswer4() {
         return answer4;
+    }
+
+    public String getCategory() {
+        return category;
     }
 
     //used for testing
