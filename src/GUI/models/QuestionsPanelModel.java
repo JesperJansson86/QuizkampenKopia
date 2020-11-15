@@ -5,7 +5,6 @@ import MainClasses.QuestionFactory;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.shape.Rectangle;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -23,7 +22,7 @@ public class QuestionsPanelModel {
     ArrayList<String> answers = new ArrayList<>();
     ArrayList<Button> buttons = new ArrayList<>();
     QuestionFactory questionsAndAnswers = new QuestionFactory();
-    List<Question> questionList=new ArrayList<>(questionsAndAnswers.getQuestionList());;
+    List<Question> questionList=new ArrayList<>(questionsAndAnswers.getQuestionList());
     //List<Rectangle>resultsList=new ArrayList<>();
     Button right;
     Button answer1,answer2,answer3,answer4;
