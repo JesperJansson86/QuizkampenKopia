@@ -2,27 +2,19 @@ package GUI.controllers;
 
 import GUI.models.GUIutils;
 import GUI.models.QuestionsPanelModel;
-import MainClasses.Question;
-import MainClasses.QuestionFactory;
 import javafx.animation.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.shape.Rectangle;
-import javafx.stage.Stage;
 import javafx.util.Duration;
 
-import java.awt.*;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
-import java.util.Random;
 
 public class QuestionsPanel {
 
@@ -101,7 +93,7 @@ public class QuestionsPanel {
         timeline.play();
     }
 
-    //TODO: Need a method which jumps to next question when user answers. and make this cleaner
+    //TODO: Need a method which jumps to next question when user answers. and make this much cleaner
     /**
      * actionlistener of question options. if its right it paints green, if not it paints red and paints green right answer
      *
@@ -122,12 +114,14 @@ public class QuestionsPanel {
 
         }
     }
+    public void reset(ActionEvent actionEvent) {
+        model.reset(actionEvent);
+    }
 
+    //aesthetics
     public void transition(Button button, String style) {
         PauseTransition pause = new PauseTransition(Duration.seconds(1));
-        pause.setOnFinished(e -> {
-            button.setStyle(style);
-        });
+        pause.setOnFinished(e -> button.setStyle(style));
         pause.play();
     }
     public void animationTest(){
@@ -139,15 +133,8 @@ public class QuestionsPanel {
         rectangleQ.setTranslateY(0);
     }
 
-    /**
-     *test method to clean all the styling and setup again
-     *
-     * @param actionEvent
-     */
 
-    public void reset(ActionEvent actionEvent) {
-model.reset(actionEvent);
-    }
+
 
 }
 
