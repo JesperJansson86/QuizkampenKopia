@@ -28,9 +28,15 @@ public class ChooseCategory {
     public Label categoryL2;
     public Group categoriesCircle;
     public AnchorPane mainPane;
+    public Group category1group;
+    public Group category2group;
+    public Group category3group;
     GUIutils util;
     public void initialize(){
-categoriesCircle.setOnMousePressed(e->goNextPanel());
+category1group.setOnMousePressed(e-> {System.out.println("category1");goNextPanel();});
+category2group.setOnMousePressed(e->{System.out.println("category2");goNextPanel();});
+category3group.setOnMousePressed(e->{System.out.println("category3");goNextPanel();});
+
                 util =new GUIutils(mainPane);
     }
   public void goNextPanel(){
