@@ -36,7 +36,7 @@ public class QuestionFactory {
 
         for (String key : questionsByCategory.keySet()) {
             for (Question q : questionsByCategory.get(key)) {
-                System.out.println(q);
+//                System.out.println(q);
             }
         }
         System.out.println(getCategories().toString());
