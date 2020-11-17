@@ -16,10 +16,16 @@ import java.util.*;
 /**
  * this class takes the text from a text with this format followed by more questions on same line.
  * {"category":"CATEGORY","type":"TYPE","difficulty":"medium","question":"QUESTION","correct_answer":"ANSWER","incorrect_answers":["WRONG","WRONG","WRONG"]}
- * 3 usable Methods.
+ * Usable Methods:.
+ * <p>
+ * getQuestions(int questions);
+ * get List<Question> with [questions] amount of questions from each category.
+ * <p>
  * getting a single random questions from a category
  * getRandomQuestionByCategory(String categorys)
+ * <p>
  * updateList(String URL or filepath)
+ * <p>
  * getCategories()
  */
 public class QuestionFactory {
@@ -143,8 +149,27 @@ public class QuestionFactory {
         return categories;
     }
 
+
+    /**
+     * returns X amount of questions from each available category.
+     * MAX 4 available during testing.
+     * @param questions (number of questions from each category)
+     * @return
+     */
+    public List<Question> getQuestions(int questions) {
+        if(questions > 4) throw new IllegalArgumentException("Can't accept over 4 right now.");
+        List<Question> questionsList = new ArrayList<>();
+        for (String key : questionsByCategory.keySet()) {
+            for (int i = 0; i < questions; i++) {
+                questionsList.add(questionsByCategory.get(key).get(i));
+            }
+        }
+        return questionsList;
+    }
+
     //    För test.
     public static void main(String[] args) {
         QuestionFactory qf = new QuestionFactory();
     }
+
 }
