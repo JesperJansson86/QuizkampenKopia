@@ -1,3 +1,5 @@
+import MainClasses.Question;
+
 import javax.swing.*;
 import java.io.IOException;
 import java.io.ObjectInputStream;

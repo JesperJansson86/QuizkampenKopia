@@ -1,3 +1,5 @@
+package MainClasses;
+
 import java.io.*;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -25,7 +27,7 @@ public class QuestionFactory {
     private static Map<String, ArrayList<Question>> questionsByCategory = new HashMap<>();
     private static List<String> categories = new ArrayList<>();
 
-    QuestionFactory() {
+    public QuestionFactory() {
         updateList("src/questionsfromOpenTDB1.txt");
         updateList("src/questionsfromOpenTDB2.txt");
         //Uncomment when live for more questions and categories.
