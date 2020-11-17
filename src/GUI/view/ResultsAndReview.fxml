@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Group?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane prefHeight="470.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.controllers.ResultsAndReview">
+   <children>
+      <Group>
+         <children>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="150.0" stroke="TRANSPARENT" strokeType="INSIDE" width="230.0" />
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#ffad1f" height="41.0" layoutX="29.0" layoutY="89.0" stroke="TRANSPARENT" strokeType="INSIDE" width="172.0" />
+            <Label fx:id="player1L" alignment="CENTER" layoutX="37.0" layoutY="97.0" prefHeight="26.0" prefWidth="157.0" text="player1" textAlignment="CENTER" textFill="#f2e6e6" wrapText="true">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Label>
+         </children>
+      </Group>
+      <Group layoutX="270.0">
+         <children>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="150.0" stroke="TRANSPARENT" strokeType="INSIDE" width="230.0" />
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#ffad1f" height="41.0" layoutX="29.0" layoutY="89.0" stroke="TRANSPARENT" strokeType="INSIDE" width="172.0" />
+            <Label fx:id="player2L" alignment="CENTER" layoutX="37.0" layoutY="97.0" prefHeight="26.0" prefWidth="157.0" text="player2" textAlignment="CENTER" textFill="#f2e6e6" wrapText="true">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Label>
+         </children>
+      </Group>
+      <Group fx:id="roundGroup" layoutX="250.0" layoutY="180.0">
+         <children>
+            <Circle fill="#ffef1f" radius="20.0" stroke="TRANSPARENT" strokeType="INSIDE" />
+            <Label fx:id="roundNumbL" alignment="CENTER" contentDisplay="CENTER" layoutX="-16.0" layoutY="-9.0" prefHeight="18.0" prefWidth="32.0" text="R" textAlignment="CENTER" wrapText="true" />
+         </children>
+      </Group>
+      <Label fx:id="player1Points" layoutX="106.0" layoutY="157.0" text="0">
+         <font>
+            <Font name="System Bold" size="30.0" />
+         </font>
+      </Label>
+      <Label fx:id="player2Points" layoutX="376.0" layoutY="157.0" text="0">
+         <font>
+            <Font name="System Bold" size="30.0" />
+         </font>
+      </Label>
+      <Label fx:id="player1PointsSum" layoutX="106.0" layoutY="401.0" text="0">
+         <font>
+            <Font name="System Bold" size="30.0" />
+         </font>
+      </Label>
+      <Label fx:id="player2PointsSum" layoutX="376.0" layoutY="401.0" text="0">
+         <font>
+            <Font name="System Bold" size="30.0" />
+         </font>
+      </Label>
+      <Line endX="204.39999389648438" endY="-3.0517578125E-5" layoutX="250.0" layoutY="401.0" startX="-204.39999389648438" startY="-3.0517578125E-5" />
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="217.0" layoutY="368.0" text="TOTAL" textAlignment="CENTER" wrapText="true">
+         <font>
+            <Font name="System Bold" size="21.0" />
+         </font>
+      </Label>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#1f93ff00" height="470.0" stroke="#5858db" strokeType="INSIDE" strokeWidth="11.0" width="500.0" />
+   </children>
+</AnchorPane>
