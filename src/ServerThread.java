@@ -36,7 +36,10 @@ public class ServerThread extends Thread {
                 gr = (GameRound) in.readObject();
                 gr.playerTurn++;
 
-                if (gr.roundnumber > 1) gr.gameover = true;
+                if (gr.roundnumber > 2) {
+                    gr.gameover = true;
+
+                }
                 out2.writeObject(gr);
                 gr = (GameRound) in2.readObject();
 

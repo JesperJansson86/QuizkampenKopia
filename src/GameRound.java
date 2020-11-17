@@ -8,11 +8,12 @@ import java.util.List;
 public class GameRound implements Serializable {
     public int gameid = 1;
     public int roundnumber = 0;
-    int playerTurn = 0;
+    int playerTurn = 2;
     int amountOfRounds;
     int questionsPerRound;
     String category;
     boolean gameover = false;
+    List<String> playedCategorys = new ArrayList<>();
     List<String> categoryList = new ArrayList<>();
     List<Question> qlist = new ArrayList<>();
     List<String> player1Results = new ArrayList<>();
