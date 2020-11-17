@@ -1,8 +1,0 @@
-.buttons {
-    -fx-background-radius: 40px;
-    -fx-effect: dropshadow(three-pass-box,rgb(0,0,0),8,0,0,0);
-    -fx-background-color: #8a8a59;
-}
-.paneBackground{
-    -fx-background-color: #b07d5e;
-}
