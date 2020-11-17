@@ -26,9 +26,9 @@ public class Question {
         this.answer2 = answer2;
         this.answer3 = answer3;
         this.answer4 = answer4;
-
     }
-    public String getCategory(){
+
+    public String getCategory() {
         return category;
     }
 

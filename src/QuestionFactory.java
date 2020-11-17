@@ -12,41 +12,35 @@ import java.util.*;
  */
 
 /**
- * this class takes the text from a text with this format->
- * 1. line->question
- * 2. line->right answer
- * 3. line->an answer
- * 4. line->an answer
- * 5. line->an answer
+ * this class takes the text from a text with this format followed by more questions on same line.
+ * {"category":"CATEGORY","type":"TYPE","difficulty":"medium","question":"QUESTION","correct_answer":"ANSWER","incorrect_answers":["WRONG","WRONG","WRONG"]}
+ * 3 usable Methods.
+ * getting a single random questions from a category
+ * getRandomQuestionByCategory(String categorys)
+ * updateList(String URL or filepath)
+ * getCategories()
  */
 public class QuestionFactory {
-    private List<Question> questionList = new ArrayList<>();
-    private Map<String, ArrayList<Question>> questionsByCategory = new HashMap<>();
-    private List<String> categories = new ArrayList<>();
+    private static List<Question> questionList = new ArrayList<>();
+    private static Map<String, ArrayList<Question>> questionsByCategory = new HashMap<>();
+    private static List<String> categories = new ArrayList<>();
 
     QuestionFactory() {
         updateList("src/questionsfromOpenTDB1.txt");
-        updateList("src/questionsFromOpenTDB2.txt");
-        //Uncomment when live.
-//        updateList("https://opentdb.com/api.php?amount=10&category=18&difficulty=easy&type=multiple");
-//        updateList("https://opentdb.com/api.php?amount=10&category=9&difficulty=easy&type=multiple");
+        updateList("src/questionsfromOpenTDB2.txt");
+        //Uncomment when live for more questions and categories.
+        updateList("https://opentdb.com/api.php?amount=10&category=18&difficulty=easy&type=multiple");
+        updateList("https://opentdb.com/api.php?amount=10&category=9&difficulty=easy&type=multiple");
 
         for (String key : questionsByCategory.keySet()) {
             for (Question q : questionsByCategory.get(key)) {
                 System.out.println(q);
             }
         }
-        System.out.println(categories.toString());
+        System.out.println(getCategories().toString());
     }
 
-    public List<Question> getQuestionList() {
-        return questionList;
-    }
-
-    /**
-     * a method which takes a list of strings, save them in a question class, and adds this questions to the questionList
-     */
-    public void createQuestion(String stringFromFile) {
+    private void createQuestion(String stringFromFile) {
         while (true) {
             int indexStart = stringFromFile.indexOf("category");
             if (indexStart == -1) break;
@@ -73,8 +67,8 @@ public class QuestionFactory {
                 questionsByCategory.get(q.getCategory()).add(q);
             }
         }
-        for(String string: questionsByCategory.keySet()){
-            if(!categories.contains(string))
+        for (String string : questionsByCategory.keySet()) {
+            if (!categories.contains(string))
                 categories.add(string);
         }
     }
@@ -82,12 +76,13 @@ public class QuestionFactory {
     /**
      * method which reads a file or URL and fills both List questionList and Map questionsByCategory
      * with questions from file or URL.
-     * @param source in form of path or URL of source to read.
+     *
+     * @param source in form of path or URL(http/https only).
      * @return String with all questions and answers.
      */
-    private void updateList(String source) {
-        if(source.startsWith("http")){
-            try{
+    public void updateList(String source) {
+        if (source.startsWith("http")) {
+            try {
                 URL url = new URL(source);
                 BufferedReader in = new BufferedReader(new InputStreamReader(url.openStream()));
                 createQuestion(in.readLine());
@@ -107,23 +102,6 @@ public class QuestionFactory {
         }
     }
 
-    public Question getRandomQuestionByCategory(String category) {
-        Question question = null;
-        if (questionsByCategory.containsKey(category)) {
-            Random random = new Random();
-            question = questionsByCategory.get(category).get(random.nextInt(questionsByCategory.get(category).size()));
-        }
-        return question;
-    }
-
-    public List<String> getCategories(){
-        List<String> result = new ArrayList<>();
-        for(String string: questionsByCategory.keySet()){
-            result.add(string);
-        }
-        return result;
-    }
-
     private String grabBetween(String source, String after, String before) {
         int indexStart = source.indexOf(after) + after.length();
         int indexEnd = source.indexOf(before, indexStart);
@@ -138,6 +116,32 @@ public class QuestionFactory {
         return string;
     }
 
+    /**
+     * Returns a random questions in a category.
+     *
+     * @param category
+     * @return
+     */
+    //Map<String, ArrayList<Question>>
+    public Question getRandomQuestionByCategory(String category) {
+        Question question = null;
+        if (questionsByCategory.containsKey(category)) {
+            Random random = new Random();
+            question = questionsByCategory.get(category).get(random.nextInt(questionsByCategory.get(category).size()));
+        }
+        return question;
+    }
+
+    /**
+     * Returns all categories available.
+     *
+     * @return
+     */
+    public List<String> getCategories() {
+        return categories;
+    }
+
+    //    För test.
     public static void main(String[] args) {
         QuestionFactory qf = new QuestionFactory();
     }
