@@ -1,18 +1,18 @@
 import MainClasses.Question;
 
 import javax.swing.*;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
+import java.io.*;
 import java.net.Socket;
 import java.util.*;
 
 public class ServerThread extends Thread {
     Socket socket;
     Socket socket2;
+    ServerLogic sl = new ServerLogic();
+    GameRound gr = new GameRound();
 
 
-    public ServerThread(Socket socket, Socket socket2) {
+    public ServerThread(Socket socket, Socket socket2) throws IOException {
 
         this.socket = socket;
         this.socket2 = socket2;
@@ -27,30 +27,26 @@ public class ServerThread extends Thread {
             ObjectInputStream in = new ObjectInputStream(socket.getInputStream());
             ObjectInputStream in2 = new ObjectInputStream(socket2.getInputStream());
 
-//                Thread t1 = new Thread(new ServerToClientThread(in,out2));
-//                Thread t2 = new Thread(new ServerToClientThread(in2,out));
-//                t1.start();
-//                t2.start();
-            List<Question> qlist = new ArrayList<>();
-            String svar = "start";
-            GameRound gr = new GameRound(1,qlist);
+            gr = sl.initiateGame();
 
             while (true) {
+                gr.roundnumber++;
+                gr.playerTurn++;
                 out.writeObject(gr);
-                gr=(GameRound)in.readObject();
+                gr = (GameRound) in.readObject();
+                gr.playerTurn++;
+
+                if (gr.roundnumber > 1) gr.gameover = true;
                 out2.writeObject(gr);
-                gr=(GameRound)in2.readObject();
+                gr = (GameRound) in2.readObject();
 
-//                        svar = (String) in.readObject();
-//                        out2.writeObject(svar);
-//                        svar = (String) in2.readObject();
-//                        out.writeObject(svar);
-                    }
-                } catch (IOException | ClassNotFoundException e) {
-                    e.printStackTrace();
 
-                }
             }
-
+        } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
 
         }
+    }
+
+
+}
