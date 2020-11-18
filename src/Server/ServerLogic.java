@@ -1,9 +1,9 @@
-import MainClasses.Question;
+package Server;
+
+import MainClasses.GameRound;
 import MainClasses.QuestionFactory;
 
 import java.io.*;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 
 public class ServerLogic {
@@ -17,10 +17,9 @@ public class ServerLogic {
 
     public GameRound initiateGame() {
         ServerLogic sl = new ServerLogic();
-        gr =sl.initateQuestionsAndCategorys();
+        gr = sl.initateQuestionsAndCategorys();
         gr.roundnumber = 1;
-        System.out.println("fråg"+gr.qlist.get(0));
-        gr.gameid= sl.initateGameIdByReadingFile();
+        gr.gameid = sl.initateGameIdByReadingFile();
         sl.writeHistoryToFile();
         System.out.println(gr.gameid);
         return gr;
@@ -39,32 +38,24 @@ public class ServerLogic {
     public int initateGameIdByReadingFile() {
 
         try (Scanner scanFile = new Scanner(new FileReader("src\\GameHistory.txt"));) {
-
             while (scanFile.hasNextLine()) {
                 scanFile.next();
                 gr.gameid++;
-
             }
-
         } catch (FileNotFoundException e) {
             System.out.println("Filen kunde inte hittas.");
         }
-
         return gr.gameid;
     }
 
     public GameRound initateQuestionsAndCategorys() {
         gr.categoryList = qf.getCategories();
-        for (String s : gr.categoryList
-        ) {
+        for (String s : gr.categoryList) {
             for (int i = 0; i < 3; i++) {
                 gr.qlist.add(qf.getRandomQuestionByCategory(s));
-
             }
-
         }
-return gr;
-
+        return gr;
     }
 
 }

@@ -1,9 +1,9 @@
-import MainClasses.Question;
+package Server;
 
-import javax.swing.*;
+import MainClasses.GameRound;
+
 import java.io.*;
 import java.net.Socket;
-import java.util.*;
 
 public class ServerThread extends Thread {
     Socket socket;
@@ -32,6 +32,7 @@ public class ServerThread extends Thread {
             while (true) {
                 gr.roundnumber++;
                 gr.playerTurn++;
+                System.out.printf("Sending to player1: Roundnumber " + gr.roundnumber);
                 out.writeObject(gr);
                 gr = (GameRound) in.readObject();
                 gr.playerTurn++;
@@ -40,6 +41,7 @@ public class ServerThread extends Thread {
                     gr.gameover = true;
 
                 }
+                System.out.printf("Sending to player2: Roundnumber " + gr.roundnumber);
                 out2.writeObject(gr);
                 gr = (GameRound) in2.readObject();
 

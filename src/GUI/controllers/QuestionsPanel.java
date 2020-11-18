@@ -1,5 +1,7 @@
 package GUI.controllers;
 
+import Client.Client;
+import MainClasses.Question;
 import GUI.models.GUIutils;
 import GUI.models.QuestionsPanelModel;
 import javafx.animation.*;
@@ -15,8 +17,12 @@ import javafx.util.Duration;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.BlockingQueue;
 
 public class QuestionsPanel {
+    BlockingQueue toGUI = Client.toGUI;
+    BlockingQueue toClient = Client.toClient;
+    public ArrayList<Question> qList;
 
     public Button answer1;
     public Button answer2;
@@ -32,10 +38,11 @@ public class QuestionsPanel {
     public ProgressBar timeLeft;
     public Rectangle rectangleQ;
 
+
     //this should come from somewhere else (game class??)
     int round = 1;
 
-    List<Rectangle>resultsList=new ArrayList<>();
+    List<Rectangle> resultsList = new ArrayList<>();
 
     QuestionsPanelModel model;
     @FXML
@@ -47,13 +54,20 @@ public class QuestionsPanel {
      * at start initiates questionList by copying the list from MainClasses.QuestionFactory
      */
     public void initialize() {
-        model=new QuestionsPanelModel(answer1,answer2,answer3,answer4,categoryL,question);
+        System.out.println("In QuestionsPanel: init begins.");
+        try {
+            qList = (ArrayList<Question>) toGUI.take();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        System.out.println("In QuestionsPanel: got questions");
+        model = new QuestionsPanelModel(qList, answer1, answer2, answer3, answer4, categoryL, question);
         resultsList.add(Qresult2);
         resultsList.add(Qresult1);
 
         roundNumber.setText(String.valueOf(round));
         utils = new GUIutils(mainPane);
-      //  questionList = new ArrayList<>(questionsAndAnswers.getQuestionList());
+        //  questionList = new ArrayList<>(questionsAndAnswers.getQuestionList());
         timeLeft.setProgress(1);
 
         //this have to be in one method.
@@ -75,12 +89,12 @@ public class QuestionsPanel {
     //added a game sequence in time, make a method which creates a timeline depending on amount of questions.
     public void timeForAnswer() {
         Timeline timeline = new Timeline(
-                new KeyFrame(Duration.seconds(5), e -> {
+                new KeyFrame(Duration.seconds(10), e -> {
                     model.reset(e);
                     resetAnimationTest();
                     model.setOnStage();
                     animationTest();
-                    timeBar(5);
+                    timeBar(10);
                 }),
                 new KeyFrame(Duration.seconds(10), e -> {
                     try {
@@ -94,6 +108,7 @@ public class QuestionsPanel {
     }
 
     //TODO: Need a method which jumps to next question when user answers. and make this much cleaner
+
     /**
      * actionlistener of question options. if its right it paints green, if not it paints red and paints green right answer
      *
@@ -114,6 +129,7 @@ public class QuestionsPanel {
 
         }
     }
+
     public void reset(ActionEvent actionEvent) {
         model.reset(actionEvent);
     }
@@ -124,16 +140,16 @@ public class QuestionsPanel {
         pause.setOnFinished(e -> button.setStyle(style));
         pause.play();
     }
-    public void animationTest(){
-        TranslateTransition st=new TranslateTransition(Duration.millis(1000), rectangleQ);
+
+    public void animationTest() {
+        TranslateTransition st = new TranslateTransition(Duration.millis(1000), rectangleQ);
         st.setByY(-200);
         st.play();
     }
-    public void resetAnimationTest(){
+
+    public void resetAnimationTest() {
         rectangleQ.setTranslateY(0);
     }
-
-
 
 
 }
