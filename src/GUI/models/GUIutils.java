@@ -21,6 +21,10 @@ public class GUIutils {
         this.mainPane = mainPane;
     }
 
+    public Pane getMainPane() {
+        return mainPane;
+    }
+
     public void changeScene(String fxml) {
         try {
             Parent pane = FXMLLoader.load(getClass().getResource(fxml));
