@@ -1,7 +1,10 @@
 package GUI.controllers;
 
+import Client.Client;
 import javafx.scene.Group;
 import javafx.scene.control.Label;
+
+import java.util.concurrent.BlockingQueue;
 
 /**
  * Created by Hodei Eceiza
@@ -11,6 +14,8 @@ import javafx.scene.control.Label;
  * Copyright: MIT
  */
 public class ResultsAndReview {
+    BlockingQueue toGUI = Client.toGUI;
+    BlockingQueue toClient = Client.toClient;
     public Label player1L;
     public Label player2L;
     public Group roundGroup;
