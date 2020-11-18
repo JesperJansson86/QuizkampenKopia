@@ -43,7 +43,9 @@ public class QuestionsPanel {
 
     GUIutils utils;
     Timeline roundTime;
-
+    KeyFrame setQuestions;
+    KeyFrame cleanQuestions;
+    int secondsToAnswer=5;
     /**
      * at start initiates questionList by copying the list from MainClasses.QuestionFactory
      */
@@ -55,7 +57,7 @@ public class QuestionsPanel {
         utils = new GUIutils(mainPane);
         timeLeftBar.setProgress(1);
 
-        setRoundTimes(5, 2);
+        setRoundTimes(secondsToAnswer, 2);
 
 
     }
@@ -70,19 +72,22 @@ public class QuestionsPanel {
 
     public void setRoundTimes(int seconds, int rounds) {
         roundTime = new Timeline(
-                new KeyFrame(Duration.ZERO, e -> {
+
+                setQuestions = new KeyFrame(Duration.ZERO, "setQuestions", e -> {
+                    model.reset();
+                    resetCardAnimation();
                     model.setOnStage();
                     cardAnimation();
                     timeBar(seconds);
                 }),
-                new KeyFrame(Duration.seconds(seconds), e -> {
-                    model.reset(e);
+                cleanQuestions = new KeyFrame(Duration.seconds(seconds), "clearQuestions", e -> {
+                    model.reset();
                     resetCardAnimation();
                 }));
 
         roundTime.setCycleCount(rounds);
         roundTime.play();
-        roundTime.setOnFinished(e->nextWindow());
+        roundTime.setOnFinished(e -> nextWindow());
     }
 
 
@@ -99,19 +104,35 @@ public class QuestionsPanel {
             buttonCLicked.setStyle("-fx-background-color: green");
             transition(buttonCLicked, null);
             resultsList.get(model.getQuestionList().size()).setStyle("-fx-fill: green");
-
+             jumpToNextQuestion();
 
         } else if (!buttonCLicked.getText().equals(model.getQ().getRightAnswer())) {
             buttonCLicked.setStyle("-fx-background-color: red");
             transition(model.getRight(), "-fx-background-color: green");
             transition(buttonCLicked, null);
             resultsList.get(model.getQuestionList().size()).setStyle("-fx-fill: red");
+           jumpToNextQuestion();
+        }
+
+    }
+
+    public void jumpToNextQuestion(){
+        if(roundTime.getCycleCount()>1){
+            roundTime.setDelay(Duration.seconds(2));
+            roundTime.stop();
+            roundTime.setCycleCount(roundTime.getCycleCount()-1);
+            roundTime.playFromStart();
+        }
+        else{
+            roundTime.setDelay(Duration.seconds(2));
+            System.out.println(roundTime.getCycleCount());
+            roundTime.stop();
+            roundTime.playFrom("clearQuestions");
 
         }
     }
-
-    public void reset(ActionEvent actionEvent) {
-        model.reset(actionEvent);
+    public void reset() {
+        model.reset();
     }
 
     //aesthetics
@@ -130,10 +151,11 @@ public class QuestionsPanel {
     public void resetCardAnimation() {
         rectangleQ.setTranslateY(0);
     }
-public void nextWindow(){
+
+    public void nextWindow() {
         //Send to server data
-    utils.changeScene("../view/ResultsAndReview.fxml");
-}
+        utils.changeScene("../view/ResultsAndReview.fxml");
+    }
 
 }
 

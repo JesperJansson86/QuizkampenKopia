@@ -55,7 +55,7 @@ public class QuestionsPanelModel {
         questionList.add(n);
         questionList.add(n2);
     }
-    public void reset(ActionEvent actionEvent) {
+    public void reset() {
         for (Button button : buttons) {
             button.setStyle(null);
         }

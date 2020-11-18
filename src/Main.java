@@ -10,18 +10,19 @@ import javafx.stage.Stage;
 
 
 public class Main extends Application {
-GUIutils util;
+//GUIutils util;
 
         @Override
         public void start(Stage primaryStage) throws Exception{
 
             Parent root = FXMLLoader.load(getClass().getResource("GUI/view/Intro.fxml"));
+
            // Parent root = FXMLLoader.load(getClass().getResource("GUI/view/QuestionsPanel.fxml"));
             primaryStage.setTitle("FakeQuizDuel");
             primaryStage.setScene(new Scene(root));
             primaryStage.getIcons().add(new Image("GUI/resources/logo.png"));
             primaryStage.show();
-
+/*
             Task<Void> task = new Task<>() {
                 @Override
                 public Void call() {
@@ -31,6 +32,8 @@ GUIutils util;
                 }
             };
             new Thread(task).start();
+
+ */
         }
 
 

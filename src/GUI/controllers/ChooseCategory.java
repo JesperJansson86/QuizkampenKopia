@@ -34,20 +34,25 @@ public class ChooseCategory {
     public Group category3group;
     GUIutils util;
 
-    public void initialize(){
+    public void initialize() {
 
-category1group.setOnMousePressed(e-> {//System.out.println("category1");
-     goNextPanel();});
-category2group.setOnMousePressed(e->{//System.out.println("category2");
-    goNextPanel();});
-category3group.setOnMousePressed(e->{//System.out.println("category3");
-    goNextPanel();});
+        category1group.setOnMousePressed(e -> {
+            category1.setScaleY(100);//System.out.println("category1");
+            goNextPanel();
+        });
+        category2group.setOnMousePressed(e -> {//System.out.println("category2");
+            goNextPanel();
+        });
+        category3group.setOnMousePressed(e -> {//System.out.println("category3");
+            goNextPanel();
+        });
 
-                util =new GUIutils(mainPane);
+        util = new GUIutils(mainPane);
     }
-  public void goNextPanel(){
 
-      util.changeScene("../view/QuestionsPanel.fxml");
-  }
+    public void goNextPanel() {
+
+        util.changeScene("../view/QuestionsPanel.fxml");
+    }
 
 }

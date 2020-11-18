@@ -28,7 +28,6 @@ public class GUIutils {
     public void changeScene(String fxml) {
         try {
             Parent pane = FXMLLoader.load(getClass().getResource(fxml));
-
             Stage primaryStage = (Stage) mainPane.getScene().getWindow();
             primaryStage.getScene().setRoot(pane);
         } catch (IOException e) {
