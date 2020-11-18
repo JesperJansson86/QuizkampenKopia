@@ -8,10 +8,12 @@ package MainClasses;
  * Copyright: MIT
  */
 
+import java.io.Serializable;
+
 /**
  * a simple question class. has in strings the question, right answer and three alternatives.
  */
-public class Question {
+public class Question implements Serializable {
     private String category;
     private String question;
     private String rightAnswer;
