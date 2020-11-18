@@ -82,8 +82,7 @@ public class QuestionsPanel {
 
         roundTime.setCycleCount(rounds);
         roundTime.play();
-
-
+        roundTime.setOnFinished(e->nextWindow());
     }
 
 
@@ -100,6 +99,8 @@ public class QuestionsPanel {
             buttonCLicked.setStyle("-fx-background-color: green");
             transition(buttonCLicked, null);
             resultsList.get(model.getQuestionList().size()).setStyle("-fx-fill: green");
+
+
         } else if (!buttonCLicked.getText().equals(model.getQ().getRightAnswer())) {
             buttonCLicked.setStyle("-fx-background-color: red");
             transition(model.getRight(), "-fx-background-color: green");
@@ -130,6 +131,7 @@ public class QuestionsPanel {
         rectangleQ.setTranslateY(0);
     }
 public void nextWindow(){
+        //Send to server data
     utils.changeScene("../view/ResultsAndReview.fxml");
 }
 
