@@ -59,7 +59,7 @@ public class Client implements Runnable {
                 Just nu skickas ett MainClasses.GameRound objekt och det en kan skriva strängar till skannern som sparas som MainClasses.GameRound.category
                  */
                 gr = (GameRound) in.readObject();
-
+                System.out.println(stage.getScene().getRoot().getId());
                 if(stage.getScene().getRoot().getId().equals("mainPane")){
 
                 }

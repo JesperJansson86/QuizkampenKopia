@@ -23,7 +23,7 @@ public class Intro {
     public Label message;
     public Button startB;
     public TextField nameField;
-    public AnchorPane mainPane;
+    public AnchorPane introPane;
     GUIutils util;
 
     public TextField getNameField() {
@@ -33,7 +33,7 @@ public class Intro {
 
     public void initialize(){
         message.setText(null);
-       util =new GUIutils(mainPane);
+       util =new GUIutils(introPane);
     }
     public void startButtonOn() {
         if(!nameField.getText().isBlank() || !nameField.getText().isEmpty()){
