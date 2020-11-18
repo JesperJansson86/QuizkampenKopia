@@ -1,5 +1,6 @@
 package GUI.controllers;
 
+import Client.Client;
 import GUI.models.GUIutils;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
@@ -32,19 +33,21 @@ public class ChooseCategory {
     public Group category2group;
     public Group category3group;
     GUIutils util;
+
     public void initialize(){
-category1group.setOnMousePressed(e-> {System.out.println("category1");goNextPanel();});
-category2group.setOnMousePressed(e->{System.out.println("category2");goNextPanel();});
-category3group.setOnMousePressed(e->{System.out.println("category3");goNextPanel();});
+
+category1group.setOnMousePressed(e-> {//System.out.println("category1");
+     goNextPanel();});
+category2group.setOnMousePressed(e->{//System.out.println("category2");
+    goNextPanel();});
+category3group.setOnMousePressed(e->{//System.out.println("category3");
+    goNextPanel();});
 
                 util =new GUIutils(mainPane);
     }
   public void goNextPanel(){
-      try {
-          util.changeScene("../view/QuestionsPanel.fxml");
-      } catch (IOException e) {
-          e.printStackTrace();
-      }
+
+      util.changeScene("../view/QuestionsPanel.fxml");
   }
 
 }

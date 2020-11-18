@@ -1,6 +1,8 @@
 package GUI.controllers;
 
+import Client.Client;
 import GUI.models.GUIutils;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -22,18 +24,25 @@ public class Intro {
     public TextField nameField;
     public AnchorPane mainPane;
     GUIutils util;
+
+    public TextField getNameField() {
+        return nameField;
+    }
+
+
     public void initialize(){
+
+
         message.setText(null);
        util =new GUIutils(mainPane);
     }
-    public void startButtonOn(ActionEvent actionEvent) {
-        if(nameField != null){
+    public void startButtonOn() {
+        if(!nameField.getText().isBlank() || !nameField.getText().isEmpty()){
             //send to server and if its ok go to next page
-            try {
+
                 util.changeScene("../view/ChooseCategory.fxml");
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
         }
+        else
+            message.setText("Write something in the name field, please.");
     }
 }

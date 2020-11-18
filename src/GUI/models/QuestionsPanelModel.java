@@ -63,7 +63,6 @@ public class QuestionsPanelModel {
         answers.clear();
         question.setText(null); //this is not necessary, but, just in case, and its only one line
          // setOnStage();
-
     }
 
     /**

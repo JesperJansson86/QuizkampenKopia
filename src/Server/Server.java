@@ -1,6 +1,6 @@
+package Server;
+
 import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 
@@ -12,10 +12,12 @@ public class Server {
 
         new Server();
     }
-
+    public int getPort(){
+        return port;
+    }
     public Server() {
         try (ServerSocket serverSocket = new ServerSocket(port)) {
-            System.out.println("Server up and ready.");
+            System.out.println("Server.Server up and ready.");
             while (true) {
                 Socket socket = serverSocket.accept();
                 System.out.println("Client1 connected");

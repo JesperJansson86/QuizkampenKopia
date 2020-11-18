@@ -42,7 +42,7 @@
             <Font name="System Bold" size="12.0" />
          </font>
       </Label>
-      <ProgressBar fx:id="timeLeft" layoutX="161.0" layoutY="398.0" prefWidth="200.0" progress="0.0" styleClass="timeLeft" stylesheets="@../resources/questions.css" />
+      <ProgressBar fx:id="timeLeftBar" layoutX="161.0" layoutY="398.0" prefWidth="200.0" progress="0.0" styleClass="timeLeft" stylesheets="@../resources/questions.css" />
    </children>
    <stylesheets>
       <URL value="@../resources/questions.css" />

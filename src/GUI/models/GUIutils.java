@@ -16,12 +16,19 @@ import java.io.IOException;
  */
 public class GUIutils {
     Pane mainPane;
-    public GUIutils(Pane mainPane){
-        this.mainPane=mainPane;
+
+    public GUIutils(Pane mainPane) {
+        this.mainPane = mainPane;
     }
-    public void changeScene(String fxml) throws IOException {
-        Parent pane = FXMLLoader.load(getClass().getResource(fxml));
-        Stage primaryStage=(Stage)mainPane.getScene().getWindow();
-        primaryStage.getScene().setRoot(pane);
+
+    public void changeScene(String fxml) {
+        try {
+            Parent pane = FXMLLoader.load(getClass().getResource(fxml));
+
+            Stage primaryStage = (Stage) mainPane.getScene().getWindow();
+            primaryStage.getScene().setRoot(pane);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
