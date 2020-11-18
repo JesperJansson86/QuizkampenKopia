@@ -2,6 +2,7 @@ package GUI.controllers;
 
 import Client.Client;
 import GUI.models.GUIutils;
+import javafx.animation.RotateTransition;
 import javafx.animation.ScaleTransition;
 import javafx.animation.TranslateTransition;
 import javafx.event.EventHandler;
@@ -10,6 +11,7 @@ import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.shape.Arc;
+import javafx.scene.shape.Circle;
 import javafx.util.Duration;
 
 import java.awt.event.ActionEvent;
@@ -35,20 +37,20 @@ public class ChooseCategory {
     public Group category1group;
     public Group category2group;
     public Group category3group;
+    public Circle theCircle;
     GUIutils util;
-
+    ScaleTransition st;
     public void initialize() {
 
         category1group.setOnMousePressed(e -> {
-            category1.setScaleY(100);//System.out.println("category1");
-            cardAnimation(category1group);
-            goNextPanel();
+
+            buttonAnimation(category1group);
         });
-        category2group.setOnMousePressed(e -> {//System.out.println("category2");
-            goNextPanel();
+        category2group.setOnMousePressed(e -> {
+            buttonAnimation(category2group);
         });
-        category3group.setOnMousePressed(e -> {//System.out.println("category3");
-            goNextPanel();
+        category3group.setOnMousePressed(e -> {
+            buttonAnimation(category3group);
         });
 
         util = new GUIutils(mainPane);
@@ -58,9 +60,18 @@ public class ChooseCategory {
 
         util.changeScene("../view/QuestionsPanel.fxml");
     }
-    public void cardAnimation(Group group) {
-        ScaleTransition st = new ScaleTransition(Duration.millis(1000), group);
-        st.setByY(-200);
+
+    public void buttonAnimation(Group group) {
+        RotateTransition rt=new RotateTransition(Duration.millis(5000),theCircle);
+        rt.setByAngle(9000);
+        rt.play();
+        group.toFront();
+        st = new ScaleTransition(Duration.millis(1000), group);
+        st.setByX(0.3);
+        st.setByY(0.3);
+        st.setCycleCount(2);
+        st.setAutoReverse(true);
         st.play();
+        st.setOnFinished(e->goNextPanel()); //here we call to go next panel, here we should call to send to client/server, and wait response.
     }
 }
