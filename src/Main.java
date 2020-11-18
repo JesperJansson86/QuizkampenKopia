@@ -26,7 +26,7 @@ public class Main extends Application {
             Task<Void> task = new Task<>() {
                 @Override
                 public Void call() {
-                    Client c = new Client(util,primaryStage);
+                    Client c = new Client();
                     c.run();
                     return null ;
                 }
@@ -34,6 +34,8 @@ public class Main extends Application {
             new Thread(task).start();
 
  */
+
+
         }
 
 

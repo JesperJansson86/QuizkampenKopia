@@ -74,6 +74,7 @@ public class QuestionsPanel {
         roundTime = new Timeline(
 
                 setQuestions = new KeyFrame(Duration.ZERO, "setQuestions", e -> {
+                    buttonsDisable(false);
                     model.reset();
                     resetCardAnimation();
                     model.setOnStage();
@@ -104,6 +105,7 @@ public class QuestionsPanel {
             buttonCLicked.setStyle("-fx-background-color: green");
             transition(buttonCLicked, null);
             resultsList.get(model.getQuestionList().size()).setStyle("-fx-fill: green");
+                buttonsDisable(true);
              jumpToNextQuestion();
 
         } else if (!buttonCLicked.getText().equals(model.getQ().getRightAnswer())) {
@@ -111,12 +113,15 @@ public class QuestionsPanel {
             transition(model.getRight(), "-fx-background-color: green");
             transition(buttonCLicked, null);
             resultsList.get(model.getQuestionList().size()).setStyle("-fx-fill: red");
+            buttonsDisable(true);
            jumpToNextQuestion();
         }
 
     }
 
     public void jumpToNextQuestion(){
+
+
         if(roundTime.getCycleCount()>1){
             roundTime.setDelay(Duration.seconds(2));
             roundTime.stop();
@@ -134,7 +139,10 @@ public class QuestionsPanel {
     public void reset() {
         model.reset();
     }
-
+    public void buttonsDisable(boolean disabled){
+        for(Button answerB:model.getButtons())
+            answerB.setDisable(disabled);
+    }
     //aesthetics
     public void transition(Button button, String style) {
         PauseTransition pause = new PauseTransition(Duration.seconds(1));

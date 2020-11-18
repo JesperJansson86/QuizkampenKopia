@@ -26,11 +26,14 @@ public class QuestionsPanelModel {
     Question n2 =questionsAndAnswers.getRandomQuestionByCategory("Geography");
     List<Question> questionList=new ArrayList<Question>();
 
-
     //List<Rectangle>resultsList=new ArrayList<>();
     Button right;
     Button answer1,answer2,answer3,answer4;
     Label categoryL,question;
+
+    public ArrayList<Button> getButtons() {
+        return buttons;
+    }
 
     public Question getQ() {
         return q;

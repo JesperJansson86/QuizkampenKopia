@@ -3,7 +3,9 @@
     -fx-effect: dropshadow(three-pass-box,rgb(0,0,0),2,0,0,0);
     -fx-background-color: #1e3d66;
     -fx-text-fill: white;
-
+}
+.buttons:disabled{
+    -fx-opacity: 1;
 }
 .paneBackground{
     -fx-background-color: linear-gradient(to bottom right, #eeeaea, #ffffff);

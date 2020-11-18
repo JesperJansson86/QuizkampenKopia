@@ -12,9 +12,7 @@ public class Server {
 
         new Server();
     }
-    public int getPort(){
-        return port;
-    }
+
     public Server() {
         try (ServerSocket serverSocket = new ServerSocket(port)) {
             System.out.println("Server.Server up and ready.");
