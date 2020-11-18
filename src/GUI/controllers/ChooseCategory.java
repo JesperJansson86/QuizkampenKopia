@@ -2,12 +2,15 @@ package GUI.controllers;
 
 import Client.Client;
 import GUI.models.GUIutils;
+import javafx.animation.ScaleTransition;
+import javafx.animation.TranslateTransition;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.shape.Arc;
+import javafx.util.Duration;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -38,6 +41,7 @@ public class ChooseCategory {
 
         category1group.setOnMousePressed(e -> {
             category1.setScaleY(100);//System.out.println("category1");
+            cardAnimation(category1group);
             goNextPanel();
         });
         category2group.setOnMousePressed(e -> {//System.out.println("category2");
@@ -54,5 +58,9 @@ public class ChooseCategory {
 
         util.changeScene("../view/QuestionsPanel.fxml");
     }
-
+    public void cardAnimation(Group group) {
+        ScaleTransition st = new ScaleTransition(Duration.millis(1000), group);
+        st.setByY(-200);
+        st.play();
+    }
 }
