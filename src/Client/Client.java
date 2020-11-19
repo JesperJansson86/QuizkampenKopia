@@ -16,11 +16,6 @@ public class Client implements Runnable{
     public static BlockingQueue<Object> toGUI = new LinkedBlockingQueue();
     public static BlockingQueue<Object> toClient = new LinkedBlockingQueue();
 
-//    public static void main(String[] args) {
-//
-//        new Client();
-//    }
-
     public Client() {}
 
     @Override
