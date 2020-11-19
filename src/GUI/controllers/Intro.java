@@ -38,12 +38,25 @@ public class Intro {
                 System.out.println("In Intro: Putting in GetText toClient");
                 toClient.put(nameField.getText());
                 System.out.println("In Intro: Put text to Client");
-                System.out.println("In Intro: Getting NextPane");
-                String goNext = (String) toGUI.take();
-                System.out.println("In Intro: Got NextPane");
+
 //                util.changeScene("../view/ChooseCategory.fxml");
-                util.changeScene(goNext);
-            } catch (IOException | InterruptedException e) {
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        try {
+                            System.out.println("In Intro: Getting NextPane");
+                            String goNext = (String) toGUI.take();
+                            System.out.println("In Intro: Got NextPane");
+                            util.changeScene(goNext);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }).start();
+
+            } catch (InterruptedException e) {
                 e.printStackTrace();
             }
         }

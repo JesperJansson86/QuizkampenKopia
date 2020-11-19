@@ -39,6 +39,7 @@ public class ChooseCategory {
     public Group category2group;
     public Group category3group;
     GUIutils util;
+
     public void initialize() throws InterruptedException {
 
         allCategories = (ArrayList<String>) toGUI.take(); // Get categories from BQ
@@ -61,32 +62,35 @@ public class ChooseCategory {
 //category2group.setOnMousePressed(e->{System.out.println("category2");goNextPanel();});
 //category3group.setOnMousePressed(e->{System.out.println("category3");goNextPanel();});
 
-                util =new GUIutils(mainPane);
+        util = new GUIutils(mainPane);
     }
-  public void goNextPanel(){
-      try {
-          String nextPane = (String) toGUI.take();
-          util.changeScene(nextPane);
-      } catch (IOException | InterruptedException e) {
-          e.printStackTrace();
-      }
-  }
+
+    public void goNextPanel() {
+        try {
+            System.out.println("In ChooseCategory: Getting NextPane");
+            String goNext = (String) toGUI.take();
+            System.out.println("In ChooseCategory: Got NextPane");
+            util.changeScene(goNext);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
     public void category1Pressed(MouseEvent mouseEvent) {
-        categoryChosen(categoryL1.getText());
-        goNextPanel();
+            categoryChosen(categoryL1.getText());
     }
 
     public void category2Pressed(MouseEvent mouseEvent) {
-        categoryChosen(categoryL2.getText());
-        goNextPanel();
+            categoryChosen(categoryL2.getText());
     }
 
     public void category3Pressed(MouseEvent mouseEvent) {
-        categoryChosen(categoryL3.getText());
+            categoryChosen(categoryL3.getText());
     }
 
-    private void categoryChosen(String category){
+    private void categoryChosen(String category) {
         try {
             toClient.put(category);
         } catch (InterruptedException e) {

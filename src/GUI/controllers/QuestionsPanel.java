@@ -98,7 +98,7 @@ public class QuestionsPanel {
                 }),
                 new KeyFrame(Duration.seconds(10), e -> {
                     try {
-                        utils.changeScene("../view/ResultsAndReview.fxml");
+                        utils.changeScene("RESULTS");
                     } catch (IOException ioException) {
                         ioException.printStackTrace();
                     }
@@ -115,7 +115,8 @@ public class QuestionsPanel {
      * @param actionEvent
      */
     public void answerOn(ActionEvent actionEvent) {
-        Button buttonCLicked = ((Button) actionEvent.getSource());
+        Button buttonCLicked = ((Button) actionEvent.getSource()); //Hämtar vilken knapp som är tryckt
+
         if (buttonCLicked.getText().equals(model.getQ().getRightAnswer())) {
             buttonCLicked.setStyle("-fx-background-color: green");
             transition(buttonCLicked, null);
