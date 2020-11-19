@@ -4,15 +4,14 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.shape.Circle?>
 
-
 <AnchorPane prefHeight="470.0" prefWidth="500.0" style="-fx-background-color: #5858db;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.controllers.Waiting">
    <children>
-      <Group layoutX="210.0" layoutY="250.0">
+      <Group fx:id="circleGroup" layoutX="210.0" layoutY="250.0">
          <children>
-            <Circle fill="#ff1f1f" radius="10.0" stroke="TRANSPARENT" strokeType="INSIDE" translateX="30.0" />
-            <Circle fill="#0175e2" radius="10.0" stroke="TRANSPARENT" strokeType="INSIDE" />
-            <Circle fill="#fbff21" layoutX="60.0" radius="10.0" stroke="TRANSPARENT" strokeType="INSIDE" />
-            <Circle fill="#75ff21" layoutX="90.0" radius="10.0" stroke="TRANSPARENT" strokeType="INSIDE" />
+            <Circle fx:id="circleRed" fill="#ff1f1f" radius="10.0" stroke="TRANSPARENT" strokeType="INSIDE" translateX="30.0" />
+            <Circle fx:id="circleBlue" fill="#0175e2" radius="10.0" stroke="TRANSPARENT" strokeType="INSIDE" />
+            <Circle fx:id="circleYellow" fill="#fbff21" radius="10.0" stroke="TRANSPARENT" strokeType="INSIDE" translateX="60.0" />
+            <Circle fx:id="circleGreen" fill="#75ff21" radius="10.0" stroke="TRANSPARENT" strokeType="INSIDE" translateX="90.0" />
          </children>
       </Group>
    </children>
