@@ -20,10 +20,10 @@
          <font>
             <Font name="Leelawadee UI" size="12.0" />
          </font></Button>
-      <Button layoutX="423.0" layoutY="430.0" mnemonicParsing="false" onAction="#reset" text="Reset" />
       <Group layoutX="79.0" layoutY="101.0">
          <children>
-            <Label fx:id="question" alignment="CENTER" contentDisplay="CENTER" prefHeight="123.0" prefWidth="370.0" styleClass="question" stylesheets="@../resources/questions.css" text="this is the question" textAlignment="CENTER" wrapText="true">
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="125.0" stroke="BLACK" strokeType="INSIDE" styleClass="question" width="370.0" />
+            <Label fx:id="question" alignment="CENTER" contentDisplay="CENTER" prefHeight="123.0" prefWidth="370.0" stylesheets="@../resources/questions.css" text="this is the question" textAlignment="CENTER" wrapText="true">
                <font>
                   <Font name="Leelawadee UI Bold" size="12.0" />
                </font>

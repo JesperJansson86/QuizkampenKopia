@@ -33,13 +33,15 @@ public class QuestionFactory {
         //Uncomment when live for more questions and categories.
         updateList("https://opentdb.com/api.php?amount=10&category=18&difficulty=easy&type=multiple");
         updateList("https://opentdb.com/api.php?amount=10&category=9&difficulty=easy&type=multiple");
-
+/*
         for (String key : questionsByCategory.keySet()) {
             for (Question q : questionsByCategory.get(key)) {
                 System.out.println(q);
             }
         }
         System.out.println(getCategories().toString());
+
+ */
     }
 
     private void createQuestion(String stringFromFile) {

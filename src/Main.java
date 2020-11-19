@@ -1,7 +1,6 @@
-import Client.Client;
-import GUI.models.GUIutils;
+
 import javafx.application.Application;
-import javafx.concurrent.Task;
+
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -15,8 +14,8 @@ public class Main extends Application {
         @Override
         public void start(Stage primaryStage) throws Exception{
 
-         //   Parent root = FXMLLoader.load(getClass().getResource("GUI/view/Intro.fxml"));
-            Parent root = FXMLLoader.load(getClass().getResource("GUI/view/QuestionsPanel.fxml"));
+           Parent root = FXMLLoader.load(getClass().getResource("GUI/view/Intro.fxml"));
+          //  Parent root = FXMLLoader.load(getClass().getResource("GUI/view/QuestionsPanel.fxml"));
           // Parent root = FXMLLoader.load(getClass().getResource("GUI/view/Waiting.fxml"));
             primaryStage.setTitle("FakeQuizDuel");
             primaryStage.setScene(new Scene(root));
