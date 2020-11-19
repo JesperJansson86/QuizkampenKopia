@@ -98,6 +98,7 @@ public class Client implements Runnable{
             }
                 toGUI.put("QUESTION");
                 toGUI.put(activeQuestions);
+                toGUI.put(gr.roundnumber);
                 ArrayList<String> result = (ArrayList<String>) toClient.take();
 
         } catch (Exception e) {

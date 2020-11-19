@@ -57,6 +57,7 @@ public class QuestionsPanel {
         System.out.println("In QuestionsPanel: init begins.");
         try {
             qList = (ArrayList<Question>) toGUI.take();
+            round = (Integer) toGUI.take();
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -89,14 +90,14 @@ public class QuestionsPanel {
     //added a game sequence in time, make a method which creates a timeline depending on amount of questions.
     public void timeForAnswer() {
         Timeline timeline = new Timeline(
-                new KeyFrame(Duration.seconds(10), e -> {
+                new KeyFrame(Duration.seconds(5), e -> {
                     model.reset(e);
                     resetAnimationTest();
                     model.setOnStage();
                     animationTest();
-                    timeBar(10);
+                    timeBar(5);
                 }),
-                new KeyFrame(Duration.seconds(10), e -> {
+                new KeyFrame(Duration.seconds(5), e -> {
                     try {
                         utils.changeScene("RESULTS");
                     } catch (IOException ioException) {

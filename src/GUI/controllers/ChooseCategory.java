@@ -6,6 +6,7 @@ import javafx.scene.Group;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Arc;
 
 import java.io.IOException;
@@ -53,6 +54,14 @@ public class ChooseCategory {
             categories.add(allCategories.get(temp));
             allCategories.remove(temp);
         }
+
+        category1.setStroke(Color.BLACK);
+        category1.setStrokeWidth(2);
+        category2.setStroke(Color.BLACK);
+        category2.setStrokeWidth(2);
+        category3.setStroke(Color.BLACK);
+        category3.setStrokeWidth(2);
+
 
         categoryL1.setText(categories.get(0));
         categoryL2.setText(categories.get(1));
