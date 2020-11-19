@@ -31,8 +31,6 @@
             <Rectangle fx:id="rectangleQ" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="124.0" stroke="TRANSPARENT" strokeType="INSIDE" width="370.0" />
          </children>
       </Group>
-      <Rectangle fx:id="Qresult1" arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="26.0" layoutX="39.0" layoutY="32.0" stroke="TRANSPARENT" strokeType="INSIDE" style="-fx-arc-height: 10; -fx-arc-width: 10;" width="28.0" />
-      <Rectangle fx:id="Qresult2" arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="26.0" layoutX="70.0" layoutY="32.0" stroke="TRANSPARENT" strokeType="INSIDE" style="-fx-arc-height: 10; -fx-arc-width: 10;" width="28.0" />
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#daa92d" height="26.0" layoutX="179.0" layoutY="72.0" stroke="#ffffff00" strokeType="INSIDE" width="168.0" />
       <Rectangle fx:id="Qresult11" arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="26.0" layoutX="247.0" layoutY="45.0" stroke="TRANSPARENT" strokeType="INSIDE" style="-fx-arc-height: 10; -fx-arc-width: 10; -fx-rotate: 45;" width="26.0" />
       <Label fx:id="roundNumber" layoutX="257.0" layoutY="49.0" text="0" />

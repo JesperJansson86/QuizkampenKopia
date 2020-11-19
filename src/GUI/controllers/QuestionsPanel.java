@@ -2,40 +2,45 @@ package GUI.controllers;
 
 import GUI.models.GUIutils;
 import GUI.models.QuestionsPanelModel;
+
 import javafx.animation.*;
-import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Group;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.layout.AnchorPane;
+
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.shape.StrokeType;
 import javafx.util.Duration;
 
-import java.util.ArrayList;
-import java.util.List;
+
+import static javafx.scene.paint.Color.TRANSPARENT;
+
 
 public class QuestionsPanel {
-
+    private static final String GREEN_BCK="-fx-background-color: #00be00";
+    private static final String GREEN_FILL="-fx-fill: #00be00";
+    private static final String RED_FILL="-fx-background-color:red";
+    private static final String RED_BCK="-fx-fill: red";
     public Button answer1;
     public Button answer2;
     public Button answer3;
     public Button answer4;
     public Label question;
     public AnchorPane mainPane;
-    //TODO:add this rectangle programmatically depending on amount of questions
-    public Rectangle Qresult1;
-    public Rectangle Qresult2;
-    //public Rectangle Qresult3;
+
     public Label roundNumber;
     public ProgressBar timeLeftBar;
     public Rectangle rectangleQ;
 
     //this should come from somewhere else (game class??)
-    int round = 1;
-
-    List<Rectangle> resultsList = new ArrayList<>();
+    int questionsAmount = 2;//<-to set the amount of result rectangles and the questions rounds.
+    int actualRound=1;//<-to set the actual round number
+    Group resultRects;
 
     QuestionsPanelModel model;
     @FXML
@@ -45,19 +50,22 @@ public class QuestionsPanel {
     Timeline roundTime;
     KeyFrame setQuestions;
     KeyFrame cleanQuestions;
-    int secondsToAnswer=5;
+    int secondsToAnswer = 5;
+
     /**
      * at start initiates questionList by copying the list from MainClasses.QuestionFactory
      */
+
     public void initialize() {
+
+       createResultsRect();
         model = new QuestionsPanelModel(answer1, answer2, answer3, answer4, categoryL, question);
-        resultsList.add(Qresult2);
-        resultsList.add(Qresult1);
-        roundNumber.setText(String.valueOf(round));
+
+        roundNumber.setText(String.valueOf(actualRound));
         utils = new GUIutils(mainPane);
         timeLeftBar.setProgress(1);
 
-        setRoundTimes(secondsToAnswer, 2);
+        setRoundTimes(secondsToAnswer, questionsAmount);
 
 
     }
@@ -92,7 +100,6 @@ public class QuestionsPanel {
     }
 
 
-    //TODO: Need a method which jumps to next question when user answers. and make this much cleaner
 
     /**
      * actionlistener of question options. if its right it paints green, if not it paints red and paints green right answer
@@ -102,46 +109,68 @@ public class QuestionsPanel {
     public void answerOn(ActionEvent actionEvent) {
         Button buttonCLicked = ((Button) actionEvent.getSource());
         if (buttonCLicked.getText().equals(model.getQ().getRightAnswer())) {
-            buttonCLicked.setStyle("-fx-background-color: green");
+            buttonCLicked.setStyle(GREEN_BCK);
             transition(buttonCLicked, null);
-            resultsList.get(model.getQuestionList().size()).setStyle("-fx-fill: green");
-                buttonsDisable(true);
-             jumpToNextQuestion();
+
+            resultRects.getChildren().get(model.getQuestionList().size()).setStyle(GREEN_FILL);
+            buttonsDisable(true);
+            jumpToNextQuestion();
 
         } else if (!buttonCLicked.getText().equals(model.getQ().getRightAnswer())) {
-            buttonCLicked.setStyle("-fx-background-color: red");
-            transition(model.getRight(), "-fx-background-color: green");
+            buttonCLicked.setStyle("-fx-background-color:red");
+            transition(model.getRight(), GREEN_BCK);
             transition(buttonCLicked, null);
-            resultsList.get(model.getQuestionList().size()).setStyle("-fx-fill: red");
+            resultRects.getChildren().get(model.getQuestionList().size()).setStyle("-fx-fill:red");
             buttonsDisable(true);
-           jumpToNextQuestion();
+            jumpToNextQuestion();
         }
 
     }
 
-    public void jumpToNextQuestion(){
+    public void jumpToNextQuestion() {
 
 
-        if(roundTime.getCycleCount()>1){
+        if (roundTime.getCycleCount() > 1) {
             roundTime.setDelay(Duration.seconds(2));
             roundTime.stop();
-            roundTime.setCycleCount(roundTime.getCycleCount()-1);
+            roundTime.setCycleCount(roundTime.getCycleCount() - 1);
             roundTime.playFromStart();
-        }
-        else{
+        } else {
             roundTime.setDelay(Duration.seconds(2));
-            System.out.println(roundTime.getCycleCount());
             roundTime.stop();
             roundTime.playFrom("clearQuestions");
 
         }
     }
+
     public void reset() {
         model.reset();
     }
-    public void buttonsDisable(boolean disabled){
-        for(Button answerB:model.getButtons())
+
+    public void buttonsDisable(boolean disabled) {
+        for (Button answerB : model.getButtons())
             answerB.setDisable(disabled);
+    }
+//building
+    private void createResultsRect(){
+        Group gr=new Group();
+        for(int i = questionsAmount; i>0; i--){
+        Rectangle rect = new Rectangle();
+        rect.setArcHeight(5);
+        rect.setArcWidth(5);
+        rect.setFill(Color.WHITE);
+        rect.setHeight(26);
+        rect.setWidth(28);
+        rect.setLayoutX(20+(i*30));
+        rect.setLayoutY(32);
+        rect.setStyle("-fx-arc-height: 10; -fx-arc-width: 10;");
+        rect.setStroke(TRANSPARENT);
+        rect.setStrokeType(StrokeType.INSIDE);
+       rect.toFront();
+        gr.getChildren().add(rect);
+        }
+        resultRects=gr;
+        mainPane.getChildren().add(resultRects);
     }
     //aesthetics
     public void transition(Button button, String style) {
@@ -152,7 +181,7 @@ public class QuestionsPanel {
 
     public void cardAnimation() {
         TranslateTransition st = new TranslateTransition(Duration.millis(1000), rectangleQ);
-        st.setByY(-200);
+        st.setByY(-600);
         st.play();
     }
 

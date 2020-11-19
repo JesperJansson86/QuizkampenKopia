@@ -15,9 +15,9 @@ public class Main extends Application {
         @Override
         public void start(Stage primaryStage) throws Exception{
 
-           // Parent root = FXMLLoader.load(getClass().getResource("GUI/view/Intro.fxml"));
-
-           Parent root = FXMLLoader.load(getClass().getResource("GUI/view/Waiting.fxml"));
+         //   Parent root = FXMLLoader.load(getClass().getResource("GUI/view/Intro.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("GUI/view/QuestionsPanel.fxml"));
+          // Parent root = FXMLLoader.load(getClass().getResource("GUI/view/Waiting.fxml"));
             primaryStage.setTitle("FakeQuizDuel");
             primaryStage.setScene(new Scene(root));
             primaryStage.getIcons().add(new Image("GUI/resources/logo.png"));
