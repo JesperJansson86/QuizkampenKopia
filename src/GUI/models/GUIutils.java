@@ -35,13 +35,13 @@ public class GUIutils {
 
     public String nextPane(String nextPane) {
         if (nextPane.equalsIgnoreCase("CATEGORY")) {
-            System.out.println("In GUIutils: It's time for category!");
+            System.out.println("In GUIutils: It's time for Category!");
             return "../view/ChooseCategory.fxml";
         } else if (nextPane.equalsIgnoreCase("QUESTION")) {
             System.out.println("In GUIutils: It's time for Question!");
             return "../view/QuestionsPanel.fxml";
         } else if (nextPane.equalsIgnoreCase("RESULTS")){
-            System.out.println("In GUIutils: It's time for Category!");
+            System.out.println("In GUIutils: It's time for Results!");
             return "../view/ResultsAndReview.fxml";
         } else {
             System.out.println("In GUIutils: It's null! WADUHEK!?!");

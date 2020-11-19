@@ -1,5 +1,7 @@
 package MainClasses;
 
+import org.jsoup.Jsoup;
+
 import java.io.*;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -32,17 +34,22 @@ public class QuestionFactory {
     private static List<Question> questionList = new ArrayList<>();
     private static Map<String, ArrayList<Question>> questionsByCategory = new HashMap<>();
     private static List<String> categories = new ArrayList<>();
+    private static boolean doOnlyOnce = true;
 
     public QuestionFactory() {
-        updateList("src/questionsfromOpenTDB1.txt");
-        updateList("src/questionsfromOpenTDB2.txt");
-        //Uncomment when live for more questions and categories.
-        updateList("https://opentdb.com/api.php?amount=10&category=18&difficulty=easy&type=multiple");
-        updateList("https://opentdb.com/api.php?amount=10&category=9&difficulty=easy&type=multiple");
+
+        if (doOnlyOnce) {
+            updateList("src/questionsfromOpenTDB1.txt");
+            updateList("src/questionsfromOpenTDB2.txt");
+            //Uncomment when live for more questions and categories.
+            updateList("https://opentdb.com/api.php?amount=10&category=18&difficulty=easy&type=multiple");
+            updateList("https://opentdb.com/api.php?amount=10&category=9&difficulty=easy&type=multiple");
+            doOnlyOnce = false;
+        }
 
         for (String key : questionsByCategory.keySet()) {
             for (Question q : questionsByCategory.get(key)) {
-//                System.out.println(q);
+                System.out.println(q);
             }
         }
         System.out.println(getCategories().toString());
@@ -50,6 +57,7 @@ public class QuestionFactory {
 
     private void createQuestion(String stringFromFile) {
         while (true) {
+            stringFromFile = Jsoup.parse(stringFromFile).text();
             int indexStart = stringFromFile.indexOf("category");
             if (indexStart == -1) break;
             int indexEnd = stringFromFile.indexOf("category", indexStart + 1);
@@ -57,6 +65,7 @@ public class QuestionFactory {
                 indexEnd = stringFromFile.length();
             }
             String nextQuestion = stringFromFile.substring(0, indexEnd);
+
 
             String category = grabBetween(nextQuestion, "category\":\"", "\",\"");
             String question = grabBetween(nextQuestion, "question\":\"", "\",\"");
@@ -119,8 +128,11 @@ public class QuestionFactory {
     }
 
     private String replaceChars(String string) {
-        string = string.replace("&quot;", "\"");
-        string = string.replace("&#039;", "'");
+//        string = string.replace("&quot;", "\"");
+//        string = string.replace("&#039;", "'");
+//        string = string.replace("&amp;", "&");
+//        string = string.replace("&Uuml;", "Ü");
+//        string = string.replace("&uuml;", "ü");
         return string;
     }
 
