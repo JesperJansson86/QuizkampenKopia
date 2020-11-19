@@ -8,8 +8,8 @@
    <children>
       <Group fx:id="circleGroup" layoutX="210.0" layoutY="250.0">
          <children>
-            <Circle fx:id="circleRed" fill="#ff1f1f" radius="10.0" stroke="TRANSPARENT" strokeType="INSIDE" translateX="30.0" />
             <Circle fx:id="circleBlue" fill="#0175e2" radius="10.0" stroke="TRANSPARENT" strokeType="INSIDE" />
+            <Circle fx:id="circleRed" fill="#ff1f1f" radius="10.0" stroke="TRANSPARENT" strokeType="INSIDE" translateX="30.0" />
             <Circle fx:id="circleYellow" fill="#fbff21" radius="10.0" stroke="TRANSPARENT" strokeType="INSIDE" translateX="60.0" />
             <Circle fx:id="circleGreen" fill="#75ff21" radius="10.0" stroke="TRANSPARENT" strokeType="INSIDE" translateX="90.0" />
          </children>

@@ -1,9 +1,7 @@
 package GUI.controllers;
 
 import GUI.models.GUIutils;
-import javafx.animation.ScaleTransition;
-import javafx.animation.Timeline;
-import javafx.animation.TranslateTransition;
+import javafx.animation.*;
 import javafx.scene.Group;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.shape.Circle;
@@ -26,38 +24,42 @@ public class Waiting {
     public Circle circleYellow;
     public Circle circleGreen;
     public AnchorPane waitingPane;
-    GUIutils util;
-    String nextScene;
-    public void initialize(){
+    SequentialTransition sq;
+    ScaleTransition st;
+    public void initialize() {
         groupTransition();
+    }
+    private void circleSeq() {
+
+        sq = new SequentialTransition();
+        sq.setAutoReverse(true);
+        sq.setCycleCount(Timeline.INDEFINITE);
+        circleGroup.getChildren().forEach(circle -> {
+            setScaleTrans();
+            st.setNode(circle);
+            sq.getChildren().add(st);
+        });
+
+        sq.play();
+
 
     }
-    public void groupTransition(){
 
-        TranslateTransition ts=new TranslateTransition(Duration.seconds(0.5),circleGroup);
-        ts.setByY(circleGroup.getTranslateY()+30);
-       ts.setAutoReverse(true);
+    private void groupTransition() {
+
+        TranslateTransition ts = new TranslateTransition(Duration.seconds(0.5), circleGroup);
+        ts.setByY(circleGroup.getTranslateY() + 30);
+        ts.setAutoReverse(true);
         ts.setCycleCount(2);
         ts.play();
-        ts.setOnFinished(e->circleTransition());
+        ts.setOnFinished(e -> circleSeq());
     }
-    public void circleTransition(){
-        List<Circle>circlesList=new ArrayList<Circle>();
-        circlesList.add(circleBlue);
-        circlesList.add(circleRed);
-        circlesList.add(circleYellow);
-        circlesList.add(circleGreen);
-        ScaleTransition st=new ScaleTransition();
-        st.setByX(1);
-        st.setByY(1);
+    private void setScaleTrans(){
+        st = new ScaleTransition();
+        st.setByX(0.5);
+        st.setByY(0.5);
         st.setAutoReverse(true);
-        st.setCycleCount(Timeline.INDEFINITE);
-        st.setDuration(Duration.seconds(2));
-        st.setNode(circlesList.get(0));
-        st.setNode(circlesList.get(1));
-        st.setNode(circlesList.get(2));
-        st.setNode(circlesList.get(3));
-        st.play();
-
+        st.setCycleCount(2);
+        st.setDuration(Duration.seconds(0.5));
     }
 }
