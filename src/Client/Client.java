@@ -4,12 +4,8 @@ import GUI.controllers.Intro;
 import GUI.models.GUIutils;
 import MainClasses.GameRound;
 import Server.Server;
-
-import javafx.stage.Stage;
-
 import java.io.*;
 import java.net.Socket;
-import java.util.*;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 
@@ -29,6 +25,7 @@ public class Client implements Runnable {
 while(true){
             //testing a Client-GUI protocol
             String name=(String)toClient.take();
+            //send to server this name
             if(name.equals("hodei"))//<-have to check something with the name, for now checks if its hodei written
                 toGUI.put(true);
             else
