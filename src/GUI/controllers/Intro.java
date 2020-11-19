@@ -57,6 +57,6 @@ public class Intro {
 
 
         } else
-            message.setText("Write something in the name field, please.");
+          message.setText("Write something in the name field, please.");
     }
 }
