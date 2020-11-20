@@ -109,15 +109,49 @@ public class Client implements Runnable {
             toGUI.put(activeQuestions);
             toGUI.put(gr.roundnumber);
 
-            // TODO: 20/11/2020 ether add to or replace result with answers form PointCount
-            ArrayList<String> result = (ArrayList<String>) toClient.take();
-            for (String answer : result) {
+            toClient.take();
+
+            ArrayList<String>answerPC = PointCount.getAnswers();
+            //ArrayList<String> result = (ArrayList<String>) toClient.take();
+            for (String answer : answerPC) {
                 if (isPlayer1) {
                     gr.player1Results.add(answer);
                 } else {
                     gr.player2Results.add(answer);
                 }
             }
+
+
+            //should playerScore hold round total or score per question ?
+
+            ArrayList<Integer> pointHolder = PointCount.getPointHolder();
+            for (int point : pointHolder){
+                if (isPlayer1){
+                    gr.player1Score.add(point);
+                } else{
+                    gr.player2Score.add(point);
+                }
+            }
+
+
+            /*
+            //roundTotal version
+
+
+            if(isPlayer1){
+
+                gr.player1Score.add(PointCount.getRoundTotal());
+
+
+            } else {
+
+
+                gr.player2Score.add(PointCount.getRoundTotal());
+            }
+
+
+            */
+
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -135,6 +169,8 @@ public class Client implements Runnable {
 
 
             toGUI.put("RESULTS");
+
+
         } catch (InterruptedException e) {
             e.printStackTrace();
         }

@@ -200,6 +200,7 @@ public class QuestionsPanel {
             roundTime.playFrom("clearQuestions");
 
         }
+
     }
 
     public void reset() {
@@ -252,7 +253,22 @@ public class QuestionsPanel {
 
     public void nextWindow() {
         //Send to server data
-        //   utils.changeScene("../view/ResultsAndReview.fxml");
+
+        String s = "hej ";
+        try {
+          toClient.put(s);
+
+          String nextPane = (String) toGUI.take();
+
+          utils.changeSceneNew(nextPane);
+        } catch (InterruptedException | IOException e) {
+            e.printStackTrace();
+        }
+
+
+        //utils.changeScene("../view/ResultsAndReview.fxml");
+
+
     }
 
 }
