@@ -118,9 +118,18 @@ public class QuestionsPanel {
                 }),
                 cleanQuestions = new KeyFrame(Duration.seconds(seconds), "clearQuestions", e -> {
 
+                    PointCount.storeAnswer(null); //no user input (time ran out)
+                    PointCount.playerPointCount(0); //player answered wrong (did not answer)
 
-                    // TODO: 20/11/2020 here should be a time out check (won't know how to exactly make it unless we can get to ResultsAndAnswer Screen. becaose time will always run out at the end
-                    System.out.println("TIME OUT TEST 2");
+                    //turns the top left corner box red because no answer is always the wrong answer
+                    resultRects.getChildren().get(model.getQuestionList().size()).setStyle("-fx-fill:red");
+
+
+                    //test that it is here were the game checks if you ran out of time
+                    System.out.println("The game times out!");
+                    //test for playerRoundTotal because the game currently ends here
+                    PointCount.playerRoundTotal();
+
                     model.reset();
                     resetCardAnimation();
                     System.out.println("clearquestions");
@@ -152,7 +161,6 @@ public class QuestionsPanel {
 
 
             //tests
-            PointCount.playerRoundTotal();
             PointCount.testPointCount();
 
             buttonsDisable(true);
@@ -169,7 +177,6 @@ public class QuestionsPanel {
             PointCount.playerPointCount(0); //player answered wrong
 
             //Tests
-            PointCount.playerRoundTotal();
             PointCount.testPointCount();
 
 
