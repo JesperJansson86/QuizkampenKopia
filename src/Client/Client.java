@@ -2,7 +2,7 @@ package Client;
 
 import MainClasses.GameRound;
 import MainClasses.Question;
-import Server.Server;
+import Server.*;
 
 import java.io.*;
 import java.net.Socket;
