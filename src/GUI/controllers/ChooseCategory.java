@@ -1,6 +1,6 @@
 package GUI.controllers;
 
-import Client.*;
+import Client.Client;
 import GUI.models.GUIutils;
 import javafx.animation.RotateTransition;
 import javafx.animation.ScaleTransition;
@@ -17,6 +17,9 @@ import javafx.util.Duration;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.BlockingQueue;
 
 /**
  * Created by Hodei Eceiza
@@ -26,6 +29,10 @@ import java.io.IOException;
  * Copyright: MIT
  */
 public class ChooseCategory {
+    BlockingQueue toGUI = Client.toGUI;
+    BlockingQueue toClient = Client.toClient;
+    public List<String> categoryList = new ArrayList<>();
+    String category;
     public Label categoryL1;
     public Arc category1;
     public Arc category3;
@@ -38,30 +45,53 @@ public class ChooseCategory {
     public Group category2group;
     public Group category3group;
     public Circle theCircle;
+
     GUIutils util;
     ScaleTransition st;
     public void initialize() {
+        try {
+            categoryList = (ArrayList<String>) toGUI.take();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        categoryL1.setText(categoryList.get(0));
+        categoryL2.setText(categoryList.get(1));
+        categoryL3.setText(categoryList.get(2));
 
         category1group.setOnMousePressed(e -> {
-
+            category = categoryList.get(0);
             buttonAnimation(category1group);
         });
         category2group.setOnMousePressed(e -> {
+            category = categoryList.get(1);
             buttonAnimation(category2group);
         });
         category3group.setOnMousePressed(e -> {
+            category = categoryList.get(2);
             buttonAnimation(category3group);
         });
 
         util = new GUIutils(mainPane);
     }
 
-    public void goNextPanel() throws IOException {
-
-        util.changeScene("../view/QuestionsPanel.fxml");
+    public void goNextPanel() {
+//        util.changeScene("../view/QuestionsPanel.fxml");
+        try{
+            String nextPane = (String) toGUI.take();
+            util.changeSceneNew(nextPane);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public void buttonAnimation(Group group) {
+        try {
+            toClient.put(category);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         RotateTransition rt=new RotateTransition(Duration.millis(5000),theCircle);
         rt.setByAngle(9000);
         rt.play();
@@ -72,12 +102,6 @@ public class ChooseCategory {
         st.setCycleCount(2);
         st.setAutoReverse(true);
         st.play();
-        st.setOnFinished(e-> {
-            try {
-                goNextPanel();
-            } catch (IOException ioException) {
-                ioException.printStackTrace();
-            }
-        }); //here we call to go next panel, here we should call to send to client/server, and wait response.
+        st.setOnFinished(e->goNextPanel()); //here we call to go next panel, here we should call to send to client/server, and wait response.
     }
 }

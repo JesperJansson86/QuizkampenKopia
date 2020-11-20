@@ -39,25 +39,16 @@ public class Intro {
         util = new GUIutils(introPane);
     }
 
-    public void startButtonOn() throws IOException {
+    public void startButtonOn() {
         if (!nameField.getText().isBlank() || !nameField.getText().isEmpty()) {
-            //send to server and if its ok go to next page
-            util.changeScene("../view/ChooseCategory.fxml");
-           /* try {
+            try {
                 toClient.put(nameField.getText());
-                if ((Boolean) toGUI.take())
-                    util.changeScene("../view/ChooseCategory.fxml");
-                else
-                    message.setText("Something went very,very,very wrong...");
-            } catch (InterruptedException e) {
+                String nextScene = (String) toGUI.take();
+                util.changeSceneNew(nextScene);
+            } catch (InterruptedException | IOException e) {
                 e.printStackTrace();
             }
-
-            */
-
-
         } else
           message.setText("Write something in the name field, please.");
-
     }
 }

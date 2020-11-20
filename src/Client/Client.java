@@ -12,7 +12,7 @@ import java.util.concurrent.LinkedBlockingQueue;
 
 public class Client implements Runnable {
     static GameRound gr;
-    boolean player1;
+    boolean isPlayer1;
     public static BlockingQueue<Object> toGUI = new LinkedBlockingQueue();
     public static BlockingQueue<Object> toClient = new LinkedBlockingQueue();
 
@@ -33,10 +33,11 @@ public class Client implements Runnable {
 
                 System.out.println("in Client, just before add name");
                 gr = (GameRound) in.readObject(); //add names if needed, ergo, first round.
-                if (gr.playerNames.size() < 1 || gr.roundnumber == 1) {
-                    player1 = true;
+                if (gr.playerNames.isEmpty()){
+                    isPlayer1 = true;
                     gr.playerNames.add(name);
-                } else if (gr.roundnumber == 1) {
+                } else if (gr.playerNames.size() == 1){
+                    isPlayer1 = false;
                     gr.playerNames.add(name);
                 }
 
@@ -47,29 +48,28 @@ public class Client implements Runnable {
                     getCategory();
                     System.out.println("in Client: gr.category is now: " + gr.category);
                     answerQuestions();
-                    out.writeObject(gr);
                     showResults();
-                    //send answers to Server and await response.
-//                    if (gr.gameover && gr.playerTurn % 2 == 1) break;
+
                 } else if (gr.category != null) {
                     System.out.println("in Client: gr.category is " + gr.category);
                     answerQuestions();
+                    showResults();
+
                     getCategory();
                     answerQuestions();
-                    out.writeObject(gr);
-                    showResults();
                 }
 
-
+                out.writeObject(gr);
+                goToWaiting();
 //                gr = runda(gr);
-                if (gr.playerTurn % 2 == 1) System.out.println(gr.player1Results);
-                else System.out.println(gr.player2Results);
-//                out.writeObject(gr);
-//                gr = gr;
-                if (gr.gameover && gr.playerTurn % 2 == 0) break;
+//                if (gr.playerTurn % 2 == 1) System.out.println(gr.player1Results);
+//                else System.out.println(gr.player2Results);
+////                out.writeObject(gr);
+////                gr = gr;
+//                if (gr.gameover && gr.playerTurn % 2 == 0) break;
             }
-            if (gr.playerTurn % 2 == 1) System.out.println(gr.player1Results);
-            else System.out.println(gr.player2Results);
+//            if (gr.playerTurn % 2 == 1) System.out.println(gr.player1Results);
+//            else System.out.println(gr.player2Results);
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -84,18 +84,16 @@ public class Client implements Runnable {
         try {
             System.out.println("GetCategory() toGUI.put CATEGORY");
             toGUI.put("CATEGORY");
-            Thread.sleep(50);
             System.out.println("GetCategory() toGUI.put categoryList");
             toGUI.put(gr.categoryList);
 
             System.out.println("GetCategory() toClient.take String");
             gr.category = (String) toClient.take();
             System.out.println("GetCategory() gr.category taken, now :" + gr.category);
-            gr.categoryList.remove(gr.category);
+            gr.categoryList.remove(gr.category); //TODO Serverside
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-
     }
 
     public void answerQuestions() {
@@ -111,7 +109,7 @@ public class Client implements Runnable {
             toGUI.put(gr.roundnumber);
             ArrayList<String> result = (ArrayList<String>) toClient.take();
             for (String answer : result) {
-                if (player1) {
+                if (isPlayer1) {
                     gr.player1Results.add(answer);
                 } else {
                     gr.player2Results.add(answer);
@@ -126,6 +124,14 @@ public class Client implements Runnable {
     public void showResults(){
         try{
             toGUI.put("RESULTS");
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void goToWaiting(){
+        try{
+            toGUI.put("WAITING");
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
