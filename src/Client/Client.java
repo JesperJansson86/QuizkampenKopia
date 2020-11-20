@@ -123,6 +123,7 @@ public class Client implements Runnable {
 
 
             //should playerScore hold round total or score per question ?
+            //Hahaha, jag ändrade en rad
 
             ArrayList<Integer> pointHolder = PointCount.getPointHolder();
             for (int point : pointHolder){
