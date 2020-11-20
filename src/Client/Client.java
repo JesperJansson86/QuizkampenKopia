@@ -64,7 +64,7 @@ public class Client implements Runnable {
 //                gr = runda(gr);
                 if (gr.playerTurn % 2 == 1) System.out.println(gr.player1Results);
                 else System.out.println(gr.player2Results);
-                out.writeObject(gr);
+//                out.writeObject(gr);
 //                gr = gr;
                 if (gr.gameover && gr.playerTurn % 2 == 0) break;
             }
