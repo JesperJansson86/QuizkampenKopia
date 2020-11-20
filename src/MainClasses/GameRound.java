@@ -21,6 +21,8 @@ public class GameRound implements Serializable {
     public List<String> player1Results = new ArrayList<>();
     public List<String> player2Results = new ArrayList<>();
     public List<String> playerNames = new ArrayList<>();
+    public List<Integer> player1Score = new ArrayList<>();
+    public List<Integer> player2Score = new ArrayList<>();
 
 //    public MainClasses.GameRound(int gameid, List qlist) {
 //        this.gameid = gameid;
