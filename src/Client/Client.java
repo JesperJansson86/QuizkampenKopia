@@ -29,6 +29,7 @@ public class Client implements Runnable {
 
             System.out.println("in Client, just before taking name");
             String name = (String) toClient.take();
+//            String playerNumber = (String) in.readObject();
             goToWaiting("Waiting for opponent");
             while (true) {
 
