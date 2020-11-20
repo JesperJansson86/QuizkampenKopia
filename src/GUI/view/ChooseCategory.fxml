@@ -31,7 +31,7 @@
                </stroke></Circle>
             <Group fx:id="category1group">
                <children>
-                  <Arc fx:id="category1" fill="DODGERBLUE" length="120.0" radiusX="100.0" radiusY="100.0" startAngle="270.0" stroke="TRANSPARENT" strokeType="INSIDE" type="ROUND" />
+                  <Arc fx:id="category1" fill="DODGERBLUE" length="120.0" onMouseClicked="#category1Pressed" radiusX="100.0" radiusY="100.0" startAngle="270.0" stroke="TRANSPARENT" strokeType="INSIDE" type="ROUND" />
                   <Label fx:id="categoryL1" alignment="CENTER" layoutX="11.0" layoutY="-4.0" prefHeight="56.0" prefWidth="75.0" text="this is a category" textAlignment="CENTER" textFill="WHITE" wrapText="true">
                      <font>
                         <Font name="System Bold" size="12.0" />
@@ -41,7 +41,7 @@
             </Group>
             <Group fx:id="category3group">
                <children>
-                  <Arc fx:id="category3" fill="#e31fff" length="120.0" radiusX="100.0" radiusY="100.0" startAngle="30.0" stroke="TRANSPARENT" strokeType="INSIDE" type="ROUND" />
+                  <Arc fx:id="category3" fill="#e31fff" length="120.0" onMouseClicked="#category3Pressed" radiusX="100.0" radiusY="100.0" startAngle="30.0" stroke="TRANSPARENT" strokeType="INSIDE" type="ROUND" />
                   <Label fx:id="categoryL3" alignment="CENTER" layoutX="-51.0" layoutY="-86.0" prefHeight="48.0" prefWidth="102.0" text="this is a category" textFill="WHITE">
                      <font>
                         <Font name="System Bold" size="12.0" />
@@ -51,7 +51,7 @@
             </Group>
             <Group fx:id="category2group">
                <children>
-                  <Arc fx:id="category2" fill="#ffa21f" length="120.0" radiusX="100.0" radiusY="100.0" startAngle="150.0" stroke="TRANSPARENT" strokeType="INSIDE" type="ROUND" />
+                  <Arc id="Arc_category2" fill="#ffa21f" length="120.0" onMouseClicked="#category2Pressed" radiusX="100.0" radiusY="100.0" startAngle="150.0" stroke="TRANSPARENT" strokeType="INSIDE" type="ROUND" />
                   <Label fx:id="categoryL2" alignment="CENTER" layoutX="-86.0" layoutY="1.0" prefHeight="48.0" prefWidth="84.0" text="this is a category" textAlignment="CENTER" textFill="WHITE" wrapText="true">
                      <font>
                         <Font name="System Bold" size="12.0" />
