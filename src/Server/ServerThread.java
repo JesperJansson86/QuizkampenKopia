@@ -30,13 +30,13 @@ public class ServerThread extends Thread {
             gr = sl.initiateGame();
 
             while (true) {
-                gr.roundnumber++;
+
                 gr.playerTurn++;
                 System.out.printf("Sending to player1: Roundnumber " + gr.roundnumber);
                 out.writeObject(gr);
                 gr = (GameRound) in.readObject();
                 gr.playerTurn++;
-
+                gr.roundnumber++;
                 if (gr.roundnumber > 2) {
                     gr.gameover = true;
 
