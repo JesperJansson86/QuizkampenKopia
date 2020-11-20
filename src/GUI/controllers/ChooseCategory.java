@@ -58,6 +58,8 @@ public class ChooseCategory {
         categoryL2.setText(categoryList.get(1));
         categoryL3.setText(categoryList.get(2));
 
+        setGroupUserInteraction(true);
+
         category1group.setOnMousePressed(e -> {
             category = categoryList.get(0);
             buttonAnimation(category1group);
@@ -87,6 +89,9 @@ public class ChooseCategory {
     }
 
     public void buttonAnimation(Group group) {
+
+        setGroupUserInteraction(false);
+
         try {
             toClient.put(category);
         } catch (InterruptedException e) {
@@ -103,5 +108,17 @@ public class ChooseCategory {
         st.setAutoReverse(true);
         st.play();
         st.setOnFinished(e->goNextPanel()); //here we call to go next panel, here we should call to send to client/server, and wait response.
+    }
+
+    public void setGroupUserInteraction(boolean status) {
+        if (status) {
+            category1group.setDisable(false);
+            category2group.setDisable(false);
+            category3group.setDisable(false);
+        } else {
+            category1group.setDisable(true);
+            category2group.setDisable(true);
+            category3group.setDisable(true);
+        }
     }
 }
