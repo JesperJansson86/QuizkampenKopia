@@ -1,6 +1,7 @@
 package GUI.controllers;
 
 import Client.Client;
+import MainClasses.PointCount;
 import MainClasses.Question;
 import GUI.models.GUIutils;
 import GUI.models.QuestionsPanelModel;
@@ -41,6 +42,8 @@ public class QuestionsPanel {
 
     //this should come from somewhere else (game class??)
     int round = 1;
+
+    int NBRQuestion = 1; // represents the current question that is being answered
 
     List<Rectangle> resultsList = new ArrayList<>();
 
@@ -91,7 +94,7 @@ public class QuestionsPanel {
     public void timeForAnswer() {
         Timeline timeline = new Timeline(
                 new KeyFrame(Duration.seconds(5), e -> {
-                    model.reset(e);
+                    model.reset();
                     resetAnimationTest();
                     model.setOnStage();
                     animationTest();
@@ -123,17 +126,23 @@ public class QuestionsPanel {
             transition(buttonCLicked, null);
             resultsList.get(model.getQuestionList().size()).setStyle("-fx-fill: green");
 
+            PointCount.answerStore(buttonCLicked.getText()); //stores the right answer in pointCount
+            PointCount.playerPointCount(1,round,NBRQuestion); //if the player answered correctly
+            NBRQuestion++;
+
         } else if (!buttonCLicked.getText().equals(model.getQ().getRightAnswer())) {
             buttonCLicked.setStyle("-fx-background-color: red");
             transition(model.getRight(), "-fx-background-color: green");
             transition(buttonCLicked, null);
             resultsList.get(model.getQuestionList().size()).setStyle("-fx-fill: red");
 
+            PointCount.playerPointCount(0,round,NBRQuestion); //if the player answered wrong
+            NBRQuestion++;
         }
     }
 
     public void reset(ActionEvent actionEvent) {
-        model.reset(actionEvent);
+        model.reset();
     }
 
     //aesthetics

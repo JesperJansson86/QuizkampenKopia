@@ -39,7 +39,7 @@ public class Intro {
         util = new GUIutils(introPane);
     }
 
-    public void startButtonOn() {
+    public void startButtonOn() throws IOException {
         if (!nameField.getText().isBlank() || !nameField.getText().isEmpty()) {
             //send to server and if its ok go to next page
             util.changeScene("../view/ChooseCategory.fxml");
@@ -58,7 +58,6 @@ public class Intro {
 
         } else
           message.setText("Write something in the name field, please.");
-        Client.sendObj(nameField.getText());
 
     }
 }

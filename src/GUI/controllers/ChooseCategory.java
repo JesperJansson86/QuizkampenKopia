@@ -1,6 +1,6 @@
 package GUI.controllers;
 
-import Client.Client;
+import Client.*;
 import GUI.models.GUIutils;
 import javafx.animation.RotateTransition;
 import javafx.animation.ScaleTransition;
@@ -56,7 +56,7 @@ public class ChooseCategory {
         util = new GUIutils(mainPane);
     }
 
-    public void goNextPanel() {
+    public void goNextPanel() throws IOException {
 
         util.changeScene("../view/QuestionsPanel.fxml");
     }
@@ -72,6 +72,12 @@ public class ChooseCategory {
         st.setCycleCount(2);
         st.setAutoReverse(true);
         st.play();
-        st.setOnFinished(e->goNextPanel()); //here we call to go next panel, here we should call to send to client/server, and wait response.
+        st.setOnFinished(e-> {
+            try {
+                goNextPanel();
+            } catch (IOException ioException) {
+                ioException.printStackTrace();
+            }
+        }); //here we call to go next panel, here we should call to send to client/server, and wait response.
     }
 }

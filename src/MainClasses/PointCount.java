@@ -1,5 +1,6 @@
 package MainClasses;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 
 /**
@@ -11,17 +12,33 @@ import java.util.Arrays;
  **/
 public class PointCount {
 
-    static int nbrRounds = 2; //the number of rounds that will be played //Changed in properties eventually
+    private static int nbrRounds = 2; //the number of rounds that will be played //Changed in properties eventually
 
-    static int nbrQuestions = 2; //the number of questions in a round//Changed in properties eventually
-
-
-
-    static int[][] pointHolder = new int[nbrRounds][nbrQuestions]; //holds the points
-
-    static int[] pointRoundTotal = new int[nbrRounds]; //holds the totals of the round
+    private static int nbrQuestions = 2; //the number of questions in a round//Changed in properties eventually
 
 
+
+    private static int[][] pointHolder = new int[nbrRounds][nbrQuestions]; //holds the points
+
+    private static int[] pointRoundTotal = new int[nbrRounds]; //holds the totals of the round
+
+    private static ArrayList<Integer> roundTotal = new ArrayList<Integer>(); //holds the round total score for all the rounds
+
+    private static ArrayList<String> answers = new ArrayList<>(); //holds the correct answers +
+
+
+    /**
+     * returns the round total
+     *
+     * @return returns a list with ints that hold the total score for the round
+     */
+    public static ArrayList<Integer> getRoundTotal() {return roundTotal;}
+
+    /**
+     *
+     * @return returns a list with correct answers
+     */
+    public ArrayList<String> getAnswers(){return answers;};
 
     public int getNbrRounds() {
         return nbrRounds;
@@ -102,6 +119,14 @@ public class PointCount {
         }
 
         return total;
+    }
+
+    /**
+     * Stores the correct answer in a arrayList
+     * @param answer the correct answer in String form
+     */
+    public static void answerStore(String answer) {
+        answers.add(answer);
     }
 
 }
