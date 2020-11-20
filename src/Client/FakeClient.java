@@ -37,6 +37,7 @@ public class FakeClient implements Runnable {
             String player = (String)in.readObject();
             System.out.println(player);
             out.writeObject("Hej");
+
 //            FRÅN SERVER
             while (true) {
                 String test = (String) in.readObject();
@@ -45,15 +46,7 @@ public class FakeClient implements Runnable {
 //            TILL SERVER
                 test = scan.nextLine();
                 out.writeObject(test);
-
             }
-
-
-
-
-
-
-
         } catch (Exception e) {
             System.out.println("Nu blev det fel.");
 e.printStackTrace();

@@ -49,16 +49,17 @@ public class Client implements Runnable {
                     System.out.println("in Client: gr.category is null.");
                     getCategory();
                     System.out.println("in Client: gr.category is now: " + gr.category);
-                    answerQuestions();
-                    showResults();
+//                    answerQuestions();
+//                    showResults();
 
                 } else if (gr.category != null) {
                     System.out.println("in Client: gr.category is " + gr.category);
-                    answerQuestions();
-                    showResults();
+//                    answerQuestions();
+//                    showResults();
 
                     getCategory();
-                    answerQuestions();
+//                    answerQuestions();
+//                    gr.category="Geography";
                 }
 
                 out.writeObject(gr);
@@ -92,7 +93,7 @@ public class Client implements Runnable {
             System.out.println("GetCategory() toClient.take String");
             gr.category = (String) toClient.take();
             System.out.println("GetCategory() gr.category taken, now :" + gr.category);
-            gr.categoryList.remove(gr.category); //TODO Serverside
+//            gr.categoryList.remove(gr.category); //TODO Serverside
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
