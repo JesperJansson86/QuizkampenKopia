@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Group?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Circle?>
+
+<AnchorPane fx:id="waitingPane" prefHeight="470.0" prefWidth="500.0" style="-fx-background-color: #5858db;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.controllers.Waiting">
+   <children>
+      <Group fx:id="circleGroup" layoutX="210.0" layoutY="250.0">
+         <children>
+            <Circle fx:id="circleBlue" fill="#0175e2" radius="10.0" stroke="TRANSPARENT" strokeType="INSIDE" />
+            <Circle fx:id="circleRed" fill="#ff1f1f" radius="10.0" stroke="TRANSPARENT" strokeType="INSIDE" translateX="30.0" />
+            <Circle fx:id="circleYellow" fill="#fbff21" radius="10.0" stroke="TRANSPARENT" strokeType="INSIDE" translateX="60.0" />
+            <Circle fx:id="circleGreen" fill="#75ff21" radius="10.0" stroke="TRANSPARENT" strokeType="INSIDE" translateX="90.0" />
+         </children>
+      </Group>
+   </children>
+</AnchorPane>

@@ -3,16 +3,20 @@
     -fx-effect: dropshadow(three-pass-box,rgb(0,0,0),2,0,0,0);
     -fx-background-color: #1e3d66;
     -fx-text-fill: white;
-
+}
+.buttons:disabled{
+    -fx-opacity: 1;
 }
 .paneBackground{
     -fx-background-color: linear-gradient(to bottom right, #eeeaea, #ffffff);
 }
 .question{
-    -fx-background-radius: 10px;
+    -fx-background-radius: 20px;
+    -fx-arc-height: 30;
+    -fx-arc-width: 30;
     -fx-background-color: #f5f5f5;
     -fx-border-color: white;
-    -fx-border-width: 1px;
+    -fx-border-width: 0px;
     -fx-effect: dropshadow(three-pass-box,rgb(0,0,0),4,0,0,0);
 
 }

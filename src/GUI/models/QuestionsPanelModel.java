@@ -19,18 +19,21 @@ import java.util.List;
  */
 public class QuestionsPanelModel {
     Question q;
+    ArrayList<Question> qList;
     ArrayList<String> answers = new ArrayList<>();
     ArrayList<Button> buttons = new ArrayList<>();
-    QuestionFactory questionsAndAnswers = new QuestionFactory();
-    Question n =questionsAndAnswers.getRandomQuestionByCategory("Geography");
-    Question n2 =questionsAndAnswers.getRandomQuestionByCategory("Geography");
+//    Question n =questionsAndAnswers.getRandomQuestionByCategory("Geography");
+//    Question n2 =questionsAndAnswers.getRandomQuestionByCategory("Geography");
     List<Question> questionList=new ArrayList<Question>();
-
 
     //List<Rectangle>resultsList=new ArrayList<>();
     Button right;
     Button answer1,answer2,answer3,answer4;
     Label categoryL,question;
+
+    public ArrayList<Button> getButtons() {
+        return buttons;
+    }
 
     public Question getQ() {
         return q;
@@ -44,18 +47,19 @@ public class QuestionsPanelModel {
         return right;
     }
 
-    public QuestionsPanelModel(Button answer1, Button answer2, Button answer3, Button answer4, Label categoryL, Label question){
-
+    public QuestionsPanelModel(ArrayList<Question> qList,Button answer1, Button answer2, Button answer3, Button answer4, Label categoryL, Label question){
+        this.qList=qList;
         this.answer1=answer1;
         this.answer2=answer2;
         this.answer3=answer3;
         this.answer4=answer4;
         this.categoryL=categoryL;
         this.question=question;
-        questionList.add(n);
-        questionList.add(n2);
+        for (Question q: qList) {
+            questionList.add(q);
+        }
     }
-    public void reset(ActionEvent actionEvent) {
+    public void reset() {
         for (Button button : buttons) {
             button.setStyle(null);
         }
@@ -63,7 +67,6 @@ public class QuestionsPanelModel {
         answers.clear();
         question.setText(null); //this is not necessary, but, just in case, and its only one line
          // setOnStage();
-
     }
 
     /**
