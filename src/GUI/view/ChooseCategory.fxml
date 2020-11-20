@@ -3,6 +3,8 @@
 <?import javafx.scene.Group?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.paint.LinearGradient?>
+<?import javafx.scene.paint.Stop?>
 <?import javafx.scene.shape.Arc?>
 <?import javafx.scene.shape.Circle?>
 <?import javafx.scene.shape.Rectangle?>
@@ -18,7 +20,15 @@
       </Label>
       <Group fx:id="categoriesCircle" layoutX="250.0" layoutY="235.0">
          <children>
-            <Circle fill="#1f93ff00" radius="100.0" stroke="#917bff" strokeType="OUTSIDE" strokeWidth="7.0" />
+            <Circle fx:id="theCircle" fill="#1f93ff00" radius="100.0" strokeType="OUTSIDE" strokeWidth="7.0">
+               <stroke>
+                  <LinearGradient endX="1.0" endY="1.0">
+                     <stops>
+                        <Stop color="#3a2992" />
+                        <Stop color="WHITE" offset="1.0" />
+                     </stops>
+                  </LinearGradient>
+               </stroke></Circle>
             <Group fx:id="category1group">
                <children>
                   <Arc fx:id="category1" fill="DODGERBLUE" length="120.0" radiusX="100.0" radiusY="100.0" startAngle="270.0" stroke="TRANSPARENT" strokeType="INSIDE" type="ROUND" />

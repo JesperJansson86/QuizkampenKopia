@@ -1,6 +1,8 @@
+package Server;
+
+import MainClasses.GameRound;
 import MainClasses.Question;
 
-import javax.swing.*;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -34,8 +36,9 @@ public class ServerThread extends Thread {
             List<Question> qlist = new ArrayList<>();
             String svar = "start";
             GameRound gr = new GameRound(1,qlist);
-
+            System.out.println((String)in.readObject());
             while (true) {
+
                 out.writeObject(gr);
                 gr=(GameRound)in.readObject();
                 out2.writeObject(gr);

@@ -26,11 +26,14 @@ public class QuestionsPanelModel {
     Question n2 =questionsAndAnswers.getRandomQuestionByCategory("Geography");
     List<Question> questionList=new ArrayList<Question>();
 
-
     //List<Rectangle>resultsList=new ArrayList<>();
     Button right;
     Button answer1,answer2,answer3,answer4;
     Label categoryL,question;
+
+    public ArrayList<Button> getButtons() {
+        return buttons;
+    }
 
     public Question getQ() {
         return q;
@@ -55,7 +58,7 @@ public class QuestionsPanelModel {
         questionList.add(n);
         questionList.add(n2);
     }
-    public void reset(ActionEvent actionEvent) {
+    public void reset() {
         for (Button button : buttons) {
             button.setStyle(null);
         }
@@ -63,7 +66,6 @@ public class QuestionsPanelModel {
         answers.clear();
         question.setText(null); //this is not necessary, but, just in case, and its only one line
          // setOnStage();
-
     }
 
     /**
