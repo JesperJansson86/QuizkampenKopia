@@ -29,6 +29,7 @@ public class Client implements Runnable {
 
             System.out.println("in Client, just before taking name");
             String name = (String) toClient.take();
+            goToWaiting("Waiting for opponent");
             while (true) {
 
                 System.out.println("in Client, just before add name");
@@ -60,7 +61,7 @@ public class Client implements Runnable {
                 }
 
                 out.writeObject(gr);
-                goToWaiting();
+                goToWaiting("End of Round, waiting for opponent/server");
 //                gr = runda(gr);
 //                if (gr.playerTurn % 2 == 1) System.out.println(gr.player1Results);
 //                else System.out.println(gr.player2Results);
@@ -129,9 +130,10 @@ public class Client implements Runnable {
         }
     }
 
-    public void goToWaiting(){
+    public void goToWaiting(String message){
         try{
             toGUI.put("WAITING");
+            toGUI.put(message);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
