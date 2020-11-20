@@ -65,7 +65,14 @@ public class PointCount {
         return answers;
     }
 
-    
+    public static ArrayList<Integer> getPointHolder() {
+        return pointHolder;
+    }
+
+    public static int getRoundTotal() {
+        return roundTotal;
+    }
+
     /**
      * @return returns the total score for all the rounds in the game
      */
