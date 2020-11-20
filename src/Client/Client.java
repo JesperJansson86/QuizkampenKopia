@@ -108,6 +108,8 @@ public class Client implements Runnable {
             toGUI.put("QUESTION");
             toGUI.put(activeQuestions);
             toGUI.put(gr.roundnumber);
+
+            // TODO: 20/11/2020 ether add to or replace result with answers form PointCount
             ArrayList<String> result = (ArrayList<String>) toClient.take();
             for (String answer : result) {
                 if (isPlayer1) {
@@ -124,7 +126,8 @@ public class Client implements Runnable {
 
     public void showResults(){
         try{
-            // TODO: 20/11/2020 ?we are gonna change 2 result screen here? if not put this code were we do.
+
+            //i hope its here we are supposed to go to the result scene
             int roundTotal = PointCount.playerRoundTotal(); //the round total
 
             PointCount.testPointCount();

@@ -1,9 +1,6 @@
 package MainClasses;
 
-import com.sun.marlin.DTransformingPathConsumer2D;
-
 import java.util.ArrayList;
-import java.util.Arrays;
 
 /**
  * Created by Lukas Aronsson
