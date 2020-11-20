@@ -57,7 +57,7 @@ public class ResultsAndReview {
     private List<Integer> p2PointsList = new ArrayList<>();
 
     public void initialize() {
-        util=new GUIutils(resultsPane);
+
 
         resultsPane.setOnMouseClicked(e-> {goNextPanel();
             System.out.println("BACK TO THE GAME!!!");
@@ -90,7 +90,12 @@ public class ResultsAndReview {
         //animations
         fancyTransition();
         playerPanTransition();
-      //  resultsPane.getChildren().add(new ImageView(new Image(getClass().getResourceAsStream("../resources/trophy.png")))); //<-idea to add a cup to the winner, just an experiment
+
+        //-idea to add a trophy to the winner, just an experiment
+        //  resultsPane.getChildren().add(new ImageView(new Image(getClass().getResourceAsStream("../resources/trophy.png"))));
+
+
+        util=new GUIutils(resultsPane);
     }
 
     private void createResultsPerRound(int yPos,int p1Point,int p2Point,int roundNumb){
