@@ -47,29 +47,28 @@ public class Client implements Runnable {
                     getCategory();
                     System.out.println("in Client: gr.category is now: " + gr.category);
                     answerQuestions();
-                    out.writeObject(gr);
                     showResults();
-                    //send answers to Server and await response.
-//                    if (gr.gameover && gr.playerTurn % 2 == 1) break;
+
                 } else if (gr.category != null) {
                     System.out.println("in Client: gr.category is " + gr.category);
                     answerQuestions();
+                    showResults();
+
                     getCategory();
                     answerQuestions();
-                    out.writeObject(gr);
-                    showResults();
                 }
 
-
+                out.writeObject(gr);
+                goToWaiting();
 //                gr = runda(gr);
-                if (gr.playerTurn % 2 == 1) System.out.println(gr.player1Results);
-                else System.out.println(gr.player2Results);
-//                out.writeObject(gr);
-//                gr = gr;
-                if (gr.gameover && gr.playerTurn % 2 == 0) break;
+//                if (gr.playerTurn % 2 == 1) System.out.println(gr.player1Results);
+//                else System.out.println(gr.player2Results);
+////                out.writeObject(gr);
+////                gr = gr;
+//                if (gr.gameover && gr.playerTurn % 2 == 0) break;
             }
-            if (gr.playerTurn % 2 == 1) System.out.println(gr.player1Results);
-            else System.out.println(gr.player2Results);
+//            if (gr.playerTurn % 2 == 1) System.out.println(gr.player1Results);
+//            else System.out.println(gr.player2Results);
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -84,18 +83,16 @@ public class Client implements Runnable {
         try {
             System.out.println("GetCategory() toGUI.put CATEGORY");
             toGUI.put("CATEGORY");
-            Thread.sleep(50);
             System.out.println("GetCategory() toGUI.put categoryList");
             toGUI.put(gr.categoryList);
 
             System.out.println("GetCategory() toClient.take String");
             gr.category = (String) toClient.take();
             System.out.println("GetCategory() gr.category taken, now :" + gr.category);
-            gr.categoryList.remove(gr.category);
+            gr.categoryList.remove(gr.category); //TODO Serverside
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-
     }
 
     public void answerQuestions() {
@@ -126,6 +123,14 @@ public class Client implements Runnable {
     public void showResults(){
         try{
             toGUI.put("RESULTS");
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void goToWaiting(){
+        try{
+            toGUI.put("WAITING");
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
