@@ -103,6 +103,7 @@ public class Client implements Runnable {
             for (Question q : gr.qlist) {
                 if (q.getCategory().equalsIgnoreCase(gr.category)) {
                     activeQuestions.add(q);
+                    System.out.println(q.toString());
                 }
             }
             toGUI.put("QUESTION");
