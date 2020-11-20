@@ -1,9 +1,11 @@
 package GUI.controllers;
 
 import Client.Client;
+import MainClasses.PointCount;
 import MainClasses.Question;
 import GUI.models.GUIutils;
 import GUI.models.QuestionsPanelModel;
+import com.sun.javafx.scene.paint.GradientUtils;
 import javafx.animation.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -115,6 +117,10 @@ public class QuestionsPanel {
                     System.out.println("setquesstions");
                 }),
                 cleanQuestions = new KeyFrame(Duration.seconds(seconds), "clearQuestions", e -> {
+
+
+                    // TODO: 20/11/2020 here should be a time out check (won't know how to exactly make it unless we can get to ResultsAndAnswer Screen. becaose time will always run out at the end
+                    System.out.println("TIME OUT TEST 2");
                     model.reset();
                     resetCardAnimation();
                     System.out.println("clearquestions");
@@ -140,6 +146,15 @@ public class QuestionsPanel {
             resultRects.getChildren().get(model.getQuestionList().size()).setStyle(GREEN_FILL);
 
 
+
+            PointCount.storeAnswer(buttonCLicked.getText()); //player answer stored in String form
+            PointCount.playerPointCount(1); //player answered correctly
+
+
+            //tests
+            PointCount.playerRoundTotal();
+            PointCount.testPointCount();
+
             buttonsDisable(true);
             jumpToNextQuestion();
 
@@ -148,6 +163,16 @@ public class QuestionsPanel {
             transition(model.getRight(), GREEN_BCK);
             transition(buttonCLicked, null);
             resultRects.getChildren().get(model.getQuestionList().size()).setStyle("-fx-fill:red");
+
+
+            PointCount.storeAnswer(buttonCLicked.getText()); //player answer
+            PointCount.playerPointCount(0); //player answered wrong
+
+            //Tests
+            PointCount.playerRoundTotal();
+            PointCount.testPointCount();
+
+
             buttonsDisable(true);
             jumpToNextQuestion();
         }

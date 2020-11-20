@@ -1,6 +1,7 @@
 package Client;
 
 import MainClasses.GameRound;
+import MainClasses.PointCount;
 import MainClasses.Question;
 import Server.*;
 
@@ -123,6 +124,13 @@ public class Client implements Runnable {
 
     public void showResults(){
         try{
+            // TODO: 20/11/2020 ?we are gonna change 2 result screen here? if not put this code were we do.
+            int roundTotal = PointCount.playerRoundTotal(); //the round total
+
+            PointCount.testPointCount();
+            System.out.println("Reached showResult");
+
+
             toGUI.put("RESULTS");
         } catch (InterruptedException e) {
             e.printStackTrace();

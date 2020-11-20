@@ -1,5 +1,7 @@
 package MainClasses;
 
+import com.sun.marlin.DTransformingPathConsumer2D;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -12,121 +14,94 @@ import java.util.Arrays;
  **/
 public class PointCount {
 
-    private static int nbrRounds = 2; //the number of rounds that will be played //Changed in properties eventually
 
-    private static int nbrQuestions = 2; //the number of questions in a round//Changed in properties eventually
+    private static int roundTotal; //total points the user have in the current round
 
+    private static final ArrayList<Integer> pointHolder = new ArrayList<>(); //holds point for each question
 
-
-    private static int[][] pointHolder = new int[nbrRounds][nbrQuestions]; //holds the points
-
-    private static int[] pointRoundTotal = new int[nbrRounds]; //holds the totals of the round
-
-    private static ArrayList<Integer> roundTotal = new ArrayList<Integer>(); //holds the round total score for all the rounds
-
-    private static ArrayList<String> answers = new ArrayList<>(); //holds the correct answers +
+    private static final ArrayList<String> answers = new ArrayList<>(); //holds the user answers in input order
 
 
-    /**
-     * returns the round total
-     *
-     * @return returns a list with ints that hold the total score for the round
-     */
-    public static ArrayList<Integer> getRoundTotal() {return roundTotal;}
-
-    /**
-     *
-     * @return returns a list with correct answers
-     */
-    public ArrayList<String> getAnswers(){return answers;};
-
-    public int getNbrRounds() {
-        return nbrRounds;
-    }
-
-    public void setNbrRounds(int nbr3Rounds) {
-        nbrRounds = nbr3Rounds;
-    }
-
-    public int getNbrQuestions() {
-        return nbrQuestions;
-    }
-
-    public void setNbrQuestions(int nbr3Questions) {
-        nbrQuestions = nbr3Questions;
-    }
-
-    public static int[][] getPointHolder() {
-        return pointHolder;
-    }
-
-    public static void setPointHolder(int[][] pointHolder) {
-        PointCount.pointHolder = pointHolder;
-    }
-
-    public static int[] getPointRoundTotal() {
-        return pointRoundTotal;
-    }
-
-    public static void setPointRoundTotal(int[] pointRoundTotal) {
-        PointCount.pointRoundTotal = pointRoundTotal;
-    }
 
     /**
      * adds 1 or 0 to pointHolder
      *
-     * @param point  1 or 0 depending on correct answer or not
+     * @param point 1 or 0 depending on correct answer or not
      */
-    public static void playerPointCount(int point,int round,int questions){
+    public static void playerPointCount(int point) {
 
-        pointHolder[round-1][questions-1] = point;
+        pointHolder.add(point); //adds point to pointHolder
 
-        System.out.println(Arrays.toString(pointHolder[round-1]));//TEST: printout of the ArrayList
+        System.out.println(pointHolder.toString());//TEST: printout of the ArrayList
 
     }
 
     /**
-     * counts and returns the pointTotal of the round.
-     *
-     * @return returns the pointTotal of the round
+     * counts and returns the pointTotal of the round
      */
-    public static int playerRoundTotal(int round){
+    public static int playerRoundTotal() {
 
         //for loops that adds the ints in pointHolder to pointTotal
-        for (int integer : pointHolder[round-1]) {
+        for (int integer : pointHolder) {
 
-            pointRoundTotal[round-1] = pointRoundTotal[round-1] + integer; //adds the number in point holder to the point total
+            roundTotal = roundTotal + integer; //adds the number in point holder to the point total
         }
 
-        System.out.println("Round total:" + pointRoundTotal[round-1]);
+        System.out.println("Round total:" + roundTotal);
 
-        return pointRoundTotal[round-1];
-    }
-
-    /**
-     *
-     * @return returns the total score for all the rounds in the game
-     */
-    public static  int playerGameTotal( ){
-
-
-        int total = 0;
-
-        for (int i = 0; i < nbrRounds; i++){
-
-            total = total + pointRoundTotal[i];
-
-        }
-
-        return total;
+        return roundTotal;
     }
 
     /**
      * Stores the correct answer in a arrayList
+     *
      * @param answer the correct answer in String form
      */
-    public static void answerStore(String answer) {
+    public static void storeAnswer(String answer) {
         answers.add(answer);
+    }
+
+    /**
+     * @return returns a list with correct answers
+     */
+    public static ArrayList<String> getAnswers() {
+        return answers;
+    }
+
+    
+    /**
+     * @return returns the total score for all the rounds in the game
+     */
+    public static int playerGameTotal() {
+
+        /*
+
+        // TODO: 20/11/2020 remake server side
+        int total = 0;
+        for (int i = 0; i < nbrRounds; i++) {
+
+            total = total + roundTotal;
+
+        }
+
+        return total;
+        */
+
+
+        return 0;
+    }
+
+    /**
+     * Prints out all the data currently in PointCount, for testing purposes.
+     */
+    public static void testPointCount() {
+
+        //test printouts
+        System.out.println("PointCount Test : \n");
+        System.out.println("playerPointCount: "+pointHolder.toString()); //test: sOut pointHolder[][]
+        System.out.println("roundTotal: " + roundTotal); //test: sOut for round total ArrayList<Integer>
+        System.out.println("answers: " + getAnswers()); //test: sOut for answers ArrayList<String>
+        System.out.println("\n");
     }
 
 }
