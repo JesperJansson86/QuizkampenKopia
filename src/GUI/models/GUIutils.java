@@ -21,17 +21,31 @@ public class GUIutils {
         this.mainPane = mainPane;
     }
 
-    public Pane getMainPane() {
-        return mainPane;
+//    public void changeScene(String fxml) throws IOException {
+//        Parent pane = FXMLLoader.load(getClass().getResource(fxml));
+//        Stage primaryStage = (Stage) mainPane.getScene().getWindow();
+//        primaryStage.getScene().setRoot(pane);
+//    }
+    public void changeScene(String nextPane) throws IOException {
+        String fxml = nextPane(nextPane);
+        Parent pane = FXMLLoader.load(getClass().getResource(fxml));
+        Stage primaryStage = (Stage) mainPane.getScene().getWindow();
+        primaryStage.getScene().setRoot(pane);
     }
 
-    public void changeScene(String fxml) {
-        try {
-            Parent pane = FXMLLoader.load(getClass().getResource(fxml));
-            Stage primaryStage = (Stage) mainPane.getScene().getWindow();
-            primaryStage.getScene().setRoot(pane);
-        } catch (IOException e) {
-            e.printStackTrace();
+    public String nextPane(String nextPane) {
+        if (nextPane.equalsIgnoreCase("CATEGORY")) {
+            System.out.println("In GUIutils: It's time for Category!");
+            return "../view/ChooseCategory.fxml";
+        } else if (nextPane.equalsIgnoreCase("QUESTION")) {
+            System.out.println("In GUIutils: It's time for Question!");
+            return "../view/QuestionsPanel.fxml";
+        } else if (nextPane.equalsIgnoreCase("RESULTS")){
+            System.out.println("In GUIutils: It's time for Results!");
+            return "../view/ResultsAndReview.fxml";
+        } else {
+            System.out.println("In GUIutils: It's null! WADUHEK!?!");
+            return null;
         }
     }
 }
