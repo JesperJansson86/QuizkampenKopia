@@ -12,7 +12,7 @@ import java.util.concurrent.LinkedBlockingQueue;
 
 public class Client implements Runnable {
     static GameRound gr;
-    boolean player1;
+    boolean isPlayer1;
     public static BlockingQueue<Object> toGUI = new LinkedBlockingQueue();
     public static BlockingQueue<Object> toClient = new LinkedBlockingQueue();
 
@@ -33,10 +33,11 @@ public class Client implements Runnable {
 
                 System.out.println("in Client, just before add name");
                 gr = (GameRound) in.readObject(); //add names if needed, ergo, first round.
-                if (gr.playerNames.size() < 1 || gr.roundnumber == 1) {
-                    player1 = true;
+                if (gr.playerNames.isEmpty()){
+                    isPlayer1 = true;
                     gr.playerNames.add(name);
-                } else if (gr.roundnumber == 1) {
+                } else if (gr.playerNames.size() == 1){
+                    isPlayer1 = false;
                     gr.playerNames.add(name);
                 }
 
@@ -108,7 +109,7 @@ public class Client implements Runnable {
             toGUI.put(gr.roundnumber);
             ArrayList<String> result = (ArrayList<String>) toClient.take();
             for (String answer : result) {
-                if (player1) {
+                if (isPlayer1) {
                     gr.player1Results.add(answer);
                 } else {
                     gr.player2Results.add(answer);

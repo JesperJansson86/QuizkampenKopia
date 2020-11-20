@@ -43,6 +43,9 @@ public class GUIutils {
         } else if (nextPane.equalsIgnoreCase("RESULTS")){
             System.out.println("In GUIutils: It's time for Results!");
             return "../view/ResultsAndReview.fxml";
+        } else if(nextPane.equalsIgnoreCase("WAITING")){
+            System.out.println("In GUIutils: It's time for Waiting!");
+            return "../view/Waiting.fxml";
         } else {
             System.out.println("In GUIutils: It's null! WADUHEK!?!");
             return null;
