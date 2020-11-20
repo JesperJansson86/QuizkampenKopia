@@ -1,6 +1,8 @@
 
+import Client.Client;
 import javafx.application.Application;
 
+import javafx.concurrent.Task;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -16,7 +18,7 @@ public class Main extends Application {
 
            Parent root = FXMLLoader.load(getClass().getResource("GUI/view/Intro.fxml"));
           //  Parent root = FXMLLoader.load(getClass().getResource("GUI/view/QuestionsPanel.fxml"));
-          // Parent root = FXMLLoader.load(getClass().getResource("GUI/view/Waiting.fxml"));
+        //   Parent root = FXMLLoader.load(getClass().getResource("GUI/view/Waiting.fxml"));
             primaryStage.setTitle("FakeQuizDuel");
             primaryStage.setScene(new Scene(root));
             primaryStage.getIcons().add(new Image("GUI/resources/logo.png"));
@@ -24,7 +26,7 @@ public class Main extends Application {
 /*
             Task<Void> task = new Task<>() {
                 @Override
-                public Void call() {
+                public Void call() throws IOException {
                     Client c = new Client();
                     c.run();
                     return null ;
@@ -32,7 +34,11 @@ public class Main extends Application {
             };
             new Thread(task).start();
 
+
  */
+
+
+
 
 
         }

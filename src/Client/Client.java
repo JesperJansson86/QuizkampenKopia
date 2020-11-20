@@ -9,16 +9,22 @@ import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 
 public class Client implements Runnable {
+
     Server s;
     GameRound gr=new GameRound();
     public static BlockingQueue<Object> toGUI=new LinkedBlockingQueue();
     public static BlockingQueue<Object> toClient =new LinkedBlockingQueue();
+    public static Socket socket=new Socket();
+   public static ObjectOutputStream out;
+
+    public Client() throws IOException {
+    }
 
     @Override
     public void run() {
 
-        try (Socket socket = new Socket("localhost",s.port)) {
-            ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream());
+        try { socket = new Socket("localhost",s.port);
+            out = new ObjectOutputStream(socket.getOutputStream());
             ObjectInputStream in = new ObjectInputStream(socket.getInputStream());
 
 while(true){
@@ -51,4 +57,13 @@ while(true){
         }
 
     }
+    public static void sendObj(Object obj){
+       // String test="HODEIS TEST";
+        try {
+            out.writeObject(obj);
+        } catch (IOException e) {
+            System.out.println("WRONG SENDING");
+        }
+    }
+
 }

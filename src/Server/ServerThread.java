@@ -36,8 +36,9 @@ public class ServerThread extends Thread {
             List<Question> qlist = new ArrayList<>();
             String svar = "start";
             GameRound gr = new GameRound(1,qlist);
-
+            System.out.println((String)in.readObject());
             while (true) {
+
                 out.writeObject(gr);
                 gr=(GameRound)in.readObject();
                 out2.writeObject(gr);

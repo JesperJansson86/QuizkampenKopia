@@ -58,5 +58,7 @@ public class Intro {
 
         } else
           message.setText("Write something in the name field, please.");
+        Client.sendObj(nameField.getText());
+
     }
 }
