@@ -52,19 +52,30 @@ public class ResultsAndReview {
     GUIutils util;
     Circle roundC;
 
+    ImageView trophy=new ImageView(new Image(getClass().getResourceAsStream("../resources/trophy.png")));
+
+
 //Values for testing
     private List<Integer> p1PointsList = new ArrayList<>(); //this should be player1results from GameRound.
     private List<Integer> p2PointsList = new ArrayList<>();
-
+    private List<String> playerNames =new ArrayList<>();
     public void initialize() {
 
-
+        ///uncomment to communicate with client
+       // try {
+     //       playerNames=(ArrayList)toGUI.take();
+       // p1PointsList=(ArrayList)toGUI.take();
+       // p2PointsList=(ArrayList)toGUI.take(); } catch (InterruptedException e) {
+         //   e.printStackTrace();
+        //}
         resultsPane.setOnMouseClicked(e-> {goNextPanel();
             System.out.println("BACK TO THE GAME!!!");
         });
+
         //here! take the real data and comment the test and fix the iteration
 //values for test
         //creates a list of results of 2 rounds
+
         p1PointsList.add(3);
         p1PointsList.add(2);
         p1PointsList.add(3);
@@ -75,24 +86,26 @@ public class ResultsAndReview {
         p2PointsList.add(0);
         p2PointsList.add(2);
 
+        playerNames.add("Hodei");//we need the names!
+        playerNames.add("Einstein");
         //adds the name
-        player1L.setText("Hodei");//we need the names!
-        player2L.setText("Einstein");
+        player1L.setText(playerNames.get(0));
+        player2L.setText(playerNames.get(1));
 
         //create by iteration
         for(int i=0;i<p1PointsList.size();i++)
         createResultsPerRound(i,p1PointsList.get(i),p2PointsList.get(i),i+1); //creates the rounds depending the list size
 
         //add summing points
-        player1PointsSum.setText(getPointSum(p1PointsList));
-        player2PointsSum.setText(getPointSum(p2PointsList));
+        player1PointsSum.setText(String.valueOf(getPointSum(p1PointsList)));
+        player2PointsSum.setText(String.valueOf(getPointSum(p2PointsList)));
 
         //animations
         fancyTransition();
         playerPanTransition();
 
         //-idea to add a trophy to the winner, just an experiment
-        //  resultsPane.getChildren().add(new ImageView(new Image(getClass().getResourceAsStream("../resources/trophy.png"))));
+        addCup();
 
 
         util=new GUIutils(resultsPane);
@@ -147,12 +160,12 @@ public class ResultsAndReview {
 
     }
     //playing with streams instead of a for or forEach
-    private String getPointSum(List listToSum){
+    private int getPointSum(List listToSum){
         int sum = listToSum.stream()
                 .mapToInt(a -> (int)a)
                 .sum();
 
-      return String.valueOf(sum);
+      return sum;
     }
     //ANIMATIONS
     //a very dirty and silly method.
@@ -179,6 +192,17 @@ public class ResultsAndReview {
         rt.play();
     }
 
+    private void addCup(){
+        trophy.setFitHeight(60);
+        trophy.setPreserveRatio(true);
+        trophy.setTranslateX(90);
+        trophy.setTranslateY(20);
+        if ((getPointSum(p1PointsList) > getPointSum(p2PointsList)))
+            player1Group.getChildren().add(trophy);
+        else
+            player2Group.getChildren().add(trophy);
+
+    }
     //this will become part of an interface
     public void goNextPanel() {
         try {
