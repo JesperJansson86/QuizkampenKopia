@@ -3,6 +3,7 @@ package GUI.controllers;
 import Client.Client;
 import GUI.models.GUIutils;
 import javafx.animation.*;
+import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.scene.Group;
 import javafx.scene.control.Label;
@@ -91,6 +92,27 @@ public class Waiting {
     }
 
     private void startThreadMethod(){
+        Task<Void> task = new Task<>() {
+            @Override
+            public Void call() throws IOException {
+                new Runnable() {
+                    @Override
+                    public void run() {
+                        try {
+                            System.out.println("In Waiting: take-thread running");
+                            String temp = (String) toGUI.take();
+                            nextPane = temp;
+                            System.out.println("In Waiting: NextPane is now " + nextPane);
+                            goToNextWindow();
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }.run();
+                return null ;
+            }
+        };
+        new Thread(task).start();/*
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -105,5 +127,6 @@ public class Waiting {
                 }
             }
         }).start();
+        */
     }
 }
