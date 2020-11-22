@@ -34,27 +34,61 @@ public class FakeClient implements Runnable {
         try (Socket socket = new Socket("localhost", Server.port)) {
             ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream());
             ObjectInputStream in = new ObjectInputStream(socket.getInputStream());
-            gr.playerTurn=Integer.parseInt((String) in.readObject());
-            while (true) {
-                gr.categoryList=(List)in.readObject(); //Tar emot en kategorilista
+            gr.playerTurn = Integer.parseInt((String) in.readObject());
+            System.out.println("hit1");
+            if (gr.playerTurn == 0) {
+                System.out.println("INTE hit player 2");
+                gr.categoryList = (List) in.readObject();
+                System.out.println("Tar emot en kategorilista");
                 out.writeObject("Geography");//Skickar tillbaks vald kategori
-                gr.qlist=(List)in.readObject();
+                gr.qlist = (List) in.readObject();
                 //Svara på de tre sista frågorna i listan
                 for (int i = 0; i < 3; i++) {
                     if (gr.playerTurn == 1) gr.player1Results.add("Svar" + gr.roundnumber);
                     else gr.player2Results.add("svar" + gr.roundnumber);
                 }
-                if(gr.playerTurn==1)out.writeObject(gr.player1Results); //Skickar resultat till servern
+                if (gr.playerTurn == 1) out.writeObject(gr.player1Results); //Skickar resultat till servern
                 else out.writeObject(gr.player2Results);
-                if(gr.playerTurn==1)gr.player1Score=(List)in.readObject();//Får tillbaks sin lista som ska visa ens "Rektanglar"
-                else gr.player2Score=(List)in.readObject();
-                if(gr.playerTurn==1)gr.player1Score=(List)in.readObject();
-                else gr.player2Score=(List)in.readObject();
-
+                gr.player1Score=(List)in.readObject();
+                gr.playerTurn = 1;
+                System.out.println("hit2");
+            }
+            while (true) {
+                gr.qlist = (List) in.readObject(); //tar emot frågor
+                System.out.println("hit3");
+                //Svara på de tre sista frågorna i listan
+                for (int i = 0; i < 3; i++) {
+                    if (gr.playerTurn == 1) gr.player1Results.add("Svar" + gr.roundnumber);
+                    else gr.player2Results.add("svar" + gr.roundnumber);
+                }
+                if (gr.playerTurn == 1) out.writeObject(gr.player1Results); //Skickar resultat till servern
+                else out.writeObject(gr.player2Results);
+                System.out.println("hit4");
+                gr.player1Score = (List) in.readObject();//Får tillbaks sin lista som ska visa ens "Rektanglar"
+                System.out.println("hit4.1");
+                gr.player2Score = (List) in.readObject();//Får tillbaks fiendens lista som ska visa fiendes "Rektanglar"
+                System.out.println("hit4.2");
+                gr.categoryList = (List) in.readObject();//Får kategorilistan
+                System.out.println("hit4.3");
+                out.writeObject("Geography");//Skickar tillbaks vald kategori
+                System.out.println("hit5");
+                gr.qlist = (List) in.readObject();//Får frågor
+                for (int i = 0; i < 3; i++) {//Svarar på frågor
+                    if (gr.playerTurn == 1) gr.player1Results.add("Svar" + gr.roundnumber);
+                    else gr.player2Results.add("svar" + gr.roundnumber);
+                }
+                System.out.println("hit6");
+                if (gr.playerTurn == 1) out.writeObject(gr.player1Results); //Skickar resultat till servern
+                else out.writeObject(gr.player2Results);
+                System.out.println("shit6.1");
+                gr.player1Score = (List) in.readObject();//Får tillbaks sin lista som ska visa ens "Rektanglar"
+                System.out.println("shit6.2");
+                gr.player2Score = (List) in.readObject();//Får tillbaks fiendens lista som ska visa fiendes "Rektanglar"
+                System.out.println("hit7");
             }
         } catch (Exception e) {
             System.out.println("Nu blev det fel.");
-e.printStackTrace();
+            e.printStackTrace();
         }
     }
 }
