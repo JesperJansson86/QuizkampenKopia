@@ -16,7 +16,7 @@ import java.util.concurrent.LinkedBlockingQueue;
 import Server.*;
 
 public class FakeClient implements Runnable {
-    static GameRound gr;
+    static GameRound gr = new GameRound();
     boolean isPlayer1;
     public static BlockingQueue<Object> toGUI = new LinkedBlockingQueue();
     public static BlockingQueue<Object> toClient = new LinkedBlockingQueue();
@@ -34,18 +34,23 @@ public class FakeClient implements Runnable {
         try (Socket socket = new Socket("localhost", Server.port)) {
             ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream());
             ObjectInputStream in = new ObjectInputStream(socket.getInputStream());
-            String player = (String)in.readObject();
-            System.out.println(player);
-            out.writeObject("Hej");
-
-//            FRÅN SERVER
+            gr.playerTurn=Integer.parseInt((String) in.readObject());
             while (true) {
-                String test = (String) in.readObject();
-                Scanner scan = new Scanner(System.in);
-                System.out.println(test);
-//            TILL SERVER
-                test = scan.nextLine();
-                out.writeObject(test);
+                gr.categoryList=(List)in.readObject(); //Tar emot en kategorilista
+                out.writeObject("Geography");//Skickar tillbaks vald kategori
+                gr.qlist=(List)in.readObject();
+                //Svara på de tre sista frågorna i listan
+                for (int i = 0; i < 3; i++) {
+                    if (gr.playerTurn == 1) gr.player1Results.add("Svar" + gr.roundnumber);
+                    else gr.player2Results.add("svar" + gr.roundnumber);
+                }
+                if(gr.playerTurn==1)out.writeObject(gr.player1Results); //Skickar resultat till servern
+                else out.writeObject(gr.player2Results);
+                if(gr.playerTurn==1)gr.player1Score=(List)in.readObject();//Får tillbaks sin lista som ska visa ens "Rektanglar"
+                else gr.player2Score=(List)in.readObject();
+                if(gr.playerTurn==1)gr.player1Score=(List)in.readObject();
+                else gr.player2Score=(List)in.readObject();
+
             }
         } catch (Exception e) {
             System.out.println("Nu blev det fel.");
