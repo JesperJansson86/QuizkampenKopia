@@ -1,9 +1,7 @@
 package GUI.models;
 
-import GUI.controllers.Observer;
 import MainClasses.Question;
 import MainClasses.QuestionFactory;
-import javafx.event.ActionEvent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 
@@ -18,7 +16,7 @@ import java.util.List;
  * Project: QuizkampenKopia
  * Copyright: MIT
  */
-public class QuestionsPanelModel implements Observer {
+public class QuestionsPanelModel {
     Question q;
     ArrayList<String> answers = new ArrayList<>();
     ArrayList<Button> buttons = new ArrayList<>();
@@ -58,7 +56,7 @@ public class QuestionsPanelModel implements Observer {
         this.question=question;
         questionList.add(n);
         questionList.add(n2);
-        showMes();
+
     }
     public void reset() {
         for (Button button : buttons) {
@@ -121,10 +119,7 @@ public class QuestionsPanelModel implements Observer {
         return question;
     }
 //testing observer pattern
-    @Override
-    public void showMes() {
-        System.out.println("s");
-    }
+
     /*
     public Question takeAquestion() {
         refillListIfEmpty();
