@@ -89,38 +89,13 @@ public class Client implements Runnable {
         }
     }
 
-//    public void answerQuestions() {
-//        try {
-//            List<Question> activeQuestions = new ArrayList<>();
-//            for (Question q : gr.qlist) {
-//                if (q.getCategory().equalsIgnoreCase(gr.category)) {
-//                    activeQuestions.add(q);
-//                    System.out.println(q.toString());
-//                }
-//            }
-//            toGUI.put("QUESTION");
-//            toGUI.put(activeQuestions);
-//            toGUI.put(gr.roundnumber);
-//            ArrayList<String> result = (ArrayList<String>) toClient.take();
-//            for (String answer : result) {
-//                if (isPlayer1) {
-//                    gr.player1Results.add(answer);
-//                } else {
-//                    gr.player2Results.add(answer);
-//                }
-//            }
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//
-//    }
-
     public void answerQuestions() {
         try {
             List<Question> activeQuestions = new ArrayList<>();
             for (Question q : gr.qlist) {
                 if (q.getCategory().equalsIgnoreCase(gr.category)) {
                     activeQuestions.add(q);
+                    System.out.println(q.toString());
                 }
             }
             toGUI.put("QUESTION");
@@ -164,6 +139,7 @@ public class Client implements Runnable {
         } catch (Exception e) {
             e.printStackTrace();
         }
+
     }
 
 //    public void showResults(){
