@@ -1,6 +1,7 @@
 package Client;
 
 import MainClasses.GameRound;
+import MainClasses.PointCount;
 import MainClasses.Question;
 import Server.*;
 
@@ -88,39 +89,107 @@ public class Client implements Runnable {
         }
     }
 
+//    public void answerQuestions() {
+//        try {
+//            List<Question> activeQuestions = new ArrayList<>();
+//            for (Question q : gr.qlist) {
+//                if (q.getCategory().equalsIgnoreCase(gr.category)) {
+//                    activeQuestions.add(q);
+//                    System.out.println(q.toString());
+//                }
+//            }
+//            toGUI.put("QUESTION");
+//            toGUI.put(activeQuestions);
+//            toGUI.put(gr.roundnumber);
+//            ArrayList<String> result = (ArrayList<String>) toClient.take();
+//            for (String answer : result) {
+//                if (isPlayer1) {
+//                    gr.player1Results.add(answer);
+//                } else {
+//                    gr.player2Results.add(answer);
+//                }
+//            }
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//
+//    }
+
     public void answerQuestions() {
         try {
             List<Question> activeQuestions = new ArrayList<>();
             for (Question q : gr.qlist) {
                 if (q.getCategory().equalsIgnoreCase(gr.category)) {
                     activeQuestions.add(q);
-                    System.out.println(q.toString());
                 }
             }
             toGUI.put("QUESTION");
             toGUI.put(activeQuestions);
             toGUI.put(gr.roundnumber);
-            ArrayList<String> result = (ArrayList<String>) toClient.take();
-            for (String answer : result) {
+
+            toClient.take();
+
+            ArrayList<String>answerPC = PointCount.getAnswers();
+            //ArrayList<String> result = (ArrayList<String>) toClient.take();
+            for (String answer : answerPC) {
                 if (isPlayer1) {
                     gr.player1Results.add(answer);
                 } else {
                     gr.player2Results.add(answer);
                 }
             }
+
+
+            //should playerScore hold round total or score per question ?
+
+            ArrayList<Integer> pointHolder = PointCount.getPointHolder();
+            for (int point : pointHolder){
+                if (isPlayer1){
+                    gr.player1Score.add(point);
+                } else{
+                    gr.player2Score.add(point);
+                }
+            }
+
+
+            /*
+            //roundTotal version
+            if(isPlayer1){
+                gr.player1Score.add(PointCount.getRoundTotal());
+            } else {
+                gr.player2Score.add(PointCount.getRoundTotal());
+            }
+            */
+
         } catch (Exception e) {
             e.printStackTrace();
         }
-
     }
 
-    public void showResults(){
-        try{
-            toGUI.put("RESULTS");
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+//    public void showResults(){
+//        try{
+//            toGUI.put("RESULTS");
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
+//    }
+public void showResults(){
+    try{
+
+        //i hope its here we are supposed to go to the result scene
+        int roundTotal = PointCount.playerRoundTotal(); //the round total
+
+        PointCount.testPointCount();
+        System.out.println("Reached showResult");
+
+
+        toGUI.put("RESULTS");
+
+
+    } catch (InterruptedException e) {
+        e.printStackTrace();
     }
+}
 
     public void goToWaiting(String message){
         try{
