@@ -116,9 +116,10 @@ public class Client implements Runnable {
 
 
             //should playerScore hold round total or score per question ?
-
+//HODEI TEST, I TOOK THE ROUND TOTAL VERSION FOR NOW, WILL FIX WHEN WE ADD FANCY RECTANGLES.
             ArrayList<Integer> pointHolder = PointCount.getPointHolder();
-            for (int point : pointHolder){
+
+         /*   for (int point : pointHolder){
                 if (isPlayer1){
                     gr.player1Score.add(point);
                 } else{
@@ -126,15 +127,17 @@ public class Client implements Runnable {
                 }
             }
 
+          */
 
-            /*
+
+
             //roundTotal version
             if(isPlayer1){
                 gr.player1Score.add(PointCount.getRoundTotal());
             } else {
                 gr.player2Score.add(PointCount.getRoundTotal());
             }
-            */
+
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -160,7 +163,7 @@ public void showResults(){
 
 
         toGUI.put("RESULTS");
-
+        toGUI.put(gr); //HODEI TEST!!!
 
     } catch (InterruptedException e) {
         e.printStackTrace();

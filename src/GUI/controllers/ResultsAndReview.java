@@ -2,6 +2,7 @@ package GUI.controllers;
 
 import Client.Client;
 import GUI.models.GUIutils;
+import MainClasses.GameRound;
 import javafx.animation.RotateTransition;
 import javafx.animation.TranslateTransition;
 import javafx.geometry.Pos;
@@ -62,12 +63,18 @@ public class ResultsAndReview {
     public void initialize() {
 
         ///uncomment to communicate with client
-        // try {
-        //       playerNames=(ArrayList)toGUI.take();
-        // p1PointsList=(ArrayList)toGUI.take();
-        // p2PointsList=(ArrayList)toGUI.take(); } catch (InterruptedException e) {
-        //   e.printStackTrace();
-        //}
+         try {//HODEI TEST
+             GameRound gr=(GameRound)toGUI.take();
+             playerNames=gr.playerNames;
+             p1PointsList=gr.player1Score;
+             p2PointsList=gr.player2Score;
+
+          //     playerNames=(ArrayList)toGUI.take();
+       //  p1PointsList=(ArrayList)toGUI.take();
+         //p2PointsList=(ArrayList)toGUI.take();
+             } catch (InterruptedException e) {
+           e.printStackTrace();
+        }
         resultsPane.setOnMouseClicked(e-> {goNextPanel();
             System.out.println("BACK TO THE GAME!!!");
         });
@@ -75,7 +82,7 @@ public class ResultsAndReview {
         //here! take the real data and comment the test and fix the iteration
 //values for test
         //creates a list of results of 2 rounds
-
+/*
         p1PointsList.add(3);
         p1PointsList.add(2);
         p1PointsList.add(3);
@@ -88,6 +95,8 @@ public class ResultsAndReview {
 
         playerNames.add("Hodei");//we need the names!
         playerNames.add("Einstein");
+
+ */
         //adds the name
         player1L.setText(playerNames.get(0));
         player2L.setText(playerNames.get(1));
