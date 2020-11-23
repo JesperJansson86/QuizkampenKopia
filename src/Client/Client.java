@@ -1,15 +1,17 @@
 package Client;
 
 
+import GUI.controllers.Observer;
 import MainClasses.GameRound;
+import MainClasses.Notifier;
 import Server.Server;
 import java.io.*;
 import java.net.Socket;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 
-public class Client implements Runnable {
-
+public class Client implements Runnable, Notifier {
+Observer o;
     Server s;
     GameRound gr=new GameRound();
     public static BlockingQueue<Object> toGUI=new LinkedBlockingQueue();
@@ -26,7 +28,7 @@ public class Client implements Runnable {
         try { socket = new Socket("localhost",s.port);
             out = new ObjectOutputStream(socket.getOutputStream());
             ObjectInputStream in = new ObjectInputStream(socket.getInputStream());
-
+o.showMes();
 while(true){
             //testing a Client-GUI protocol
             String name=(String)toClient.take();
@@ -66,4 +68,13 @@ while(true){
         }
     }
 
+    @Override
+    public void addObs(Observer o) {
+
+    }
+
+    @Override
+    public void message(Observer o) {
+        o.showMes();
+    }
 }
