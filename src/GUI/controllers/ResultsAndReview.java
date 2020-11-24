@@ -225,8 +225,10 @@ public class ResultsAndReview {
         trophy.setTranslateY(20);
         if ((getPointSum(p1PointsList) > getPointSum(p2PointsList)))
             player1Group.getChildren().add(trophy);
-        else
+        else if((getPointSum(p1PointsList) < getPointSum(p2PointsList)))
             player2Group.getChildren().add(trophy);
+        else
+            System.out.println("draw!");
 
     }
     //this will become part of an interface
