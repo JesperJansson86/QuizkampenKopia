@@ -150,9 +150,7 @@ public class QuestionFactory {
              rnd= random.nextInt(questionsByCategory.get(category).size());
             question = questionsByCategory.get(category).get(rnd);
         }
-        System.out.println(question.toString());
-        System.out.println("question by category size " +questionsByCategory.get(category).size());
-        questionsByCategory.remove(category,questionsByCategory.get(category).get(rnd));
+        questionsByCategory.get(category).remove(rnd);
         return question;
     }
 
@@ -186,10 +184,6 @@ public class QuestionFactory {
     //    För test.
     public static void main(String[] args) {
         QuestionFactory qf = new QuestionFactory();
-        qf.getRandomQuestionByCategory("Geography");
-        qf.getRandomQuestionByCategory("Geography");
-        qf.getRandomQuestionByCategory("Geography");
-        qf.getRandomQuestionByCategory("Geography");
     }
 
 }
