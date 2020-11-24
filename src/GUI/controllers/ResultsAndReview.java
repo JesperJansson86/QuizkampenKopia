@@ -66,10 +66,27 @@ public class ResultsAndReview {
          try {//HODEI TEST
              GameRound gr=(GameRound)toGUI.take();
              playerNames=gr.playerNames;
-             p1PointsList=gr.player1Score;
-             p2PointsList=gr.player2Score;
+             if (gr.player1Score.isEmpty()) {
+                 p1PointsList.add(0);
+             } else if (gr.player1Score.size()<gr.player2Score.size()){
+                 p1PointsList=gr.player1Score;
+                 p1PointsList.add(0);
+             }else {
+                 p1PointsList=gr.player1Score;
+             }
 
-          //     playerNames=(ArrayList)toGUI.take();
+             if (gr.player2Score.isEmpty()) {
+                 p2PointsList.add(0);
+
+             } else if(gr.player2Score.size() < gr.player1Score.size()){
+                 p2PointsList = gr.player2Score;
+                 p2PointsList.add(0);
+             } else {
+
+                 p2PointsList=gr.player2Score;
+             }
+
+             //     playerNames=(ArrayList)toGUI.take();
        //  p1PointsList=(ArrayList)toGUI.take();
          //p2PointsList=(ArrayList)toGUI.take();
              } catch (InterruptedException e) {
@@ -214,12 +231,12 @@ public class ResultsAndReview {
     }
     //this will become part of an interface
     public void goNextPanel() {
-        try {
-            util.changeSceneNew("CATEGORY"); //<-to go to ChooseCategory
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        /*
+//        try {
+//            util.changeSceneNew("CATEGORY"); //<-to go to ChooseCategory
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+
         try{
             String nextPane = (String) toGUI.take();
             util.changeSceneNew(nextPane);
@@ -229,6 +246,6 @@ public class ResultsAndReview {
             e.printStackTrace();
         }
 
-         */
+
     }
 }

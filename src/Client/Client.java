@@ -18,10 +18,12 @@ public class Client implements Runnable {
     public static BlockingQueue<Object> toClient = new LinkedBlockingQueue();
 
     public Client() {
+
     }
 
     @Override
     public void run() {
+
         try (Socket socket = new Socket("localhost", Server.port)) {
             ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream());
             ObjectInputStream in = new ObjectInputStream(socket.getInputStream());
@@ -34,12 +36,18 @@ public class Client implements Runnable {
 
                 System.out.println("in Client, just before add name");
                 gr = (GameRound) in.readObject(); //add names if needed, ergo, first round.
-                if (gr.playerNames.isEmpty()){
+                gr.playerNames.add("Unknown");
+                gr.playerNames.add("Unknown");
+                if (gr.playerNames.get(0).equalsIgnoreCase("Unknown")){
                     isPlayer1 = true;
-                    gr.playerNames.add(name);
-                } else if (gr.playerNames.size() == 1){
+                    gr.playerNames.add(0,name);
+                    gr.playerNames.remove("Unknown");
+                    System.out.println("I'm player 1");
+                } else if (gr.playerNames.get(1).equalsIgnoreCase("Unknown")){
                     isPlayer1 = false;
-                    gr.playerNames.add(name);
+                    gr.playerNames.add(1,name);
+                    gr.playerNames.remove("Unknown");
+                    System.out.println("I'm player 2");
                 }
 
                 System.out.println("in Client gr.category = " + gr.category);
@@ -55,9 +63,6 @@ public class Client implements Runnable {
                     System.out.println("in Client: gr.category is " + gr.category);
                     answerQuestions();
                     showResults();
-
-                    getCategory();
-                    answerQuestions();
                 }
 
                 out.writeObject(gr);
@@ -160,7 +165,6 @@ public void showResults(){
 
         PointCount.testPointCount();
         System.out.println("Reached showResult");
-
 
         toGUI.put("RESULTS");
         toGUI.put(gr); //HODEI TEST!!!

@@ -1,6 +1,7 @@
 package Server;
 
 import MainClasses.GameRound;
+import MainClasses.Question;
 import MainClasses.QuestionFactory;
 
 import java.io.*;
