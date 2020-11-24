@@ -1,7 +1,8 @@
 package MainClasses;
 
+import org.jsoup.Jsoup;
+
 import java.io.*;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.*;
 
@@ -16,36 +17,48 @@ import java.util.*;
 /**
  * this class takes the text from a text with this format followed by more questions on same line.
  * {"category":"CATEGORY","type":"TYPE","difficulty":"medium","question":"QUESTION","correct_answer":"ANSWER","incorrect_answers":["WRONG","WRONG","WRONG"]}
- * 3 usable Methods.
+ * Usable Methods:.
+ * <p>
+ * getQuestions(int questions);
+ * get List<Question> with [questions] amount of questions from each category.
+ * <p>
  * getting a single random questions from a category
  * getRandomQuestionByCategory(String categorys)
+ * <p>
  * updateList(String URL or filepath)
+ * <p>
  * getCategories()
  */
 public class QuestionFactory {
     private static List<Question> questionList = new ArrayList<>();
     private static Map<String, ArrayList<Question>> questionsByCategory = new HashMap<>();
     private static List<String> categories = new ArrayList<>();
+    private static boolean doOnlyOnce = true;
 
     public QuestionFactory() {
-        updateList("src/questionsfromOpenTDB1.txt");
-        updateList("src/questionsfromOpenTDB2.txt");
-        //Uncomment when live for more questions and categories.
-        updateList("https://opentdb.com/api.php?amount=10&category=18&difficulty=easy&type=multiple");
-        updateList("https://opentdb.com/api.php?amount=10&category=9&difficulty=easy&type=multiple");
-/*
+
+        if (doOnlyOnce) {
+            updateList("src/questionsfromOpenTDB1.txt");
+            updateList("src/questionsfromOpenTDB2.txt");
+            //Uncomment when live for more questions and categories.
+            updateList("https://opentdb.com/api.php?amount=10&category=18&difficulty=easy&type=multiple");
+            updateList("https://opentdb.com/api.php?amount=10&category=9&difficulty=easy&type=multiple");
+            updateList("https://opentdb.com/api.php?amount=10&category=23&difficulty=easy&type=multiple");
+            updateList("https://opentdb.com/api.php?amount=10&category=25difficulty=easy&type=multiple");
+            doOnlyOnce = false;
+        }
+
         for (String key : questionsByCategory.keySet()) {
             for (Question q : questionsByCategory.get(key)) {
                 System.out.println(q);
             }
         }
         System.out.println(getCategories().toString());
-
- */
     }
 
     private void createQuestion(String stringFromFile) {
         while (true) {
+            stringFromFile = Jsoup.parse(stringFromFile).text();
             int indexStart = stringFromFile.indexOf("category");
             if (indexStart == -1) break;
             int indexEnd = stringFromFile.indexOf("category", indexStart + 1);
@@ -53,6 +66,7 @@ public class QuestionFactory {
                 indexEnd = stringFromFile.length();
             }
             String nextQuestion = stringFromFile.substring(0, indexEnd);
+
 
             String category = grabBetween(nextQuestion, "category\":\"", "\",\"");
             String question = grabBetween(nextQuestion, "question\":\"", "\",\"");
@@ -115,8 +129,11 @@ public class QuestionFactory {
     }
 
     private String replaceChars(String string) {
-        string = string.replace("&quot;", "\"");
-        string = string.replace("&#039;", "'");
+//        string = string.replace("&quot;", "\"");
+//        string = string.replace("&#039;", "'");
+//        string = string.replace("&amp;", "&");
+//        string = string.replace("&Uuml;", "Ü");
+//        string = string.replace("&uuml;", "ü");
         return string;
     }
 
@@ -133,6 +150,7 @@ public class QuestionFactory {
             Random random = new Random();
             question = questionsByCategory.get(category).get(random.nextInt(questionsByCategory.get(category).size()));
         }
+        questionsByCategory.remove(category, question);
         return question;
     }
 
@@ -145,10 +163,27 @@ public class QuestionFactory {
         return categories;
     }
 
+
+    /**
+     * returns X amount of questions from each available category.
+     * MAX 4 available during testing.
+     * @param questions (number of questions from each category)
+     * @return
+     */
+    public List<Question> getQuestions(int questions) {
+        if(questions > 4) throw new IllegalArgumentException("Can't accept over 4 right now.");
+        List<Question> questionsList = new ArrayList<>();
+        for (String key : questionsByCategory.keySet()) {
+            for (int i = 0; i < questions; i++) {
+                questionsList.add(questionsByCategory.get(key).get(i));
+            }
+        }
+        return questionsList;
+    }
+
     //    För test.
     public static void main(String[] args) {
         QuestionFactory qf = new QuestionFactory();
     }
-
 
 }

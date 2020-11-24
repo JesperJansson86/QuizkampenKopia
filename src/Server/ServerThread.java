@@ -1,20 +1,18 @@
 package Server;
 
 import MainClasses.GameRound;
-import MainClasses.Question;
 
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
+import java.io.*;
 import java.net.Socket;
-import java.util.*;
 
 public class ServerThread extends Thread {
     Socket socket;
     Socket socket2;
+    ServerLogic sl = new ServerLogic();
+    GameRound gr = new GameRound();
 
 
-    public ServerThread(Socket socket, Socket socket2) {
+    public ServerThread(Socket socket, Socket socket2) throws IOException {
 
         this.socket = socket;
         this.socket2 = socket2;
@@ -24,36 +22,53 @@ public class ServerThread extends Thread {
     public void run() {
 
         try {
-            ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream());
+            ObjectOutputStream out1 = new ObjectOutputStream(socket.getOutputStream());
             ObjectOutputStream out2 = new ObjectOutputStream(socket2.getOutputStream());
-            ObjectInputStream in = new ObjectInputStream(socket.getInputStream());
+            ObjectInputStream in1 = new ObjectInputStream(socket.getInputStream());
             ObjectInputStream in2 = new ObjectInputStream(socket2.getInputStream());
 
-//                Thread t1 = new Thread(new ServerToClientThread(in,out2));
-//                Thread t2 = new Thread(new ServerToClientThread(in2,out));
-//                t1.start();
-//                t2.start();
-            List<Question> qlist = new ArrayList<>();
-            String svar = "start";
-            GameRound gr = new GameRound(1,qlist);
-            System.out.println((String)in.readObject());
+            gr = sl.initiateGame();
+            gr.roundnumber = 0;
             while (true) {
+                gr.roundnumber++;
+                gr.category = null;
+                if (gr.roundnumber % 2 == 1) {
+                    gr.playerTurn++;
+                    System.out.printf("Sending to player1: Roundnumber " + gr.roundnumber);
+                    out1.writeObject(gr);
+                    gr = (GameRound) in1.readObject();
+                    gr.playerTurn++;
 
-                out.writeObject(gr);
-                gr=(GameRound)in.readObject();
-                out2.writeObject(gr);
-                gr=(GameRound)in2.readObject();
+                    if (gr.roundnumber > 4) {
+                        gr.gameover = true;
 
-//                        svar = (String) in.readObject();
-//                        out2.writeObject(svar);
-//                        svar = (String) in2.readObject();
-//                        out.writeObject(svar);
                     }
-                } catch (IOException | ClassNotFoundException e) {
-                    e.printStackTrace();
+                    System.out.printf("Sending to player2: Roundnumber " + gr.roundnumber);
+                    out2.writeObject(gr);
+                    gr = (GameRound) in2.readObject();
+                } else {
+                    gr.playerTurn++;
+                    System.out.printf("Sending to player2: Roundnumber " + gr.roundnumber);
+                    out2.writeObject(gr);
+                    gr = (GameRound) in2.readObject();
+                    gr.playerTurn++;
 
+                    if (gr.roundnumber > 4) {
+                        gr.gameover = true;
+
+                    }
+                    System.out.printf("Sending to player1: Roundnumber " + gr.roundnumber);
+                    out1.writeObject(gr);
+                    gr = (GameRound) in1.readObject();
                 }
-            }
 
+
+            }
+        } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
 
         }
+    }
+
+
+}
