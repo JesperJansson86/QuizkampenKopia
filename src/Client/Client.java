@@ -162,14 +162,14 @@ public class Client implements Runnable, INotify {
 //    }
 public void showResults(){
     try{
-
+        notifyObserver("RESULTS");
         //i hope its here we are supposed to go to the result scene
         int roundTotal = PointCount.playerRoundTotal(); //the round total
 
         PointCount.testPointCount();
         System.out.println("Reached showResult");
 
-      notifyObserver("RESULTS");
+
         //  toGUI.put("RESULTS");
         toGUI.put(gr); //HODEI TEST!!!
 

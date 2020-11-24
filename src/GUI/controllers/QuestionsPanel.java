@@ -256,12 +256,12 @@ public class QuestionsPanel {
 
         String s = "hej ";
         try {
-            toClient.put(s);
+         toClient.put(s);
 
-            String nextPane = (String) toGUI.take();
+         //   String nextPane = (String) toGUI.take();
             utils.changeSceneNew(GUIutils.nextWindow);
            // utils.changeSceneNew(nextPane);
-        } catch (InterruptedException | IOException e) {
+        } catch (IOException | InterruptedException e) {
             e.printStackTrace();
         }
 

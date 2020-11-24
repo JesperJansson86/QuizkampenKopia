@@ -97,10 +97,13 @@ public class Waiting {
                 System.out.println("In Waiting: take-thread running");
                 // String temp = (String) toGUI.take();
                 // nextPane = temp;
+                while(true){
+                System.out.println(GUIutils.nextWindow);
                 if(!GUIutils.nextWindow.equalsIgnoreCase("WAITING")) {
                     System.out.println("In Waiting: NextPane is now " + nextPane);
-                    goToNextWindow();
-                }
+                    break;
+                }}
+                goToNextWindow();
             }
         }).start();
     }
