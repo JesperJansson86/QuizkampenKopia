@@ -1,11 +1,9 @@
 package GUI.controllers;
 
 import Client.Client;
-import MainClasses.PointCount;
-import MainClasses.Question;
 import GUI.models.GUIutils;
 import GUI.models.QuestionsPanelModel;
-import com.sun.javafx.scene.paint.GradientUtils;
+import MainClasses.Question;
 import javafx.animation.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -19,21 +17,13 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.StrokeType;
 import javafx.util.Duration;
 
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.concurrent.BlockingQueue;
-
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
-import javafx.scene.shape.StrokeType;
-import javafx.util.Duration;
-
 
 import static javafx.scene.paint.Color.TRANSPARENT;
 
 
-public class QuestionsPanel {
+public class QuestionsPanelOld {
     private static final String GREEN_BCK = "-fx-background-color: #00be00";
     private static final String GREEN_FILL = "-fx-fill: #00be00";
     private static final String RED_FILL = "-fx-background-color:red";
@@ -50,7 +40,7 @@ public class QuestionsPanel {
     public Rectangle rectangleQ;
 
     //this should come from somewhere else (game class??)
-    // int questionsAmount;//<-to set the amount of result rectangles and the questions rounds.
+   // int questionsAmount;//<-to set the amount of result rectangles and the questions rounds.
     int actualRound;//<-to set the actual round number
     Group resultRects;
 
@@ -117,19 +107,6 @@ public class QuestionsPanel {
                     System.out.println("setquesstions");
                 }),
                 cleanQuestions = new KeyFrame(Duration.seconds(seconds), "clearQuestions", e -> {
-
-                    PointCount.storeAnswer(null); //no user input (time ran out)
-                    PointCount.playerPointCount(0); //player answered wrong (did not answer)
-
-                    //turns the top left corner box red because no answer is always the wrong answer
-                    resultRects.getChildren().get(model.getQuestionList().size()).setStyle("-fx-fill:red");
-
-
-                    //test that it is here were the game checks if you ran out of time
-                    System.out.println("The game times out!");
-                    //test for playerRoundTotal because the game currently ends here
-                    PointCount.playerRoundTotal();
-
                     model.reset();
                     resetCardAnimation();
                     System.out.println("clearquestions");
@@ -155,14 +132,6 @@ public class QuestionsPanel {
             resultRects.getChildren().get(model.getQuestionList().size()).setStyle(GREEN_FILL);
 
 
-
-            PointCount.storeAnswer(buttonCLicked.getText()); //player answer stored in String form
-            PointCount.playerPointCount(1); //player answered correctly
-
-
-            //tests
-            PointCount.testPointCount();
-
             buttonsDisable(true);
             jumpToNextQuestion();
 
@@ -171,15 +140,6 @@ public class QuestionsPanel {
             transition(model.getRight(), GREEN_BCK);
             transition(buttonCLicked, null);
             resultRects.getChildren().get(model.getQuestionList().size()).setStyle("-fx-fill:red");
-
-
-            PointCount.storeAnswer(buttonCLicked.getText()); //player answer
-            PointCount.playerPointCount(0); //player answered wrong
-
-            //Tests
-            PointCount.testPointCount();
-
-
             buttonsDisable(true);
             jumpToNextQuestion();
         }
@@ -200,7 +160,6 @@ public class QuestionsPanel {
             roundTime.playFrom("clearQuestions");
 
         }
-
     }
 
     public void reset() {
@@ -253,22 +212,12 @@ public class QuestionsPanel {
 
     public void nextWindow() {
         //Send to server data
-
-        String s = "hej ";
-        try {
-            toClient.put(s);
-
-            String nextPane = (String) toGUI.take();
-
-            utils.changeSceneNew(nextPane);
-        } catch (InterruptedException | IOException e) {
-            e.printStackTrace();
-        }
-
-
-        //utils.changeScene("../view/ResultsAndReview.fxml");
-
-
+        //   utils.changeScene("../view/ResultsAndReview.fxml");
     }
 
 }
+
+
+
+
+

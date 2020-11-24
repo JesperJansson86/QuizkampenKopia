@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.Group?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.shape.Circle?>
 
+<?import javafx.scene.text.Font?>
 <AnchorPane fx:id="waitingPane" prefHeight="470.0" prefWidth="500.0" style="-fx-background-color: #5858db;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.controllers.Waiting">
    <children>
       <Group fx:id="circleGroup" layoutX="210.0" layoutY="250.0">
@@ -14,5 +16,9 @@
             <Circle fx:id="circleGreen" fill="#75ff21" radius="10.0" stroke="TRANSPARENT" strokeType="INSIDE" translateX="90.0" />
          </children>
       </Group>
+      <Label fx:id="message" alignment="CENTER" layoutX="121.0" layoutY="126.0" prefHeight="90.0" prefWidth="254.0" text="message" textAlignment="CENTER" textFill="#ffffff" wrapText="true">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font></Label>
    </children>
 </AnchorPane>

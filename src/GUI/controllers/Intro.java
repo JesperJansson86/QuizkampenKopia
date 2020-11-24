@@ -29,17 +29,13 @@ public class Intro {
     public AnchorPane introPane;
     GUIutils util;
 
-    public TextField getNameField() {
-        return nameField;
-    }
-
-
     public void initialize() {
         message.setText(null);
         util = new GUIutils(introPane);
     }
 
     public void startButtonOn() {
+        startB.setDisable(true);
         if (!nameField.getText().isBlank() || !nameField.getText().isEmpty()) {
             try {
                 toClient.put(nameField.getText());
@@ -48,7 +44,9 @@ public class Intro {
             } catch (InterruptedException | IOException e) {
                 e.printStackTrace();
             }
-        } else
-          message.setText("Write something in the name field, please.");
+        } else {
+            message.setText("Write something in the name field, please.");
+            startB.setDisable(false);
+        }
     }
 }
