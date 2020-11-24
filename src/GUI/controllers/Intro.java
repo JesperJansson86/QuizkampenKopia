@@ -39,8 +39,9 @@ public class Intro {
         if (!nameField.getText().isBlank() || !nameField.getText().isEmpty()) {
             try {
                 toClient.put(nameField.getText());
-                String nextScene = (String) toGUI.take();
-                util.changeSceneNew(nextScene);
+               /// String nextScene = (String) toGUI.take();
+                util.changeSceneNew(GUIutils.nextWindow);
+               //util.nextWindow();
             } catch (InterruptedException | IOException e) {
                 e.printStackTrace();
             }

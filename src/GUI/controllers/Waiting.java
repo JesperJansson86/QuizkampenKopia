@@ -84,7 +84,7 @@ public class Waiting {
 
     private void goToNextWindow(){
         try {
-            util.changeSceneNew(nextPane);
+            util.changeSceneNew(GUIutils.nextWindow);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -94,14 +94,12 @@ public class Waiting {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                try {
-                    System.out.println("In Waiting: take-thread running");
-                    String temp = (String) toGUI.take();
-                    nextPane = temp;
+                System.out.println("In Waiting: take-thread running");
+                // String temp = (String) toGUI.take();
+                // nextPane = temp;
+                if(!GUIutils.nextWindow.equalsIgnoreCase("WAITING")) {
                     System.out.println("In Waiting: NextPane is now " + nextPane);
                     goToNextWindow();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
                 }
             }
         }).start();

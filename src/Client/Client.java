@@ -1,8 +1,7 @@
 package Client;
 
-import MainClasses.GameRound;
-import MainClasses.PointCount;
-import MainClasses.Question;
+import GUI.models.GUIutils;
+import MainClasses.*;
 import Server.*;
 
 import java.io.*;
@@ -11,14 +10,15 @@ import java.util.*;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 
-public class Client implements Runnable {
+public class Client implements Runnable, INotify {
     static GameRound gr;
     boolean isPlayer1;
     public static BlockingQueue<Object> toGUI = new LinkedBlockingQueue();
     public static BlockingQueue<Object> toClient = new LinkedBlockingQueue();
-
+    IObserve o;
     public Client() {
-
+        o=new GUIutils();
+        addObserver(o);
     }
 
     @Override
@@ -81,7 +81,8 @@ public class Client implements Runnable {
     private void getCategory() {
         try {
             System.out.println("GetCategory() toGUI.put CATEGORY");
-            toGUI.put("CATEGORY");
+         notifyObserver("CATEGORY");
+          //  toGUI.put("CATEGORY");
             System.out.println("GetCategory() toGUI.put categoryList");
             toGUI.put(gr.categoryList);
 
@@ -95,6 +96,7 @@ public class Client implements Runnable {
     }
 
     public void answerQuestions() {
+        notifyObserver("QUESTION");
         try {
             List<Question> activeQuestions = new ArrayList<>();
             for (Question q : gr.qlist) {
@@ -103,7 +105,8 @@ public class Client implements Runnable {
                     System.out.println(q.toString());
                 }
             }
-            toGUI.put("QUESTION");
+          // notifyObserver("QUESTION");
+            //toGUI.put("QUESTION");
             toGUI.put(activeQuestions);
             toGUI.put(gr.roundnumber);
 
@@ -166,7 +169,8 @@ public void showResults(){
         PointCount.testPointCount();
         System.out.println("Reached showResult");
 
-        toGUI.put("RESULTS");
+      notifyObserver("RESULTS");
+        //  toGUI.put("RESULTS");
         toGUI.put(gr); //HODEI TEST!!!
 
     } catch (InterruptedException e) {
@@ -176,10 +180,22 @@ public void showResults(){
 
     public void goToWaiting(String message){
         try{
-            toGUI.put("WAITING");
+          //  toGUI.put("WAITING");
+            notifyObserver("WAITING");
             toGUI.put(message);
+
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public void addObserver(IObserve o) {
+        this.o=o;
+    }
+
+    @Override
+    public void notifyObserver(String str) {
+        o.update(str);
     }
 }

@@ -259,8 +259,8 @@ public class QuestionsPanel {
             toClient.put(s);
 
             String nextPane = (String) toGUI.take();
-
-            utils.changeSceneNew(nextPane);
+            utils.changeSceneNew(GUIutils.nextWindow);
+           // utils.changeSceneNew(nextPane);
         } catch (InterruptedException | IOException e) {
             e.printStackTrace();
         }

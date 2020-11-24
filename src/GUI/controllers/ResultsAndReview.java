@@ -240,10 +240,8 @@ public class ResultsAndReview {
 //        }
 
         try{
-            String nextPane = (String) toGUI.take();
-            util.changeSceneNew(nextPane);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+           // String nextPane = (String) toGUI.take();
+            util.changeSceneNew(GUIutils.nextWindow);
         } catch (IOException e) {
             e.printStackTrace();
         }

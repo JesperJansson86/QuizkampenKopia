@@ -1,5 +1,6 @@
 package GUI.models;
 
+import MainClasses.IObserve;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.layout.Pane;
@@ -14,9 +15,10 @@ import java.io.IOException;
  * Project: QuizkampenKopia
  * Copyright: MIT
  */
-public class GUIutils {
+public class GUIutils implements IObserve {
     Pane mainPane;
-
+    public static String nextWindow="WAITING";
+    public GUIutils(){}
     public GUIutils(Pane mainPane) {
         this.mainPane = mainPane;
     }
@@ -32,7 +34,14 @@ public class GUIutils {
         Stage primaryStage = (Stage) mainPane.getScene().getWindow();
         primaryStage.getScene().setRoot(pane);
     }
-
+    public  void nextWindow(){
+        try {
+            System.out.println(nextWindow);
+            changeSceneNew(nextPane(nextWindow));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
     public String nextPane(String nextPane) {
         if (nextPane.equalsIgnoreCase("CATEGORY")) {
             System.out.println("In GUIutils: It's time for Category!");
@@ -50,5 +59,10 @@ public class GUIutils {
             System.out.println("In GUIutils: It's null! WADUHEK!?!");
             return null;
         }
+    }
+
+    @Override
+    public void update(String message) {
+        nextWindow=message;
     }
 }

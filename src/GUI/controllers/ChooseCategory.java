@@ -107,7 +107,13 @@ public class ChooseCategory {
         st.setCycleCount(2);
         st.setAutoReverse(true);
         st.play();
-        st.setOnFinished(e->goNextPanel()); //here we call to go next panel, here we should call to send to client/server, and wait response.
+        st.setOnFinished(e-> {
+            try {
+                util.changeSceneNew(GUIutils.nextWindow);
+            } catch (IOException ioException) {
+                ioException.printStackTrace();
+            }
+        }); //here we call to go next panel, here we should call to send to client/server, and wait response.
     }
 
     public void setGroupUserInteraction(boolean status) {
