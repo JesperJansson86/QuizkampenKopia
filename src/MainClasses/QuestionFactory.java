@@ -50,10 +50,10 @@ public class QuestionFactory {
 
         for (String key : questionsByCategory.keySet()) {
             for (Question q : questionsByCategory.get(key)) {
-                System.out.println(q);
+              //  System.out.println(q);
             }
         }
-        System.out.println(getCategories().toString());
+      //  System.out.println(getCategories().toString());
     }
 
     private void createQuestion(String stringFromFile) {
@@ -80,10 +80,8 @@ public class QuestionFactory {
 
             if (!questionsByCategory.containsKey(q.getCategory())) {
                 questionsByCategory.put(q.getCategory(), new ArrayList<>());
-                questionsByCategory.get(q.getCategory()).add(q);
-            } else {
-                questionsByCategory.get(q.getCategory()).add(q);
             }
+            questionsByCategory.get(q.getCategory()).add(q);
         }
         for (String string : questionsByCategory.keySet()) {
             if (!categories.contains(string))
@@ -146,11 +144,15 @@ public class QuestionFactory {
     //Map<String, ArrayList<Question>>
     public Question getRandomQuestionByCategory(String category) {
         Question question = null;
+        int rnd=0;
         if (questionsByCategory.containsKey(category)) {
             Random random = new Random();
-            question = questionsByCategory.get(category).get(random.nextInt(questionsByCategory.get(category).size()));
+             rnd= random.nextInt(questionsByCategory.get(category).size());
+            question = questionsByCategory.get(category).get(rnd);
         }
-        questionsByCategory.remove(category, question);
+        System.out.println(question.toString());
+        System.out.println("question by category size " +questionsByCategory.get(category).size());
+        questionsByCategory.remove(category,questionsByCategory.get(category).get(rnd));
         return question;
     }
 
@@ -184,6 +186,10 @@ public class QuestionFactory {
     //    För test.
     public static void main(String[] args) {
         QuestionFactory qf = new QuestionFactory();
+        qf.getRandomQuestionByCategory("Geography");
+        qf.getRandomQuestionByCategory("Geography");
+        qf.getRandomQuestionByCategory("Geography");
+        qf.getRandomQuestionByCategory("Geography");
     }
 
 }

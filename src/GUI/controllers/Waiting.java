@@ -100,7 +100,6 @@ public class Waiting {
                 while(true){
                 System.out.println(GUIutils.nextWindow);
                 if(!GUIutils.nextWindow.equalsIgnoreCase("WAITING")) {
-                    System.out.println("In Waiting: NextPane is now " + nextPane);
                     break;
                 }}
                 goToNextWindow();
