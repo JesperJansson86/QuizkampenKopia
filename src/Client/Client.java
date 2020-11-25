@@ -12,7 +12,7 @@ import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 
 public class Client implements Runnable {
-    static GameRound gr;
+    public static GameRound gr;
     boolean isPlayer1;
     public static BlockingQueue<Object> toGUI = new LinkedBlockingQueue();
     public static BlockingQueue<Object> toClient = new LinkedBlockingQueue();
