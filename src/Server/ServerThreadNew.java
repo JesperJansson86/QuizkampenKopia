@@ -41,7 +41,7 @@ public class ServerThreadNew extends Thread {
             socket2 = (Socket) GameStartupServer.waitForPLayer2.take();
             ObjectInputStream in2 = new ObjectInputStream(socket2.getInputStream());
             ObjectOutputStream out2 = new ObjectOutputStream(socket2.getOutputStream());
-            if (gr.playerTurn > Integer.parseInt(p.getProperty("amountOfRounds","1"))) {
+            if (Integer.parseInt(p.getProperty("amountOfRounds","1"))!=1) {
 
 
                 out2.writeObject(gr);
