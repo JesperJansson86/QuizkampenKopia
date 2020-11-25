@@ -1,16 +1,16 @@
 package MainClasses;
 
-import MainClasses.Question;
-import MainClasses.QuestionFactory;
 
-import java.io.Serializable;
+import Client.Client;
+
 import java.util.ArrayList;
 import java.util.List;
 
-public class GameRound implements Serializable {
+public class GameRoundSingleton {
+    private static GameRoundSingleton instance;
     public int gameid = 1;
     public int roundnumber = 0;
-    public int playerTurn = 0;
+    public int playerTurn = 2;
     public int amountOfRounds;
     public int questionsPerRound;
     public String category;
@@ -24,15 +24,22 @@ public class GameRound implements Serializable {
     public List<String> playerNames = new ArrayList<>();
     public List<Integer> player1Score = new ArrayList<>();
     public List<Integer> player2Score = new ArrayList<>();
-    public List<Question> activeQuestions = new ArrayList();
 
+    private GameRoundSingleton(){}
 
-//    public MainClasses.GameRound(int gameid, List qlist) {
-//        this.gameid = gameid;
-//        this.amountOfRounds= amountOfRounds;
-//        this.questionsPerRound=questionsPerRound;
-//        this.qlist=qlist;
+    public static GameRoundSingleton getInstance(){
+        if(instance == null){
+            instance = new GameRoundSingleton();
+        }
+        return instance;
+    }
+
+//    public void convertFromGameRound(){
+//
 //    }
-
-
+//
+//    public GameRound convertToGameRound(){
+//        GameRound gr = new GameRound();
+//        return gr;
+//    }
 }

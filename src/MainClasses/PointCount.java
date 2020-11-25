@@ -108,4 +108,9 @@ public class PointCount {
         System.out.println("\n");
     }
 
+    public static void reset(){
+        pointHolder.clear();
+        roundTotal = 0;
+    }
+
 }

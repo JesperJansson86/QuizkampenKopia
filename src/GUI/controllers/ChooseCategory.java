@@ -31,7 +31,8 @@ import java.util.concurrent.BlockingQueue;
 public class ChooseCategory {
     BlockingQueue toGUI = Client.toGUI;
     BlockingQueue toClient = Client.toClient;
-    public List<String> categoryList = new ArrayList<>();
+//    public List<String> categoryList = new ArrayList<>();
+    public List<String> categoryList = Client.gr.categoryList;
     String category;
     public Label categoryL1;
     public Arc category1;
@@ -49,11 +50,11 @@ public class ChooseCategory {
     GUIutils util;
     ScaleTransition st;
     public void initialize() {
-        try {
-            categoryList = (ArrayList<String>) toGUI.take();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+//        try {
+//            categoryList = (ArrayList<String>) toGUI.take();
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
         categoryL1.setText(categoryList.get(0));
         categoryL2.setText(categoryList.get(1));
         categoryL3.setText(categoryList.get(2));

@@ -12,7 +12,7 @@ import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 
 public class Client implements Runnable {
-    static GameRound gr;
+    public static GameRound gr;
     boolean isPlayer1;
     public static BlockingQueue<Object> toGUI = new LinkedBlockingQueue();
     public static BlockingQueue<Object> toClient = new LinkedBlockingQueue();
@@ -83,7 +83,7 @@ public class Client implements Runnable {
             System.out.println("GetCategory() toGUI.put CATEGORY");
             toGUI.put("CATEGORY");
             System.out.println("GetCategory() toGUI.put categoryList");
-            toGUI.put(gr.categoryList);
+//            toGUI.put(gr.categoryList);
 
             System.out.println("GetCategory() toClient.take String");
             gr.category = (String) toClient.take();
@@ -96,21 +96,29 @@ public class Client implements Runnable {
 
     public void answerQuestions() {
         try {
-            List<Question> activeQuestions = new ArrayList<>();
+//            List<Question> activeQuestions = new ArrayList<>();
+//            for (Question q : gr.qlist) {
+//                if (q.getCategory().equalsIgnoreCase(gr.category)) {
+//                    activeQuestions.add(q);
+//                    System.out.println(q.toString());
+//                }
+//            }
+//            toGUI.put("QUESTION");
+//            toGUI.put(activeQuestions);
+//            toGUI.put(gr.roundnumber);
+
+            gr.activeQuestions.clear();
             for (Question q : gr.qlist) {
                 if (q.getCategory().equalsIgnoreCase(gr.category)) {
-                    activeQuestions.add(q);
+                    gr.activeQuestions.add(q);
                     System.out.println(q.toString());
                 }
             }
             toGUI.put("QUESTION");
-            toGUI.put(activeQuestions);
-            toGUI.put(gr.roundnumber);
 
             toClient.take();
 
             ArrayList<String>answerPC = PointCount.getAnswers();
-            //ArrayList<String> result = (ArrayList<String>) toClient.take();
             for (String answer : answerPC) {
                 if (isPlayer1) {
                     gr.player1Results.add(answer);
@@ -142,6 +150,7 @@ public class Client implements Runnable {
             } else {
                 gr.player2Score.add(PointCount.getRoundTotal());
             }
+            PointCount.reset();
 
 
         } catch (Exception e) {
