@@ -1,6 +1,7 @@
 package Client;
 
 import MainClasses.GameRound;
+import MainClasses.PointCount;
 import MainClasses.Question;
 import Server.*;
 
@@ -17,15 +18,15 @@ public class Client implements Runnable {
     public static BlockingQueue<Object> toClient = new LinkedBlockingQueue();
 
     public Client() {
+
     }
 
     @Override
     public void run() {
+
         try (Socket socket = new Socket("localhost", Server.port)) {
             ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream());
             ObjectInputStream in = new ObjectInputStream(socket.getInputStream());
-            Scanner scan = new Scanner(System.in);
-            String test = null;
 
             System.out.println("in Client, just before taking name");
             String name = (String) toClient.take();
@@ -35,12 +36,18 @@ public class Client implements Runnable {
 
                 System.out.println("in Client, just before add name");
                 gr = (GameRound) in.readObject(); //add names if needed, ergo, first round.
-                if (gr.playerNames.isEmpty()){
+                gr.playerNames.add("Unknown");
+                gr.playerNames.add("Unknown");
+                if (gr.playerNames.get(0).equalsIgnoreCase("Unknown")){
                     isPlayer1 = true;
-                    gr.playerNames.add(name);
-                } else if (gr.playerNames.size() == 1){
+                    gr.playerNames.add(0,name);
+                    gr.playerNames.remove("Unknown");
+                    System.out.println("I'm player 1");
+                } else if (gr.playerNames.get(1).equalsIgnoreCase("Unknown")){
                     isPlayer1 = false;
-                    gr.playerNames.add(name);
+                    gr.playerNames.add(1,name);
+                    gr.playerNames.remove("Unknown");
+                    System.out.println("I'm player 2");
                 }
 
                 System.out.println("in Client gr.category = " + gr.category);
@@ -49,30 +56,18 @@ public class Client implements Runnable {
                     System.out.println("in Client: gr.category is null.");
                     getCategory();
                     System.out.println("in Client: gr.category is now: " + gr.category);
-//                    answerQuestions();
-//                    showResults();
+                    answerQuestions();
+                    showResults();
 
                 } else if (gr.category != null) {
                     System.out.println("in Client: gr.category is " + gr.category);
-//                    answerQuestions();
-//                    showResults();
-
-                    getCategory();
-//                    answerQuestions();
-//                    gr.category="Geography";
+                    answerQuestions();
+                    showResults();
                 }
 
                 out.writeObject(gr);
                 goToWaiting("End of Round, waiting for opponent/server");
-//                gr = runda(gr);
-//                if (gr.playerTurn % 2 == 1) System.out.println(gr.player1Results);
-//                else System.out.println(gr.player2Results);
-////                out.writeObject(gr);
-////                gr = gr;
-//                if (gr.gameover && gr.playerTurn % 2 == 0) break;
             }
-//            if (gr.playerTurn % 2 == 1) System.out.println(gr.player1Results);
-//            else System.out.println(gr.player2Results);
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -93,7 +88,7 @@ public class Client implements Runnable {
             System.out.println("GetCategory() toClient.take String");
             gr.category = (String) toClient.take();
             System.out.println("GetCategory() gr.category taken, now :" + gr.category);
-//            gr.categoryList.remove(gr.category); //TODO Serverside
+            gr.categoryList.remove(gr.category); //TODO Serverside
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -111,27 +106,73 @@ public class Client implements Runnable {
             toGUI.put("QUESTION");
             toGUI.put(activeQuestions);
             toGUI.put(gr.roundnumber);
-            ArrayList<String> result = (ArrayList<String>) toClient.take();
-            for (String answer : result) {
+
+            toClient.take();
+
+            ArrayList<String>answerPC = PointCount.getAnswers();
+            //ArrayList<String> result = (ArrayList<String>) toClient.take();
+            for (String answer : answerPC) {
                 if (isPlayer1) {
                     gr.player1Results.add(answer);
                 } else {
                     gr.player2Results.add(answer);
                 }
             }
+
+
+            //should playerScore hold round total or score per question ?
+//HODEI TEST, I TOOK THE ROUND TOTAL VERSION FOR NOW, WILL FIX WHEN WE ADD FANCY RECTANGLES.
+            ArrayList<Integer> pointHolder = PointCount.getPointHolder();
+
+         /*   for (int point : pointHolder){
+                if (isPlayer1){
+                    gr.player1Score.add(point);
+                } else{
+                    gr.player2Score.add(point);
+                }
+            }
+
+          */
+
+
+
+            //roundTotal version
+            if(isPlayer1){
+                gr.player1Score.add(PointCount.getRoundTotal());
+            } else {
+                gr.player2Score.add(PointCount.getRoundTotal());
+            }
+
+
         } catch (Exception e) {
             e.printStackTrace();
         }
 
     }
 
-    public void showResults(){
-        try{
-            toGUI.put("RESULTS");
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+//    public void showResults(){
+//        try{
+//            toGUI.put("RESULTS");
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
+//    }
+public void showResults(){
+    try{
+
+        //i hope its here we are supposed to go to the result scene
+        int roundTotal = PointCount.playerRoundTotal(); //the round total
+
+        PointCount.testPointCount();
+        System.out.println("Reached showResult");
+
+        toGUI.put("RESULTS");
+        toGUI.put(gr); //HODEI TEST!!!
+
+    } catch (InterruptedException e) {
+        e.printStackTrace();
     }
+}
 
     public void goToWaiting(String message){
         try{
@@ -141,53 +182,4 @@ public class Client implements Runnable {
             e.printStackTrace();
         }
     }
-
-    public static GameRound runda(GameRound gr) {
-        int count = 0;
-        while (!gr.qlist.get(count).getCategory().equals(gr.category)) {
-            count++;
-        }
-        Scanner scan = new Scanner(System.in);
-        System.out.println("Kategori " + gr.category);
-        System.out.println("GameId " + gr.gameid);
-        for (int i = 1; i <= 1; i++) {
-            System.out.println("Svara på fråga: " + gr.qlist.get(i + count).getQuestion());
-            System.out.println(gr.qlist.get(i + count).getRightAnswer());
-            System.out.println(gr.qlist.get(i + count).getAnswer2());
-            System.out.println(gr.qlist.get(i + count).getAnswer3());
-            System.out.println(gr.qlist.get(i + count).getAnswer4());
-            int choice = Integer.parseInt(scan.next());
-            String answer;
-            switch (choice) {
-                case 1: {
-                    answer = gr.qlist.get(i + count).getRightAnswer();
-                    break;
-                }
-                case 2: {
-                    answer = gr.qlist.get(i + count).getAnswer2();
-                    break;
-                }
-                case 3: {
-                    answer = gr.qlist.get(i + count).getAnswer3();
-                    break;
-                }
-                case 4: {
-                    answer = gr.qlist.get(i + count).getRightAnswer();
-                    break;
-                }
-
-                default:
-                    throw new IllegalStateException("Unexpected value: " + choice);
-            }
-
-            if (gr.playerTurn % 2 == 1) gr.player1Results.add(answer);
-            else gr.player2Results.add(answer);
-        }
-        return gr;
-    }
-//    public void grading(MainClasses.GameRound gr){
-//        for (int i = 0; i < gr.player1Results.size(); i++) {
-//        if (gr.player1Results.get(i).equals())
-//        }
-//    }
 }
