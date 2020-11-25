@@ -36,8 +36,11 @@ public class Client implements Runnable {
 
                 System.out.println("in Client, just before add name");
                 gr = (GameRound) in.readObject(); //add names if needed, ergo, first round.
-                gr.playerNames.add("Unknown");
-                gr.playerNames.add("Unknown");
+
+                if (gr.playerNames.isEmpty()) {
+                    gr.playerNames.add("Unknown");
+                    gr.playerNames.add("Unknown");
+                }
                 if (gr.playerNames.get(0).equalsIgnoreCase("Unknown")){
                     isPlayer1 = true;
                     gr.playerNames.add(0,name);
@@ -59,7 +62,7 @@ public class Client implements Runnable {
                     answerQuestions();
                     showResults();
 
-                } else if (gr.category != null) {
+                } else if (gr.category != null) { //Just answer questions
                     System.out.println("in Client: gr.category is " + gr.category);
                     answerQuestions();
                     showResults();
