@@ -96,16 +96,25 @@ public class Client implements Runnable {
 
     public void answerQuestions() {
         try {
-            List<Question> activeQuestions = new ArrayList<>();
+//            List<Question> activeQuestions = new ArrayList<>();
+//            for (Question q : gr.qlist) {
+//                if (q.getCategory().equalsIgnoreCase(gr.category)) {
+//                    activeQuestions.add(q);
+//                    System.out.println(q.toString());
+//                }
+//            }
+//            toGUI.put("QUESTION");
+//            toGUI.put(activeQuestions);
+//            toGUI.put(gr.roundnumber);
+
+            gr.activeQuestions.clear();
             for (Question q : gr.qlist) {
                 if (q.getCategory().equalsIgnoreCase(gr.category)) {
-                    activeQuestions.add(q);
+                    gr.activeQuestions.add(q)
                     System.out.println(q.toString());
                 }
             }
             toGUI.put("QUESTION");
-            toGUI.put(activeQuestions);
-            toGUI.put(gr.roundnumber);
 
             toClient.take();
 
