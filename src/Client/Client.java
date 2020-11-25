@@ -142,6 +142,7 @@ public class Client implements Runnable {
             } else {
                 gr.player2Score.add(PointCount.getRoundTotal());
             }
+            PointCount.reset();
 
 
         } catch (Exception e) {
