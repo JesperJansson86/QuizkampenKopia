@@ -24,14 +24,20 @@ public class Client implements Runnable {
     @Override
     public void run() {
 
+        String name = null;
+        try {
+            System.out.println("in Client, just before taking name");
+            name = (String) toClient.take();
+            goToWaiting("Waiting for opponent");
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
         try (Socket socket = new Socket("localhost", Server.port)) {
             ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream());
             ObjectInputStream in = new ObjectInputStream(socket.getInputStream());
 
-            System.out.println("in Client, just before taking name");
-            String name = (String) toClient.take();
-//            String playerNumber = (String) in.readObject();
-            goToWaiting("Waiting for opponent");
+
             while (true) {
 
                 System.out.println("in Client, just before add name");
@@ -80,8 +86,6 @@ public class Client implements Runnable {
         } catch (IOException e) {
             e.printStackTrace();
         } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        } catch (InterruptedException e) {
             e.printStackTrace();
         }
     }
