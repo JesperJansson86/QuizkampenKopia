@@ -43,6 +43,11 @@ public class QuestionFactory {
             //Uncomment when live for more questions and categories.
             updateList("https://opentdb.com/api.php?amount=10&category=18&difficulty=easy&type=multiple");
             updateList("https://opentdb.com/api.php?amount=10&category=9&difficulty=easy&type=multiple");
+            updateList("https://opentdb.com/api.php?amount=10&category=10&difficulty=easy&type=multiple");
+            updateList("https://opentdb.com/api.php?amount=10&category=11&difficulty=easy&type=multiple");
+            updateList("https://opentdb.com/api.php?amount=10&category=18&difficulty=easy&type=multiple");
+            updateList("https://opentdb.com/api.php?amount=10&category=19difficulty=easy&type=multiple");
+            updateList("https://opentdb.com/api.php?amount=10&category=20difficulty=easy&type=multiple");
             updateList("https://opentdb.com/api.php?amount=10&category=23&difficulty=easy&type=multiple");
             updateList("https://opentdb.com/api.php?amount=10&category=25difficulty=easy&type=multiple");
             doOnlyOnce = false;
@@ -146,13 +151,11 @@ public class QuestionFactory {
     //Map<String, ArrayList<Question>>
     public Question getRandomQuestionByCategory(String category) {
         Question question = null;
-        int rnd=0;
         if (questionsByCategory.containsKey(category)) {
             Random random = new Random();
-            rnd= random.nextInt(questionsByCategory.get(category).size());
-            question = questionsByCategory.get(category).get(rnd);
+            question = questionsByCategory.get(category).get(random.nextInt(questionsByCategory.get(category).size()));
         }
-        questionsByCategory.get(category).remove(rnd);
+        questionsByCategory.remove(category, question);
         return question;
     }
 
