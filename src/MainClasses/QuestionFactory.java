@@ -150,7 +150,6 @@ public class QuestionFactory {
             Random random = new Random();
             question = questionsByCategory.get(category).get(random.nextInt(questionsByCategory.get(category).size()));
         }
-        questionsByCategory.remove(category, question);
         return question;
     }
 
