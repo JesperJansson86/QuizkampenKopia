@@ -17,81 +17,85 @@ public class ServerThreadNew extends Thread {
     public ServerThreadNew(Socket socket) throws IOException {
 
         this.socket = socket;
-//        this.socket2 = socket2;
     }
 
     @Override
     public void run() {
-        try{
+        try {
             p.load(new FileInputStream("src\\config.properties"));
-        }catch (Exception e){
+        } catch (Exception e) {
             System.out.println("Properties filen config.properties kunde inte läsas");
-            e.printStackTrace();}
-
+            e.printStackTrace();
+        }
         try {
             ObjectOutputStream out1 = new ObjectOutputStream(socket.getOutputStream());
-
             ObjectInputStream in1 = new ObjectInputStream(socket.getInputStream());
-
             gr = sl.initiateGame();
             gr.roundnumber = 1;
-
             gr.category = null;
-
-                gr.playerTurn++;
-                System.out.printf("Sending to player1: Roundnumber " + gr.roundnumber);
-                out1.writeObject(gr);
-                gr = (GameRound) in1.readObject();
-                gr.playerTurn++;
-
-            socket2 = (Socket)GameStartupServer.waitForPLayer2.take();
+            gr.playerTurn++;
+            System.out.printf("Sending to player1: Roundnumber " + gr.roundnumber);
+            out1.writeObject(gr);
+            gr = (GameRound) in1.readObject();
+            gr.playerTurn++;
+            socket2 = (Socket) GameStartupServer.waitForPLayer2.take();
             ObjectInputStream in2 = new ObjectInputStream(socket2.getInputStream());
             ObjectOutputStream out2 = new ObjectOutputStream(socket2.getOutputStream());
             out2.writeObject(gr);
             gr = (GameRound) in2.readObject();
-
             while (true) {
-
                 gr.category = null;
                 gr.roundnumber++;
-                if (gr.roundnumber % 2 == 1&&gr.roundnumber!=1) {
+                if (gr.roundnumber % 2 == 1 && gr.roundnumber != 1) {
                     gr.playerTurn++;
                     System.out.printf("Sending to player1: Roundnumber " + gr.roundnumber);
                     out1.writeObject(gr);
                     gr = (GameRound) in1.readObject();
                     gr.playerTurn++;
-
-                    if (gr.roundnumber > Integer.parseInt(p.getProperty("amountOfRounds"))) {
-                        gr.gameover = true;
-
-
+                    if (gr.roundnumber > Integer.parseInt(p.getProperty("amountOfRounds","1"))) {
+                        break;
                     }
                     System.out.printf("Sending to player2: Roundnumber " + gr.roundnumber);
-//                    gr.category = null;
-//                    gr.roundnumber++;
                     out2.writeObject(gr);
                     gr = (GameRound) in2.readObject();
-                } else if(gr.roundnumber % 2 == 0){
-
+                } else if (gr.roundnumber % 2 == 0) {
                     gr.playerTurn++;
                     System.out.printf("Sending to player2: Roundnumber " + gr.roundnumber);
                     out2.writeObject(gr);
                     gr = (GameRound) in2.readObject();
                     gr.playerTurn++;
-
-                    if (gr.roundnumber > 4) {
-                        gr.gameover = true;
-
+                    if (gr.roundnumber > Integer.parseInt(p.getProperty("amountOfRounds","1"))) {
+                        break;
                     }
                     System.out.printf("Sending to player1: Roundnumber " + gr.roundnumber);
-//                    gr.category = null;
-//                    gr.roundnumber++;
                     out1.writeObject(gr);
                     gr = (GameRound) in1.readObject();
 
                 }
 
             }
+            gr.gameover = true;
+
+            //om jämn så har spelare 1 kvar, om udda har spelare två kvar
+            if (gr.roundnumber % 2 == 0) {
+                gr.playerTurn++;
+                System.out.printf("Sending to player1: Roundnumber " + gr.roundnumber);
+                out1.writeObject(gr);
+                gr = (GameRound) in1.readObject();
+                gr.gameover = true;
+
+            }
+
+            if (gr.roundnumber % 2 == 1) {
+                gr.playerTurn++;
+                System.out.printf("Sending to player2: Roundnumber " + gr.roundnumber);
+                out2.writeObject(gr);
+                gr = (GameRound) in2.readObject();
+                gr.gameover=true;
+            }
+
+            out1.writeObject(gr);
+            out2.writeObject(gr);
         } catch (IOException | ClassNotFoundException | InterruptedException e) {
             e.printStackTrace();
 
