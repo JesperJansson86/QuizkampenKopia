@@ -5,9 +5,12 @@ import MainClasses.Question;
 import MainClasses.QuestionFactory;
 
 import java.io.*;
+import java.util.Map;
+import java.util.Properties;
 import java.util.Scanner;
 
 public class ServerLogic {
+    Properties p = new Properties();
     QuestionFactory qf = new QuestionFactory();
     GameRound gr = new GameRound();
 
@@ -50,9 +53,14 @@ public class ServerLogic {
     }
 
     public GameRound initateQuestionsAndCategorys() {
+        try{
+            p.load(new FileInputStream("src\\config.properties"));
+        }catch (Exception e){
+            System.out.println("Properties filen config.properties kunde inte läsas");
+        e.printStackTrace();}
         gr.categoryList = qf.getCategories();
         for (String s : gr.categoryList) {
-            for (int i = 0; i < 3; i++) {
+            for (int i = 0; i < Integer.parseInt(p.getProperty("amountOfQuestions")) ; i++) {
                 gr.qlist.add(qf.getRandomQuestionByCategory(s));
             }
         }

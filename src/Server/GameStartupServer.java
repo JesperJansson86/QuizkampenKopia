@@ -10,7 +10,7 @@ import java.util.concurrent.LinkedBlockingQueue;
 
 public class GameStartupServer {
     public static Socket socket2;
-    static ServerThread2 ts2;
+    static ServerThreadNew ts2;
     public static int port = 5000;
     public static BlockingQueue<Object> waitForPLayer2 = new LinkedBlockingQueue();
 
@@ -29,7 +29,7 @@ public class GameStartupServer {
                 System.out.println("Client1 connected");
 
                 socket2 = null;
-                ts2 = new ServerThread2(socket);
+                ts2 = new ServerThreadNew(socket);
                 ts2.start();
                 socket2 = serverSocket.accept();
                 waitForPLayer2.add(socket2);
