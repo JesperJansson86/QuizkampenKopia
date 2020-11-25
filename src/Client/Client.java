@@ -13,7 +13,7 @@ import java.util.concurrent.LinkedBlockingQueue;
 
 public class Client implements Runnable {
     public static GameRound gr;
-    boolean isPlayer1;
+    public static boolean isPlayer1;
     public static BlockingQueue<Object> toGUI = new LinkedBlockingQueue();
     public static BlockingQueue<Object> toClient = new LinkedBlockingQueue();
 
@@ -36,16 +36,24 @@ public class Client implements Runnable {
 
                 System.out.println("in Client, just before add name");
                 gr = (GameRound) in.readObject(); //add names if needed, ergo, first round.
-                gr.playerNames.add("Unknown");
-                gr.playerNames.add("Unknown");
-                if (gr.playerNames.get(0).equalsIgnoreCase("Unknown")){
+
+                if (gr.gameover) {
+                    goToEndResults();
+                    break;
+                }
+
+                if (gr.playerNames.isEmpty()) {
+                    gr.playerNames.add("Unknown");
+                    gr.playerNames.add("Unknown");
+                }
+                if (gr.playerNames.get(0).equalsIgnoreCase("Unknown")) {
                     isPlayer1 = true;
-                    gr.playerNames.add(0,name);
+                    gr.playerNames.add(0, name);
                     gr.playerNames.remove("Unknown");
                     System.out.println("I'm player 1");
-                } else if (gr.playerNames.get(1).equalsIgnoreCase("Unknown")){
+                } else if (gr.playerNames.get(1).equalsIgnoreCase("Unknown")) {
                     isPlayer1 = false;
-                    gr.playerNames.add(1,name);
+                    gr.playerNames.add(1, name);
                     gr.playerNames.remove("Unknown");
                     System.out.println("I'm player 2");
                 }
@@ -59,7 +67,7 @@ public class Client implements Runnable {
                     answerQuestions();
                     showResults();
 
-                } else if (gr.category != null) {
+                } else if (gr.category != null) { //Just answer questions
                     System.out.println("in Client: gr.category is " + gr.category);
                     answerQuestions();
                     showResults();
@@ -118,7 +126,7 @@ public class Client implements Runnable {
 
             toClient.take();
 
-            ArrayList<String>answerPC = PointCount.getAnswers();
+            ArrayList<String> answerPC = PointCount.getAnswers();
             for (String answer : answerPC) {
                 if (isPlayer1) {
                     gr.player1Results.add(answer);
@@ -143,9 +151,8 @@ public class Client implements Runnable {
           */
 
 
-
             //roundTotal version
-            if(isPlayer1){
+            if (isPlayer1) {
                 gr.player1Score.add(PointCount.getRoundTotal());
             } else {
                 gr.player2Score.add(PointCount.getRoundTotal());
@@ -159,34 +166,42 @@ public class Client implements Runnable {
 
     }
 
-//    public void showResults(){
+    //    public void showResults(){
 //        try{
 //            toGUI.put("RESULTS");
 //        } catch (InterruptedException e) {
 //            e.printStackTrace();
 //        }
 //    }
-public void showResults(){
-    try{
+    public void showResults() {
+        try {
 
-        //i hope its here we are supposed to go to the result scene
-        int roundTotal = PointCount.playerRoundTotal(); //the round total
+            //i hope its here we are supposed to go to the result scene
+            int roundTotal = PointCount.playerRoundTotal(); //the round total
 
-        PointCount.testPointCount();
-        System.out.println("Reached showResult");
+            PointCount.testPointCount();
+            System.out.println("Reached showResult");
 
-        toGUI.put("RESULTS");
-        toGUI.put(gr); //HODEI TEST!!!
+            toGUI.put("RESULTS");
+            toGUI.put(gr); //HODEI TEST!!!
 
-    } catch (InterruptedException e) {
-        e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
-}
 
-    public void goToWaiting(String message){
-        try{
+    public void goToWaiting(String message) {
+        try {
             toGUI.put("WAITING");
             toGUI.put(message);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void goToEndResults(){
+        try {
+            toGUI.put("END_RESULTS");
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
