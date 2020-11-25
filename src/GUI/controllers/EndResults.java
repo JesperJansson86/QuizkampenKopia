@@ -23,7 +23,7 @@ public class EndResults {
 
     private int player1Score;
     private int player2Score;
-    private boolean isWinner;
+    private int Winner_Loser_Draw; //0,1,2
 
     public void initialize(){
         player1L.setText(Client.gr.playerNames.get(0));
@@ -32,8 +32,8 @@ public class EndResults {
         player1PointsSum.setText(String.valueOf(player1Score));
         player2PointsSum.setText(String.valueOf(player2Score));
         setWinOrLose();
-        winnerOrLoser.setText(isWinner ? "Congratulations!" : "You lost!");
-        trophyImage.setVisible(isWinner);
+        winnerOrLoser.setText(Winner_Loser_Draw == 0 ? "Congratulations!" : Winner_Loser_Draw == 1 ? "You lost!" : "Draw!");
+        trophyImage.setVisible(Winner_Loser_Draw == 0);
     }
 
     private void countScore(){
@@ -46,10 +46,14 @@ public class EndResults {
     }
 
     private void setWinOrLose(){
-        if(player1Score < player2Score && Client.isPlayer1){
-            isWinner = true;
+        if(player1Score == player2Score) {
+            Winner_Loser_Draw = 2;
+            return;
+        }
+        if(Client.isPlayer1){
+            Winner_Loser_Draw = (player1Score > player2Score) ? 0 : 1;
         } else {
-            isWinner = false;
+            Winner_Loser_Draw = (player2Score > player1Score) ? 0 : 1;
         }
     }
 }

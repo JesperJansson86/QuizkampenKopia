@@ -72,9 +72,7 @@ public class ServerThreadNew extends Thread {
                     gr = (GameRound) in1.readObject();
 
                 }
-
             }
-            gr.gameover = true;
 
             //om jämn så har spelare 1 kvar, om udda har spelare två kvar
             if (gr.roundnumber % 2 == 0) {
