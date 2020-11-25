@@ -83,7 +83,7 @@ public class Client implements Runnable {
             System.out.println("GetCategory() toGUI.put CATEGORY");
             toGUI.put("CATEGORY");
             System.out.println("GetCategory() toGUI.put categoryList");
-            toGUI.put(gr.categoryList);
+//            toGUI.put(gr.categoryList);
 
             System.out.println("GetCategory() toClient.take String");
             gr.category = (String) toClient.take();
@@ -110,7 +110,7 @@ public class Client implements Runnable {
             gr.activeQuestions.clear();
             for (Question q : gr.qlist) {
                 if (q.getCategory().equalsIgnoreCase(gr.category)) {
-                    gr.activeQuestions.add(q)
+                    gr.activeQuestions.add(q);
                     System.out.println(q.toString());
                 }
             }
@@ -119,7 +119,6 @@ public class Client implements Runnable {
             toClient.take();
 
             ArrayList<String>answerPC = PointCount.getAnswers();
-            //ArrayList<String> result = (ArrayList<String>) toClient.take();
             for (String answer : answerPC) {
                 if (isPlayer1) {
                     gr.player1Results.add(answer);

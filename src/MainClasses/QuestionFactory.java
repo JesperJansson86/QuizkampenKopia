@@ -151,10 +151,10 @@ public class QuestionFactory {
     //Map<String, ArrayList<Question>>
     public Question getRandomQuestionByCategory(String category) {
         Question question = null;
-        int rnd=0;
+        int rnd = 0;
         if (questionsByCategory.containsKey(category)) {
             Random random = new Random();
-            rnd= random.nextInt(questionsByCategory.get(category).size());
+            rnd = random.nextInt(questionsByCategory.get(category).size());
             question = questionsByCategory.get(category).get(rnd);
         }
         questionsByCategory.get(category).remove(rnd);
@@ -174,11 +174,12 @@ public class QuestionFactory {
     /**
      * returns X amount of questions from each available category.
      * MAX 4 available during testing.
+     *
      * @param questions (number of questions from each category)
      * @return
      */
     public List<Question> getQuestions(int questions) {
-        if(questions > 4) throw new IllegalArgumentException("Can't accept over 4 right now.");
+        if (questions > 4) throw new IllegalArgumentException("Can't accept over 4 right now.");
         List<Question> questionsList = new ArrayList<>();
         for (String key : questionsByCategory.keySet()) {
             for (int i = 0; i < questions; i++) {

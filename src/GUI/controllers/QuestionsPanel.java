@@ -51,7 +51,7 @@ public class QuestionsPanel {
 
     //this should come from somewhere else (game class??)
     // int questionsAmount;//<-to set the amount of result rectangles and the questions rounds.
-    int actualRound;//<-to set the actual round number
+    int actualRound = Client.gr.roundnumber;//<-to set the actual round number
     Group resultRects;
 
     QuestionsPanelModel model;
@@ -66,7 +66,7 @@ public class QuestionsPanel {
 
     BlockingQueue toGUI = Client.toGUI;
     BlockingQueue toClient = Client.toClient;
-    public ArrayList<Question> qList;
+    public List<Question> qList = Client.gr.activeQuestions;
 
     /**
      * at start initiates questionList by copying the list from MainClasses.QuestionFactory
@@ -74,18 +74,18 @@ public class QuestionsPanel {
 
     public void initialize() {
         System.out.println("In QuestionsPanel: init begins.");
-        try {
-            qList = (ArrayList<Question>) toGUI.take();
-            actualRound = (Integer) toGUI.take();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+//        try {
+//            qList = (ArrayList<Question>) toGUI.take();
+//            actualRound = (Integer) toGUI.take();
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
         //questionsAmount=qList.size();//<-The question amount is the size of the questions?
         System.out.println("In QuestionsPanel: got questions");
         System.out.println(qList.toString());
 
 
-        model = new QuestionsPanelModel(qList, answer1, answer2, answer3, answer4, categoryL, question);
+        model = new QuestionsPanelModel((ArrayList<Question>)qList, answer1, answer2, answer3, answer4, categoryL, question);
 
         roundNumber.setText(String.valueOf(actualRound));
         utils = new GUIutils(mainPane);
