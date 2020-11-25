@@ -151,11 +151,13 @@ public class QuestionFactory {
     //Map<String, ArrayList<Question>>
     public Question getRandomQuestionByCategory(String category) {
         Question question = null;
+        int rnd=0;
         if (questionsByCategory.containsKey(category)) {
             Random random = new Random();
-            question = questionsByCategory.get(category).get(random.nextInt(questionsByCategory.get(category).size()));
+            rnd= random.nextInt(questionsByCategory.get(category).size());
+            question = questionsByCategory.get(category).get(rnd);
         }
-        questionsByCategory.remove(category, question);
+        questionsByCategory.get(category).remove(rnd);
         return question;
     }
 
