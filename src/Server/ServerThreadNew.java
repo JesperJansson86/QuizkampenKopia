@@ -33,7 +33,7 @@ public class ServerThreadNew extends Thread {
             gr = sl.initiateGame();
             gr.roundnumber = 1;
             gr.category = null;
-            gr.playerTurn++;
+
             System.out.printf("Sending to player1: Roundnumber " + gr.roundnumber);
             out1.writeObject(gr);
             gr = (GameRound) in1.readObject();
@@ -41,39 +41,43 @@ public class ServerThreadNew extends Thread {
             socket2 = (Socket) GameStartupServer.waitForPLayer2.take();
             ObjectInputStream in2 = new ObjectInputStream(socket2.getInputStream());
             ObjectOutputStream out2 = new ObjectOutputStream(socket2.getOutputStream());
-            out2.writeObject(gr);
-            gr = (GameRound) in2.readObject();
-            while (true) {
-                gr.category = null;
-                gr.roundnumber++;
-                if (gr.roundnumber % 2 == 1 && gr.roundnumber != 1) {
-                    gr.playerTurn++;
-                    System.out.printf("Sending to player1: Roundnumber " + gr.roundnumber);
-                    out1.writeObject(gr);
-                    gr = (GameRound) in1.readObject();
-                    gr.playerTurn++;
-                    if (gr.roundnumber > Integer.parseInt(p.getProperty("amountOfRounds","1"))) {
-                        break;
-                    }
-                    System.out.printf("Sending to player2: Roundnumber " + gr.roundnumber);
-                    out2.writeObject(gr);
-                    gr = (GameRound) in2.readObject();
-                } else if (gr.roundnumber % 2 == 0) {
-                    gr.playerTurn++;
-                    System.out.printf("Sending to player2: Roundnumber " + gr.roundnumber);
-                    out2.writeObject(gr);
-                    gr = (GameRound) in2.readObject();
-                    gr.playerTurn++;
-                    if (gr.roundnumber > Integer.parseInt(p.getProperty("amountOfRounds","1"))) {
-                        break;
-                    }
-                    System.out.printf("Sending to player1: Roundnumber " + gr.roundnumber);
-                    out1.writeObject(gr);
-                    gr = (GameRound) in1.readObject();
+            if (gr.playerTurn > Integer.parseInt(p.getProperty("amountOfRounds","1"))) {
 
+
+                out2.writeObject(gr);
+                gr = (GameRound) in2.readObject();
+                while (true) {
+                    gr.category = null;
+                    gr.roundnumber++;
+                    if (gr.roundnumber % 2 == 1 && gr.roundnumber != 1) {
+                        gr.playerTurn++;
+                        System.out.printf("Sending to player1: Roundnumber " + gr.roundnumber);
+                        out1.writeObject(gr);
+                        gr = (GameRound) in1.readObject();
+                        gr.playerTurn++;
+                        if (gr.playerTurn > Integer.parseInt(p.getProperty("amountOfRounds", "1"))) {
+                            break;
+                        }
+                        System.out.printf("Sending to player2: Roundnumber " + gr.roundnumber);
+                        out2.writeObject(gr);
+                        gr = (GameRound) in2.readObject();
+                    } else if (gr.roundnumber % 2 == 0) {
+
+                        gr.playerTurn++;
+                        System.out.printf("Sending to player2: Roundnumber " + gr.roundnumber);
+                        out2.writeObject(gr);
+                        gr = (GameRound) in2.readObject();
+                        gr.playerTurn++;
+                        if (gr.playerTurn > Integer.parseInt(p.getProperty("amountOfRounds", "1"))) {
+                            break;
+                        }
+                        System.out.printf("Sending to player1: Roundnumber " + gr.roundnumber);
+                        out1.writeObject(gr);
+                        gr = (GameRound) in1.readObject();
+
+                    }
                 }
             }
-
             //om jämn så har spelare 1 kvar, om udda har spelare två kvar
             if (gr.roundnumber % 2 == 0) {
                 gr.playerTurn++;
