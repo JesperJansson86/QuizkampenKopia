@@ -93,7 +93,7 @@ public class ResultsAndReview {
            e.printStackTrace();
         }
         resultsPane.setOnMouseClicked(e-> {goNextPanel();
-            System.out.println("BACK TO THE GAME!!!");
+            System.out.println("in ResultsAndReview: Mouse Clicked!");
         });
 
         //here! take the real data and comment the test and fix the iteration
