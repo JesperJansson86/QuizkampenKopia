@@ -41,8 +41,12 @@ public class QuestionFactory {
             updateList("src/questionsfromOpenTDB1.txt");
             updateList("src/questionsfromOpenTDB2.txt");
             //Uncomment when live for more questions and categories.
-            updateList("https://opentdb.com/api.php?amount=10&category=18&difficulty=easy&type=multiple");
             updateList("https://opentdb.com/api.php?amount=10&category=9&difficulty=easy&type=multiple");
+            updateList("https://opentdb.com/api.php?amount=10&category=10&difficulty=easy&type=multiple");
+            updateList("https://opentdb.com/api.php?amount=10&category=11&difficulty=easy&type=multiple");
+            updateList("https://opentdb.com/api.php?amount=10&category=18&difficulty=easy&type=multiple");
+            updateList("https://opentdb.com/api.php?amount=10&category=19difficulty=easy&type=multiple");
+            updateList("https://opentdb.com/api.php?amount=10&category=20difficulty=easy&type=multiple");
             updateList("https://opentdb.com/api.php?amount=10&category=23&difficulty=easy&type=multiple");
             updateList("https://opentdb.com/api.php?amount=10&category=25difficulty=easy&type=multiple");
             doOnlyOnce = false;
