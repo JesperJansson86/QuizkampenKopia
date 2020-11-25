@@ -2,6 +2,10 @@ package GUI.controllers;
 
 import Client.Client;
 import GUI.models.GUIutils;
+import MainClasses.GameRoundStatic;
+import MainClasses.INotify;
+import MainClasses.IObserve;
+import MainClasses.MessageToClient;
 import javafx.animation.RotateTransition;
 import javafx.animation.ScaleTransition;
 import javafx.animation.TranslateTransition;
@@ -28,7 +32,8 @@ import java.util.concurrent.BlockingQueue;
  * Project: QuizkampenKopia
  * Copyright: MIT
  */
-public class ChooseCategory {
+public class ChooseCategory implements INotify {
+    IObserve o=new MessageToClient();
     BlockingQueue toGUI = Client.toGUI;
     BlockingQueue toClient = Client.toClient;
     public List<String> categoryList = new ArrayList<>();
@@ -49,11 +54,8 @@ public class ChooseCategory {
     GUIutils util;
     ScaleTransition st;
     public void initialize() {
-        try {
-            categoryList = (ArrayList<String>) toGUI.take();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+
+            categoryList = GameRoundStatic.categoryList;
         categoryL1.setText(categoryList.get(0));
         categoryL2.setText(categoryList.get(1));
         categoryL3.setText(categoryList.get(2));
@@ -76,27 +78,13 @@ public class ChooseCategory {
         util = new GUIutils(mainPane);
     }
 
-    public void goNextPanel() {
-//        util.changeScene("../view/QuestionsPanel.fxml");
-        try{
-            String nextPane = (String) toGUI.take();
-            util.changeSceneNew(nextPane);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
 
     public void buttonAnimation(Group group) {
 
         setGroupUserInteraction(false);
 
-        try {
-            toClient.put(category);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+       GameRoundStatic.category=category;
+
         RotateTransition rt=new RotateTransition(Duration.millis(5000),theCircle);
         rt.setByAngle(9000);
         rt.play();
@@ -109,6 +97,7 @@ public class ChooseCategory {
         st.play();
         st.setOnFinished(e-> {
             try {
+                notifyObserver("CATEGORY");
                 util.changeSceneNew(GUIutils.nextWindow);
             } catch (IOException ioException) {
                 ioException.printStackTrace();
@@ -126,5 +115,15 @@ public class ChooseCategory {
             category2group.setDisable(true);
             category3group.setDisable(true);
         }
+    }
+
+    @Override
+    public void addObserver(IObserve o) {
+        this.o=o;
+    }
+
+    @Override
+    public void notifyObserver(String str) {
+        o.update(str);
     }
 }
