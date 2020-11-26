@@ -9,6 +9,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.shape.Circle;
 import javafx.util.Duration;
+
 import java.io.IOException;
 import java.util.concurrent.BlockingQueue;
 
@@ -21,7 +22,6 @@ import java.util.concurrent.BlockingQueue;
  */
 public class Waiting {
     BlockingQueue toGUI = Client.toGUI;
-    BlockingQueue toClient = Client.toClient;
     @FXML
     public Label message;
     public Group circleGroup;
@@ -33,19 +33,18 @@ public class Waiting {
     public String nextPane;
     SequentialTransition sq;
     ScaleTransition st;
+    TranslateTransition ts;
     GUIutils util;
-
 
 
     public void initialize() {
         try {
-            message.setText((String) toGUI.take()); //Getting waiting-message.
+            message.setText((String) toGUI.take());
             util = new GUIutils(waitingPane);
             groupTransition();
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        System.out.println("In Waiting: Init done.");
         startThreadMethod();
 
     }
@@ -55,7 +54,6 @@ public class Waiting {
         sq.setAutoReverse(true);
         sq.setCycleCount(Timeline.INDEFINITE);
         circleGroup.getChildren().forEach(circle -> {
-            System.out.println("In Waiting: circleLoop");
             setScaleTrans();
             st.setNode(circle);
             sq.getChildren().add(st);
@@ -64,7 +62,7 @@ public class Waiting {
     }
 
     private void groupTransition() {
-        TranslateTransition ts = new TranslateTransition(Duration.seconds(0.5), circleGroup);
+        ts = new TranslateTransition(Duration.seconds(0.5), circleGroup);
         ts.setByY(circleGroup.getTranslateY() + 30);
         ts.setAutoReverse(true);
         ts.setCycleCount(2);
@@ -82,7 +80,7 @@ public class Waiting {
     }
 
 
-    private void goToNextWindow(){
+    private void goToNextWindow() {
         try {
             util.changeSceneNew(nextPane);
         } catch (IOException e) {
@@ -90,15 +88,16 @@ public class Waiting {
         }
     }
 
-    private void startThreadMethod(){ //is here the bug?
+    private void startThreadMethod() {
         new Thread(new Runnable() {
             @Override
             public void run() {
                 try {
-                    System.out.println("In Waiting: take-thread running");
+
                     String temp = (String) toGUI.take();
                     nextPane = temp;
-                    System.out.println("In Waiting: NextPane is now " + nextPane);
+                    if (ts.getStatus() == Animation.Status.RUNNING) ts.stop();
+                    else if (sq.getStatus() == Animation.Status.RUNNING) sq.stop();
                     goToNextWindow();
                 } catch (InterruptedException e) {
                     e.printStackTrace();
