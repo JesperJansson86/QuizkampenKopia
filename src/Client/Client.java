@@ -33,7 +33,7 @@ public class Client implements Runnable {
             e.printStackTrace();
         }
 
-        try (Socket socket = new Socket("localhost", Server.port)) {
+        try (Socket socket = new Socket("localhost", StartupGameServer.port)) {
             ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream());
             ObjectInputStream in = new ObjectInputStream(socket.getInputStream());
 
