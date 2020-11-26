@@ -99,6 +99,12 @@ public class Intro {
     }
 
     public void registerButtonOn(ActionEvent actionEvent) {
+        try {
+            util.changeScene("../view/Register.fxml");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
     }
 
 
