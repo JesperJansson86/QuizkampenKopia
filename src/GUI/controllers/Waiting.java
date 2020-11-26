@@ -109,8 +109,7 @@ public class Waiting {
     private void startThreadMethod() {
         new Thread(() -> {
             try {
-                String temp = (String) toGUI.take();
-                nextPane = temp;
+                nextPane = (String) toGUI.take();
                 if (ts.getStatus() == Animation.Status.RUNNING) ts.stop();
                 else if (sq.getStatus() == Animation.Status.RUNNING) sq.stop();
                 goToNextWindow();
