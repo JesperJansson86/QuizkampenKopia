@@ -1,18 +1,16 @@
 package Server;
 
 import MainClasses.GameRound;
-import MainClasses.Question;
 import MainClasses.QuestionFactory;
 
 import java.io.*;
-import java.util.Map;
 import java.util.Properties;
 import java.util.Scanner;
 
 public class ServerLogic {
-    Properties p = new Properties();
-    QuestionFactory qf = new QuestionFactory();
-    GameRound gr = new GameRound();
+   private Properties p = new Properties();
+   private QuestionFactory qf = new QuestionFactory();
+   private GameRound gr = new GameRound();
 
 
     public static void main(String[] args) {
@@ -21,7 +19,7 @@ public class ServerLogic {
 
     /**
      * Generates questions and writes in the Gamehostory-file.
-     * @return
+     * @return returns the starting GameRound
      */
     public GameRound initiateGame() {
         ServerLogic sl = new ServerLogic();
@@ -51,7 +49,7 @@ public class ServerLogic {
 
     /**
      * generates a set amount of random question for each category
-     * @return
+     * @return resturns a GameRound with a updated List of questions
      */
     public GameRound initateQuestionsAndCategorys() {
         try{

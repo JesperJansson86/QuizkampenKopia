@@ -8,10 +8,10 @@ import java.util.concurrent.LinkedBlockingQueue;
 
 
 public class StartupGameServer {
-    public static Socket socket2;
-    static ServerThreadNew ts2;
+    private static Socket socket2;
+    private static ServerThreadNew ts2;
     public static int port = 5000;
-    public static BlockingQueue<Object> waitForPLayer2 = new LinkedBlockingQueue();
+    protected static BlockingQueue<Object> waitForPLayer2 = new LinkedBlockingQueue();
 
     public static void main(String[] args) throws IOException {
 

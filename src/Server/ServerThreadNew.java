@@ -7,14 +7,14 @@ import java.net.Socket;
 import java.util.Properties;
 
 public class ServerThreadNew extends Thread {
-    Socket socket;
-    Socket socket2;
-    ServerLogic sl = new ServerLogic();
-    GameRound gr = new GameRound();
-    Properties p = new Properties();
+    private Socket socket;
+    private Socket socket2;
+    private ServerLogic sl = new ServerLogic();
+    private GameRound gr;
+    private Properties p = new Properties();
 
 
-    public ServerThreadNew(Socket socket) throws IOException {
+    public ServerThreadNew(Socket socket)  {
         this.socket = socket;
     }
 
@@ -89,8 +89,8 @@ public class ServerThreadNew extends Thread {
 
     /**
      * send a GameRound to the playerone and recieves one back when player has completed it
-     * @param out1
-     * @param in1
+     * @param out1 the ObjectOutputStream
+     * @param in1 the ObjectInputstream
      * @throws IOException
      * @throws ClassNotFoundException
      */
@@ -104,8 +104,8 @@ public class ServerThreadNew extends Thread {
 
     /**
      * send a GameRound to the playertwo and recieves one back when player has completed it
-     * @param out2
-     * @param in2
+     * @param out2 the ObjectOutputStream
+     * @param in2 the ObjectInputStream
      * @throws IOException
      * @throws ClassNotFoundException
      */
