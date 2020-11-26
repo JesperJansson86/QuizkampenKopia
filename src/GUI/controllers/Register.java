@@ -30,11 +30,10 @@ public class Register {
 
     public void confirmButtonOn(ActionEvent actionEvent) {
         if (!enterUsernameField.getText().isEmpty() && !enterPasswordField.getText().isEmpty() && !confirmPasswordField.getText().isEmpty()) {
-
             if (enterPasswordField.getText().equals(confirmPasswordField.getText())) {
-                notificationLabel.setText("Passwords is a match!");
-                registerNewUser();
-
+                if (registerNewUserSuccess()) {
+                    backToIntroScene();
+                }
             } else {
                 notificationLabel.setText("Passwords does not match. Try again.");
             }
@@ -45,6 +44,10 @@ public class Register {
     }
 
     public void goBackButtonOn(ActionEvent actionEvent) {
+        backToIntroScene();
+    }
+
+    public void backToIntroScene() {
         try {
             util.changeScene("../view/Intro.fxml");
         } catch (IOException e) {
@@ -52,10 +55,9 @@ public class Register {
         }
     }
 
-    public void registerNewUser() {
+    public boolean registerNewUserSuccess() {
         DatabaseConnection connectNow = new DatabaseConnection();
         Connection connectDb = connectNow.getConnection();
-
         String username = enterUsernameField.getText();
         String password = enterPasswordField.getText();
 
@@ -64,8 +66,9 @@ public class Register {
         try {
             Statement statement = connectDb.createStatement();
             statement.executeUpdate(insertField);
+            notificationLabel.setText("User created successfully.");
             System.out.println("Account with username: " + username + " and password: " + password + " registered successfully");
-            notificationLabel.setText("Account created successfully.");
+            return true;
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -73,5 +76,7 @@ public class Register {
             notificationLabel.setText("Username is use.");
         }
 
+        return false;
     }
+
 }

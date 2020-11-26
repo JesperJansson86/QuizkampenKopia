@@ -14,5 +14,5 @@
     <Label layoutX="108.0" layoutY="239.0" prefHeight="17.0" prefWidth="101.0" text="Confirm password" textFill="WHITE" />
     <Button fx:id="confirmButton" layoutX="183.0" layoutY="345.0" mnemonicParsing="false" onAction="#confirmButtonOn" prefHeight="25.0" prefWidth="134.0" text="Confirm" />
     <Button fx:id="goBackButton" layoutX="183.0" layoutY="398.0" mnemonicParsing="false" onAction="#goBackButtonOn" prefHeight="25.0" prefWidth="134.0" text="Go back" />
-   <Label fx:id="notificationLabel" layoutX="141.0" layoutY="293.0" prefHeight="17.0" prefWidth="219.0" textFill="WHITE" />
+   <Label fx:id="notificationLabel" layoutX="97.0" layoutY="294.0" prefHeight="17.0" prefWidth="307.0" textFill="WHITE" />
 </AnchorPane>
