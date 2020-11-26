@@ -78,9 +78,7 @@ public class ChooseCategory {
         try {
             String nextPane = (String) toGUI.take();
             util.changeSceneNew(nextPane);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
+        } catch (InterruptedException | IOException e) {
             e.printStackTrace();
         }
     }
