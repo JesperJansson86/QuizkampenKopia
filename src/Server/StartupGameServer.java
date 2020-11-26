@@ -1,14 +1,13 @@
 package Server;
 
 import java.io.IOException;
-import java.io.ObjectOutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 
 
-public class GameStartupServer {
+public class StartupGameServer {
     public static Socket socket2;
     static ServerThreadNew ts2;
     public static int port = 5000;
@@ -16,35 +15,29 @@ public class GameStartupServer {
 
     public static void main(String[] args) throws IOException {
 
-        GameStartupServer gs = new GameStartupServer();
+        StartupGameServer gs = new StartupGameServer();
 
     }
 
-    public GameStartupServer() throws IOException {
-
+    /**
+     * StartupGameServer waits for someone to connect to the and create a Socket and then starts a new ServerThreadNew
+     * the next Socket is added to a BlockingQueue that is then accessed from within that thread.
+     * @throws IOException
+     */
+    public StartupGameServer() throws IOException {
         try (ServerSocket serverSocket = new ServerSocket(port)) {
-            System.out.println("Server.Server up and ready.");
+            System.out.println("Server is online and waiting for players.");
             while (true) {
                 Socket socket = serverSocket.accept();
                 System.out.println("Client1 connected");
-
-                socket2 = null;
                 ts2 = new ServerThreadNew(socket);
                 ts2.start();
                 socket2 = serverSocket.accept();
                 waitForPLayer2.add(socket2);
                 System.out.println("Client2 connected.");
-
             }
-
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-    }
-
-    public void gameStartup() {
-
-
     }
 }

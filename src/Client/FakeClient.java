@@ -1,15 +1,11 @@
 package Client;
 
 import MainClasses.GameRound;
-import MainClasses.Question;
 
-import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 
@@ -31,7 +27,7 @@ public class FakeClient implements Runnable {
 
     @Override
     public void run() {
-        try (Socket socket = new Socket("localhost", Server.port)) {
+        try (Socket socket = new Socket("localhost", StartupGameServer.port)) {
             ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream());
             ObjectInputStream in = new ObjectInputStream(socket.getInputStream());
             gr.playerTurn = Integer.parseInt((String) in.readObject());
