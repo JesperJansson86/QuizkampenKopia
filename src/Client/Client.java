@@ -78,7 +78,6 @@ public class Client implements Runnable {
                     answerQuestions();
                     showResults();
                 }
-
                 out.writeObject(gr);
                 goToWaiting("End of Round, waiting for opponent/server");
             }
@@ -108,17 +107,6 @@ public class Client implements Runnable {
 
     public void answerQuestions() {
         try {
-//            List<Question> activeQuestions = new ArrayList<>();
-//            for (Question q : gr.qlist) {
-//                if (q.getCategory().equalsIgnoreCase(gr.category)) {
-//                    activeQuestions.add(q);
-//                    System.out.println(q.toString());
-//                }
-//            }
-//            toGUI.put("QUESTION");
-//            toGUI.put(activeQuestions);
-//            toGUI.put(gr.roundnumber);
-
             gr.activeQuestions.clear();
             for (Question q : gr.qlist) {
                 if (q.getCategory().equalsIgnoreCase(gr.category)) {
@@ -139,22 +127,6 @@ public class Client implements Runnable {
                 }
             }
 
-
-            //should playerScore hold round total or score per question ?
-//HODEI TEST, I TOOK THE ROUND TOTAL VERSION FOR NOW, WILL FIX WHEN WE ADD FANCY RECTANGLES.
-            ArrayList<Integer> pointHolder = PointCount.getPointHolder();
-
-         /*   for (int point : pointHolder){
-                if (isPlayer1){
-                    gr.player1Score.add(point);
-                } else{
-                    gr.player2Score.add(point);
-                }
-            }
-
-          */
-
-
             //roundTotal version
             if (isPlayer1) {
                 gr.player1Score.add(PointCount.getRoundTotal());
@@ -170,16 +142,8 @@ public class Client implements Runnable {
 
     }
 
-    //    public void showResults(){
-//        try{
-//            toGUI.put("RESULTS");
-//        } catch (InterruptedException e) {
-//            e.printStackTrace();
-//        }
-//    }
     public void showResults() {
         try {
-
             //i hope its here we are supposed to go to the result scene
             int roundTotal = PointCount.playerRoundTotal(); //the round total
 
@@ -188,7 +152,6 @@ public class Client implements Runnable {
 
             toGUI.put("RESULTS");
             toGUI.put(gr); //HODEI TEST!!!
-
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
