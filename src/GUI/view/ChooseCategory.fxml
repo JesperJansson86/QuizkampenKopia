@@ -20,7 +20,7 @@
       </Label>
       <Group fx:id="categoriesCircle" layoutX="250.0" layoutY="235.0">
          <children>
-            <Circle fx:id="theCircle" fill="#1f93ff00" radius="100.0" strokeType="OUTSIDE" strokeWidth="7.0">
+            <Circle fx:id="theCircle" fill="#1f93ff00" radius="130.0" strokeType="OUTSIDE" strokeWidth="7.0">
                <stroke>
                   <LinearGradient endX="1.0" endY="1.0">
                      <stops>
@@ -31,8 +31,8 @@
                </stroke></Circle>
             <Group fx:id="category1group">
                <children>
-                  <Arc fx:id="category1" fill="DODGERBLUE" length="120.0" radiusX="100.0" radiusY="100.0" startAngle="270.0" stroke="TRANSPARENT" strokeType="INSIDE" type="ROUND" />
-                  <Label fx:id="categoryL1" alignment="CENTER" layoutX="11.0" layoutY="-4.0" prefHeight="56.0" prefWidth="75.0" text="this is a category" textAlignment="CENTER" textFill="WHITE" wrapText="true">
+                  <Arc fx:id="category1" fill="DODGERBLUE" length="120.0" radiusX="130.0" radiusY="130.0" startAngle="270.0" stroke="TRANSPARENT" strokeType="INSIDE" type="ROUND" />
+                  <Label fx:id="categoryL1" alignment="CENTER" layoutY="-6.0" prefHeight="92.0" prefWidth="132.0" text="this is a category" textAlignment="CENTER" textFill="WHITE" wrapText="true">
                      <font>
                         <Font name="System Bold" size="12.0" />
                      </font>
@@ -41,8 +41,8 @@
             </Group>
             <Group fx:id="category3group">
                <children>
-                  <Arc fx:id="category3" fill="#e31fff" length="120.0" radiusX="100.0" radiusY="100.0" startAngle="30.0" stroke="TRANSPARENT" strokeType="INSIDE" type="ROUND" />
-                  <Label fx:id="categoryL3" alignment="CENTER" layoutX="-51.0" layoutY="-86.0" prefHeight="48.0" prefWidth="102.0" text="this is a category" textFill="WHITE">
+                  <Arc fx:id="category3" fill="#e31fff" length="120.0" radiusX="130.0" radiusY="130.0" startAngle="30.0" stroke="TRANSPARENT" strokeType="INSIDE" type="ROUND" />
+                  <Label fx:id="categoryL3" alignment="CENTER" layoutX="-85.0" layoutY="-130.0" prefHeight="94.0" prefWidth="170.0" text="this is a category" textFill="WHITE">
                      <font>
                         <Font name="System Bold" size="12.0" />
                      </font>
@@ -51,8 +51,8 @@
             </Group>
             <Group fx:id="category2group">
                <children>
-                  <Arc id="Arc_category2" fill="#ffa21f" length="120.0" radiusX="100.0" radiusY="100.0" startAngle="150.0" stroke="TRANSPARENT" strokeType="INSIDE" type="ROUND" />
-                  <Label fx:id="categoryL2" alignment="CENTER" layoutX="-86.0" layoutY="1.0" prefHeight="48.0" prefWidth="84.0" text="this is a category" textAlignment="CENTER" textFill="WHITE" wrapText="true">
+                  <Arc id="Arc_category2" fill="#ffa21f" length="120.0" radiusX="130.0" radiusY="130.0" startAngle="150.0" stroke="TRANSPARENT" strokeType="INSIDE" type="ROUND" />
+                  <Label fx:id="categoryL2" alignment="CENTER" layoutX="-131.0" layoutY="-12.0" prefHeight="101.0" prefWidth="136.0" text="this is a category" textAlignment="CENTER" textFill="WHITE" wrapText="true">
                      <font>
                         <Font name="System Bold" size="12.0" />
                      </font>
