@@ -14,6 +14,7 @@ import javafx.scene.layout.AnchorPane;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.UUID;
 import java.util.concurrent.BlockingQueue;
@@ -36,9 +37,10 @@ public class Intro {
     BlockingQueue toClient = Client.toClient;
     //public Label message;
    // public Button startB;
-    public TextField nameField;
+    //public TextField nameField;
     public AnchorPane introPane;
     public UUID uuid;
+    public String username;
     GUIutils util;
 
     public void initialize() {
@@ -51,37 +53,35 @@ public class Intro {
 
         if (!usernameField.getText().isEmpty() && !passwordField.getText().isEmpty()) {
             DatabaseConnection connectNow = new DatabaseConnection();
-            System.out.println(connectNow.databaseLink);
-            System.out.println(connectNow.getConnection().toString());
+            //A session is created with the database
             Connection connectDb = connectNow.getConnection();
-            System.out.println(connectDb);
 
+            //Query that checks if the users in sql match with the inputs that is used in ResultSet later.
             String verifyLogin = "SELECT count(1) FROM user_account WHERE username = '" + usernameField.getText() + "' AND password ='" + passwordField.getText() + "'";
 
-            System.out.println(usernameField.getText());
-            System.out.println(passwordField.getText());
             try {
-                System.out.println("HERE1");
                 Statement statement = connectDb.createStatement();
-
                 ResultSet queryResult = statement.executeQuery(verifyLogin);
-                System.out.println("Inside try");
-                System.out.println(queryResult);
 
+                //Finds the query matching to verifyLogin.
                 while (queryResult.next()) {
                     if (queryResult.getInt(1) == 1) {
                         System.out.println("Logged in successfully");
+
+                        username = usernameField.getText();
+                        toClient.put(username);
+                        String nextScene = (String) toGUI.take();
+                        util.changeSceneNew(nextScene);
+
                     } else {
                         System.out.println("Invalid login");
                     }
-
                 }
-            } catch (Exception e) {
+            } catch (InterruptedException | IOException | SQLException e) {
                 e.printStackTrace();
-                System.out.println("nooooot");
+                System.out.println("Something went wrong");
             }
         }
-
 
     }
 
