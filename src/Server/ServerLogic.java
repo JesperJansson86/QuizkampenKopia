@@ -22,7 +22,6 @@ public class ServerLogic {
     public GameRound initiateGame() {
         ServerLogic sl = new ServerLogic();
         gr = sl.initateQuestionsAndCategorys();
-        gr.roundnumber = -100;
         gr.gameid = sl.initateGameIdByReadingFile();
         sl.writeHistoryToFile();
         System.out.println(gr.gameid);
