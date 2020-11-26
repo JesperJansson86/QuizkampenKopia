@@ -90,7 +90,7 @@ public class Waiting {
         }
     }
 
-    private void startThreadMethod(){
+    private void startThreadMethod(){ //is here the bug?
         new Thread(new Runnable() {
             @Override
             public void run() {
