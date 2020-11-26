@@ -14,7 +14,7 @@ public class DatabaseConnection {
 
         try {
             System.out.println("in try databaseconnection");
-            Class.forName("com.mysql.jdbc.Driver");
+            Class.forName("com.mysql.cj.jdbc.Driver");
             databaseLink = DriverManager.getConnection(url, databaseUser, databasePassword);
             System.out.println("Success connection");
             System.out.println(databaseLink);
