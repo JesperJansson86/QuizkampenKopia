@@ -55,8 +55,7 @@ public class QuestionFactory {
                 indexEnd = stringFromFile.length();
             }
             String nextQuestion = stringFromFile.substring(0, indexEnd);
-
-
+            //Parsing text instead of using gson
             String category = grabBetween(nextQuestion, "category\":\"", "\",\"");
             String question = grabBetween(nextQuestion, "question\":\"", "\",\"");
             String correctAnswer = grabBetween(nextQuestion, "correct_answer\":\"", "\",\"");
@@ -64,13 +63,10 @@ public class QuestionFactory {
                 correctAnswer = "BAM! " + correctAnswer;
             }
             String[] incorrectAnswer = grabBetween(nextQuestion, "incorrect_answers\":[\"", "\"]}").split("\",\"");
-
             stringFromFile = stringFromFile.substring(indexEnd);
-
+            //Creating and adding Questions to correct Category.
             Question q = new Question(category, question, correctAnswer, incorrectAnswer[0], incorrectAnswer[1], incorrectAnswer[2]);
             questionList.add(q);
-
-            System.out.println(q.toString());
             if (!questionsByCategory.containsKey(q.getCategory())) {
                 questionsByCategory.put(q.getCategory(), new ArrayList<>());
                 questionsByCategory.get(q.getCategory()).add(q);
@@ -157,7 +153,6 @@ public class QuestionFactory {
      * @return
      */
     public List<Question> getQuestions(int questions) {
-        if (questions > 4) throw new IllegalArgumentException("Can't accept over 4 right now.");
         List<Question> questionsList = new ArrayList<>();
         for (String key : questionsByCategory.keySet()) {
             for (int i = 0; i < questions; i++) {
