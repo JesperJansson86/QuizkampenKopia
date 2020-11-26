@@ -13,10 +13,10 @@
    <children>
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#1f93ff00" height="479.0" layoutX="-3.0" layoutY="-5.0" stroke="#5372fd" strokeType="INSIDE" strokeWidth="10.0" style="-fx-arc-width: 40; -fx-arc-height: 30;" width="508.0" />
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="140.0" layoutX="7.0" layoutY="5.0" stroke="TRANSPARENT" strokeType="INSIDE" width="488.0" />
-      <Button fx:id="answer1" layoutX="76.0" layoutY="235.0" mnemonicParsing="false" onAction="#answerOn" prefHeight="66.0" prefWidth="179.0" styleClass="buttons" stylesheets="@../resources/questions.css" text="answer1" />
-      <Button fx:id="answer2" layoutX="267.0" layoutY="235.0" mnemonicParsing="false" onAction="#answerOn" prefHeight="66.0" prefWidth="179.0" styleClass="buttons" stylesheets="@../resources/questions.css" text="answer2" />
-      <Button fx:id="answer3" layoutX="76.0" layoutY="313.0" mnemonicParsing="false" onAction="#answerOn" prefHeight="66.0" prefWidth="179.0" styleClass="buttons" stylesheets="@../resources/questions.css" text="answer3" />
-      <Button fx:id="answer4" layoutX="267.0" layoutY="313.0" mnemonicParsing="false" onAction="#answerOn" prefHeight="66.0" prefWidth="179.0" styleClass="buttons" stylesheets="@../resources/questions.css" text="answer4">
+      <Button fx:id="answer1" layoutX="76.0" layoutY="235.0" mnemonicParsing="false" onAction="#answerOn" prefHeight="66.0" prefWidth="179.0" styleClass="buttons" stylesheets="@../resources/questions.css" text="answer1" textAlignment="CENTER" wrapText="true" />
+      <Button fx:id="answer2" layoutX="267.0" layoutY="235.0" mnemonicParsing="false" onAction="#answerOn" prefHeight="66.0" prefWidth="179.0" styleClass="buttons" stylesheets="@../resources/questions.css" text="answer2" textAlignment="CENTER" wrapText="true" />
+      <Button fx:id="answer3" layoutX="76.0" layoutY="313.0" mnemonicParsing="false" onAction="#answerOn" prefHeight="66.0" prefWidth="179.0" styleClass="buttons" stylesheets="@../resources/questions.css" text="answer3" textAlignment="CENTER" wrapText="true" />
+      <Button fx:id="answer4" layoutX="267.0" layoutY="313.0" mnemonicParsing="false" onAction="#answerOn" prefHeight="66.0" prefWidth="179.0" styleClass="buttons" stylesheets="@../resources/questions.css" text="answer4" textAlignment="CENTER" wrapText="true">
          <font>
             <Font name="Leelawadee UI" size="12.0" />
          </font></Button>

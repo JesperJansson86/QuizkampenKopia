@@ -30,27 +30,34 @@ import java.util.*;
  * getCategories()
  */
 public class QuestionFactory {
-    private static List<Question> questionList = new ArrayList<>();
-    private static Map<String, ArrayList<Question>> questionsByCategory = new HashMap<>();
-    private static List<String> categories = new ArrayList<>();
-    private static boolean doOnlyOnce = true;
+    private List<Question> questionList = new ArrayList<>();
+    private Map<String, ArrayList<Question>> questionsByCategory = new HashMap<>();
+    private List<String> categories = new ArrayList<>();
+    private boolean doOnlyOnce = true;
+    private boolean test = true;
 
     public QuestionFactory() {
 
         if (doOnlyOnce) {
-            updateList("src/questionsfromOpenTDB1.txt");
-            updateList("src/questionsfromOpenTDB2.txt");
-            //Uncomment when live for more questions and categories.
-            updateList("https://opentdb.com/api.php?amount=10&category=18&difficulty=easy&type=multiple");
+//            Only 4 questions in each file
+//            updateList("src/questionsfromOpenTDB1.txt");
+//            updateList("src/questionsfromOpenTDB2.txt");
             updateList("https://opentdb.com/api.php?amount=10&category=9&difficulty=easy&type=multiple");
             updateList("https://opentdb.com/api.php?amount=10&category=10&difficulty=easy&type=multiple");
             updateList("https://opentdb.com/api.php?amount=10&category=11&difficulty=easy&type=multiple");
+            updateList("https://opentdb.com/api.php?amount=10&category=13&difficulty=easy&type=multiple");
+            updateList("https://opentdb.com/api.php?amount=10&category=14&difficulty=easy&type=multiple");
+            updateList("https://opentdb.com/api.php?amount=10&category=15&difficulty=easy&type=multiple");
+            updateList("https://opentdb.com/api.php?amount=10&category=16&difficulty=easy&type=multiple");
+            updateList("https://opentdb.com/api.php?amount=10&category=17&difficulty=easy&type=multiple");
             updateList("https://opentdb.com/api.php?amount=10&category=18&difficulty=easy&type=multiple");
             updateList("https://opentdb.com/api.php?amount=10&category=19difficulty=easy&type=multiple");
             updateList("https://opentdb.com/api.php?amount=10&category=20difficulty=easy&type=multiple");
+            updateList("https://opentdb.com/api.php?amount=10&category=22&difficulty=easy&type=multiple");
             updateList("https://opentdb.com/api.php?amount=10&category=23&difficulty=easy&type=multiple");
             updateList("https://opentdb.com/api.php?amount=10&category=25difficulty=easy&type=multiple");
             doOnlyOnce = false;
+            Collections.shuffle(categories);
         }
 
         for (String key : questionsByCategory.keySet()) {
@@ -76,6 +83,9 @@ public class QuestionFactory {
             String category = grabBetween(nextQuestion, "category\":\"", "\",\"");
             String question = grabBetween(nextQuestion, "question\":\"", "\",\"");
             String correctAnswer = grabBetween(nextQuestion, "correct_answer\":\"", "\",\"");
+            if(test){
+                correctAnswer = "BAM! " + correctAnswer;
+            }
             String[] incorrectAnswer = grabBetween(nextQuestion, "incorrect_answers\":[\"", "\"]}").split("\",\"");
 
             stringFromFile = stringFromFile.substring(indexEnd);
