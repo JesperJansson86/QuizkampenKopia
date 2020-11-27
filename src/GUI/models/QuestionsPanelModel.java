@@ -1,8 +1,6 @@
 package GUI.models;
 
 import MainClasses.Question;
-import MainClasses.QuestionFactory;
-import javafx.event.ActionEvent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 
@@ -18,16 +16,38 @@ import java.util.List;
  * Copyright: MIT
  */
 public class QuestionsPanelModel {
-    private Question q;
-    public ArrayList<String> answers = new ArrayList<>();
     private final ArrayList<Button> buttons = new ArrayList<>(); //an arrayList of buttons (contains answer1-4)
-    private List<Question> questionList=new ArrayList<>();
+    private final List<Question> questionList;
+    private final Button answer1, answer2, answer3, answer4; //buttons that will be stored in the buttons arrayList
+    private final Label categoryL, question;
+    public ArrayList<String> answers = new ArrayList<>();
+    private Question q;
     private Button right; //right has the same value as the button with the right answer
-    private final Button answer1,answer2,answer3,answer4; //buttons that will be stored in the buttons arrayList
-    private final Label categoryL,question;
 
     /**
-     *getter for the arrayList with buttons
+     * Constructor that takes in values form QuestionPanel
+     *
+     * @param qList     //an array with Questions
+     * @param answer1   //button with a question answer on it
+     * @param answer2   //button with a question answer on it
+     * @param answer3   //button with a question answer on it
+     * @param answer4   //button with a question answer on it
+     * @param categoryL //label holds what category questions are
+     * @param question  //holds and shows the question
+     */
+    public QuestionsPanelModel(ArrayList<Question> qList, Button answer1, Button answer2, Button answer3, Button answer4, Label categoryL, Label question) {
+        this.questionList = qList;
+        this.answer1 = answer1;
+        this.answer2 = answer2;
+        this.answer3 = answer3;
+        this.answer4 = answer4;
+        this.categoryL = categoryL;
+        this.question = question;
+    }
+
+    /**
+     * getter for the arrayList with buttons
+     *
      * @return arrayList with the answer1-4 buttons
      */
     public ArrayList<Button> getButtons() {
@@ -45,6 +65,7 @@ public class QuestionsPanelModel {
 
     /**
      * Getter for QuestionList, a list of Questions
+     *
      * @return returns a List with Questions
      */
     public List<Question> getQuestionList() {
@@ -58,26 +79,6 @@ public class QuestionsPanelModel {
      */
     public Button getRight() {
         return right;
-    }
-
-    /**
-     *
-     * @param qList //an array with Questions
-     * @param answer1 //button with a question answer on it
-     * @param answer2 //button with a question answer on it
-     * @param answer3 //button with a question answer on it
-     * @param answer4 //button with a question answer on it
-     * @param categoryL
-     * @param question
-     */
-    public QuestionsPanelModel(ArrayList<Question> qList,Button answer1, Button answer2, Button answer3, Button answer4, Label categoryL, Label question){
-        this.questionList = qList;
-        this.answer1=answer1;
-        this.answer2=answer2;
-        this.answer3=answer3;
-        this.answer4=answer4;
-        this.categoryL=categoryL;
-        this.question=question;
     }
 
     /**
@@ -127,23 +128,26 @@ public class QuestionsPanelModel {
     }
 
     /**
-     *
+     * sets some button
+     * <p>
+     * used in model.setOnStage();
      */
     public void setOnStage() {
-        q = takeAquestion();
+        q = takeAquestion(); //gives q the value of a question from questionList
 
-        question.setText(q.getQuestion());
-        answers.add(q.getAnswer2());
-        answers.add(q.getAnswer3());
-        answers.add(q.getAnswer4());
-        answers.add(q.getRightAnswer());
-        categoryL.setText(q.getCategory());
+        question.setText(q.getQuestion()); //sets the question in the question Label to
+        answers.add(q.getAnswer2()); //adds a button with the wrong answer to the answers arrayList of buttons
+        answers.add(q.getAnswer3()); //adds a button with the wrong answer to the answers arrayList of buttons
+        answers.add(q.getAnswer4()); //adds a button with the wrong answer to the answers arrayList of buttons
+        answers.add(q.getRightAnswer()); //adds a button with the right answer to the answer ArrayList of buttons
+        categoryL.setText(q.getCategory()); //sets the text in the categoryL Label
         setShuffled();
     }
 
     /**
+     * Returns a Question form questionList that gets its questions from qList in QuestionsPanel
      *
-     * @return
+     * @return returns a Question
      */
     public Question takeAquestion() {
 
