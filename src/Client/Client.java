@@ -20,11 +20,8 @@ public class Client implements Runnable {
     public static BlockingQueue<Object> toGUI = new LinkedBlockingQueue();
     public static BlockingQueue<Object> toClient = new LinkedBlockingQueue();
 
-    public Client() {}
-
     @Override
     public void run() {
-
         String name = null;
         try {
             name = (String) toClient.take(); //Waiting for GUI to send name to Client

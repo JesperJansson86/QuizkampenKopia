@@ -28,8 +28,8 @@ public class QuestionsPanel {
     // TODO: 26/11/2020 Figure out what needs to be public/private
     private static final String GREEN_BCK = "-fx-background-color: #00be00"; //Green
     private static final String GREEN_FILL = "-fx-fill: #00be00"; //Green
-    private static final String RED_FILL = "-fx-background-color:red"; //Red
-    private static final String RED_BCK = "-fx-fill: red"; //Red
+    private static final String RED_BCK = "-fx-background-color:red"; //Red
+    private static final String RED_FILL = "-fx-fill: red"; //Red
     private final List<Question> qList = Client.gr.activeQuestions; //list of questions
     private final int actualRound = Client.gr.roundnumber;//holds the round number
     private final int secondsToAnswer = 5; //how long the user has to answer // TODO: 26/11/2020 Maybe we should make this a setting in the config ?
