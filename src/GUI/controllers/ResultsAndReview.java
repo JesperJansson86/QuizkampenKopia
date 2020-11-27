@@ -25,7 +25,6 @@ import javafx.util.Duration;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.BlockingQueue;
 
 import static javafx.scene.transform.Rotate.Z_AXIS;
 
@@ -37,7 +36,6 @@ import static javafx.scene.transform.Rotate.Z_AXIS;
  * Copyright: MIT
  */
 public class ResultsAndReview {
-    BlockingQueue toGUI = Client.toGUI;
 
     public Group player1Group;
     public Group player2Group;
@@ -47,12 +45,10 @@ public class ResultsAndReview {
     public Label player2PointsSum;
     public Label player1PointsSum;
     public Pane resultsPane;
-    GUIutils util;
-    Circle roundC;
 
-    ImageView trophy=new ImageView(new Image(getClass().getResourceAsStream("../resources/trophy.png")));
-
-
+    private GUIutils util;
+    private Circle roundC;
+    private ImageView trophy=new ImageView(new Image(getClass().getResourceAsStream("../resources/trophy.png")));
     private List<Integer> p1PointsList = new ArrayList<>();
     private List<Integer> p2PointsList = new ArrayList<>();
     private List<String> playerNames =new ArrayList<>();
@@ -65,9 +61,10 @@ public class ResultsAndReview {
 
 
          try {
-             GameRound gr=(GameRound)toGUI.take();
+             GameRound gr=(GameRound)Client.toGUI.take();
              playerNames=gr.playerNames;
 
+             //a fix which sets to 0 points if the players score is not updated.
              if (gr.player1Score.isEmpty()) {
                  p1PointsList.add(0);
              } else if (gr.player1Score.size()<gr.player2Score.size()){
@@ -92,8 +89,7 @@ public class ResultsAndReview {
            e.printStackTrace();
         }
 
-        resultsPane.setOnMouseClicked(e-> {goNextPanel();
-        });
+        resultsPane.setOnMouseClicked(e-> goNextPanel());
 
         player1L.setText(playerNames.get(0));
         player2L.setText(playerNames.get(1));
@@ -175,12 +171,12 @@ public class ResultsAndReview {
      * @param listToSum the list to calculate
      * @return the sum of all integer elements
      */
-    private int getPointSum(List listToSum){
-        int sum = listToSum.stream()
-                .mapToInt(a -> (int)a)
+    private int getPointSum(List<Integer> listToSum){
+        return listToSum.stream()
+                .mapToInt(a -> a)
                 .sum();
 
-        return sum;
+
     }
 
     /**
@@ -233,11 +229,9 @@ public class ResultsAndReview {
     public void goNextPanel() {
 
         try{
-            String nextPane = (String) toGUI.take();
+            String nextPane = (String) Client.toGUI.take();
             util.changeSceneNew(nextPane);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
+        } catch (InterruptedException | IOException e) {
             e.printStackTrace();
         }
 
