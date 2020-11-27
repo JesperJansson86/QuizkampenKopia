@@ -1,10 +1,12 @@
 package Client;
 
+import GUI.models.GUIutils;
 import MainClasses.GameRound;
 import MainClasses.PointCount;
 import MainClasses.Question;
 import Server.*;
 
+import java.beans.PropertyChangeSupport;
 import java.io.*;
 import java.net.Socket;
 import java.util.concurrent.BlockingQueue;
@@ -20,6 +22,11 @@ public class Client implements Runnable {
     public static BlockingQueue<Object> toGUI = new LinkedBlockingQueue();
     public static BlockingQueue<Object> toClient = new LinkedBlockingQueue();
 
+   private String message; //The message to be sent
+    private final PropertyChangeSupport pcs = new PropertyChangeSupport(this); //instance propertyChange
+    public void addListener(){ //add the listener
+        pcs.addPropertyChangeListener(GUIutils.getInstance()); //added a singleton of GUIutils
+    }
     @Override
     public void run() {
         String name = null;
@@ -77,6 +84,11 @@ public class Client implements Runnable {
      * @throws InterruptedException
      */
     private void goToChooseCategory() throws InterruptedException{
+        addListener(); //testing LISTENER
+        String o=message;//Testing Listener
+        message="GO To CATEGORY!!!!!!!!!!!!!!!!!!!!!!";//Testing Listener
+        pcs.firePropertyChange("IT WORKS",o,message);//Testing Listener
+
             toGUI.put("CATEGORY");
             gr.category = (String) toClient.take();  //Wait for GUI to select category
             gr.categoryList.remove(gr.category);
