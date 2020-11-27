@@ -64,9 +64,24 @@ public class Client implements Runnable {
         }
     }
 
-    private void resolveFromServer(String header, Object body) {
+    private void resolveFromServer(String header, Object body) throws InterruptedException {
         if(header.equals("ISPLAYERONE")){
             System.out.println("I am player one: " + (boolean) body);
+        }
+        if(header.equals("CHOOSECAT")){
+            gr.categoryList = (ArrayList) body;
+            toGUI.put("CATEGORY");
+            toGUI.put("WAITING");
+            toGUI.put("Waiting for Server...");
+        }
+        if(header.equals("SETCAT")){
+            gr.category = (String) body;
+        }
+        if(header.equals("ANSWERQUESTIONS")){
+            gr.activeQuestions = (ArrayList) body;
+            toGUI.put("QUESTIONS");
+            toGUI.put("WAITING");
+            toGUI.put("Waiting for Server...");
         }
     }
 

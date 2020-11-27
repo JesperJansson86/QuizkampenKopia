@@ -1,6 +1,6 @@
 package GUI.controllers;
 
-import Client.Client;
+import ClientV2.Client;
 import GUI.models.GUIutils;
 import javafx.animation.RotateTransition;
 import javafx.animation.ScaleTransition;
@@ -94,7 +94,7 @@ public class ChooseCategory {
         setGroupUserInteraction(false);
 
         try {
-            toClient.put(category);
+            Client.toServer.put(category);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }

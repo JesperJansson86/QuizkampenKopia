@@ -1,6 +1,6 @@
 package GUI.controllers;
 
-import Client.Client;
+import ClientV2.Client;
 import GUI.models.GUIutils;
 import MainClasses.GameRound;
 import javafx.animation.RotateTransition;

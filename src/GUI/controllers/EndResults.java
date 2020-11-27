@@ -2,7 +2,7 @@ package GUI.controllers;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
-import Client.Client;
+import ClientV2.Client;
 import javafx.scene.image.ImageView;
 
 /**
@@ -50,7 +50,7 @@ public class EndResults {
             Winner_Loser_Draw = 2;
             return;
         }
-        if(Client.isPlayer1){
+        if(Client.gr.isPlayer1){
             Winner_Loser_Draw = (player1Score > player2Score) ? 0 : 1;
         } else {
             Winner_Loser_Draw = (player2Score > player1Score) ? 0 : 1;

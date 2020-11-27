@@ -18,7 +18,12 @@ import java.util.concurrent.LinkedBlockingQueue;
  */
 
 /**
- * PROTOCOL
+ * PROTOCOL ArrayList (0) = Header, String with command<br>
+ * ArrayList (1) = Body, Object to be handled.<br>
+ * <p>
+ * Header:<br>
+ * PLAYERORDER : isPlayer1 boolean <br>
+ *
  */
 public class ServerLogic implements Runnable {
     private Socket c1Socket;
@@ -49,6 +54,8 @@ public class ServerLogic implements Runnable {
 
     @Override
     public void run() {
+        gr.playerNames.add("Unknown");
+        gr.playerNames.add("Unknown");
         try {
             System.out.println("Tell player1: is player1");
             bQClient1Out.put(createPacket("ISPLAYERONE", true));
@@ -73,6 +80,12 @@ public class ServerLogic implements Runnable {
             gr.playerNames.set(1, (String) body);
             bQClient1Out.put(createPacket("P2NAME", body));
             return;
+        }
+        if(header.equals("CATCHOSEN")){
+            gr.category = (String) body;
+            //Väljer frågor
+//            bQClient1Out //Svara på frågor #1 sätt cat #2 list frågor
+//            bQClient2Out //Svara på frågor #1
         }
     }
 
