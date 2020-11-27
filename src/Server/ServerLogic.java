@@ -13,10 +13,6 @@ public class ServerLogic {
    private GameRound gr = new GameRound();
 
 
-    public static void main(String[] args) {
-
-    }
-
     /**
      * Generates questions and writes in the Gamehostory-file.
      * @return returns the starting GameRound
