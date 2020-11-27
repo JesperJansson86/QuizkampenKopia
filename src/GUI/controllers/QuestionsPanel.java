@@ -36,7 +36,7 @@ public class QuestionsPanel {
     @FXML
     public AnchorPane mainPane; //pane that holds the buttons and labels
     public QuestionsPanelModel model; //model holds the buttons, question and the timeBar
-    public Label categoryL; // TODO: 26/11/2020 figure out what this represents
+    public Label categoryL; //label holds what category questions are
     public Button answer1; //button that holds answer1
     public Button answer2; //button that holds answer2
     public Button answer3; //button that holds answer3
@@ -49,7 +49,7 @@ public class QuestionsPanel {
     public Timeline roundTime; //uses the timeLeftBar to represent how much time the user has left ot answer the question
     public ProgressBar timeLeftBar; //a progress bar that's inside of the timeline
     public Group resultRects; // tbe squares inside of rectangleQ that change color based on right or wrong answer
-    public GUIutils utils; // TODO: 26/11/2020 figure out what this represents
+    public GUIutils utils; // for changing view when done
 
     /**
      * at start initiates questionList by copying the list from MainClasses.QuestionFactory
@@ -62,8 +62,6 @@ public class QuestionsPanel {
         timeLeftBar.setProgress(1); //calls on timeBar
         createResultsRect(); //Calls on The method that creates the score keeping squares
         setRoundTimes(secondsToAnswer, qList.size()); //sends secondsToAnswer and how many questions there are to setRoundTimes
-
-
     }
 
     /**
@@ -108,9 +106,7 @@ public class QuestionsPanel {
                     //resets animations and other ui things
                     model.reset();
                     resetCardAnimation();
-
                 }));
-
         roundTime.setCycleCount(rounds);
         roundTime.play();
         roundTime.setOnFinished(e -> nextWindow());
@@ -132,10 +128,8 @@ public class QuestionsPanel {
 
             resultRects.getChildren().get(model.getQuestionList().size()).setStyle(GREEN_FILL); //turns the result square green
 
-
             PointCount.storeAnswer(buttonCLicked.getText()); //answer stored in String form in the storeAnswer method
             PointCount.playerPointCount(1); //player answered correctly so 1 gets sent to playerPointCount
-
 
             buttonsDisable(true); //disables further button input
             jumpToNextQuestion();
@@ -146,22 +140,18 @@ public class QuestionsPanel {
             transition(buttonCLicked, null); //sends the pressed button to transition
             resultRects.getChildren().get(model.getQuestionList().size()).setStyle(RED_FILL); //turns the result square red
 
-
             PointCount.storeAnswer(buttonCLicked.getText()); //answer stored in String form in the storeAnswer method
             PointCount.playerPointCount(0); //player answered incorrectly so 0 gets sent to playerPointCount
-
 
             buttonsDisable(true); //disables further button input
             jumpToNextQuestion();
         }
-
     }
 
     /**
      * transition between one question to the next
      */
     public void jumpToNextQuestion() {
-
 
         if (roundTime.getCycleCount() > 1) {
             roundTime.setDelay(Duration.seconds(2));
@@ -172,9 +162,7 @@ public class QuestionsPanel {
             roundTime.setDelay(Duration.seconds(2));
             roundTime.stop();
             roundTime.playFrom("clearQuestions");
-
         }
-
     }
 
     /**
@@ -244,7 +232,6 @@ public class QuestionsPanel {
      * sends a string to server and start the transition to result or loading
      */
     public void nextWindow() {
-
         //Send to server when dune
         try {
             Client.toClient.put("s"); //Random string gets sent, so that the client knows that questionPanel is dune
@@ -255,7 +242,5 @@ public class QuestionsPanel {
         } catch (InterruptedException | IOException e) {
             e.printStackTrace();
         }
-
     }
-
 }
