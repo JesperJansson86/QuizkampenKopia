@@ -5,8 +5,6 @@ import javafx.scene.Parent;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
 import java.io.IOException;
 
 /**
@@ -16,11 +14,8 @@ import java.io.IOException;
  * Project: QuizkampenKopia
  * Copyright: MIT
  */
-public class GUIutils implements PropertyChangeListener {
+public class GUIutils {
     Pane mainPane;
-    static String test;
-    private static GUIutils instance;
-    public GUIutils(){}
     public GUIutils(Pane mainPane) {
         this.mainPane = mainPane;
     }
@@ -35,7 +30,6 @@ public class GUIutils implements PropertyChangeListener {
         Parent pane = FXMLLoader.load(getClass().getResource(fxml));
         Stage primaryStage = (Stage) mainPane.getScene().getWindow();
         primaryStage.getScene().setRoot(pane);
-        System.out.println(test);
     }
 
     public String nextPane(String nextPane) {
@@ -60,16 +54,4 @@ public class GUIutils implements PropertyChangeListener {
         }
     }
 
-    @Override
-    public void propertyChange(PropertyChangeEvent evt) {
-        if(evt.getPropertyName().equals("IT WORKS")){
-           test=(String)evt.getNewValue();
-        }
-    }
-    public static GUIutils getInstance(){
-        if(instance == null){
-            instance = new GUIutils();
-        }
-        return instance;
-    }
 }
