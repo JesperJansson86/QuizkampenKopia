@@ -7,27 +7,27 @@ import Server.*;
 
 import java.io.*;
 import java.net.Socket;
-import java.util.*;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 
+/**
+ * Client-class is communicating between GameRound Data-class, TCP-server and GUI.
+ *
+ */
 public class Client implements Runnable {
     public static GameRound gr;
     public static boolean isPlayer1;
     public static BlockingQueue<Object> toGUI = new LinkedBlockingQueue();
     public static BlockingQueue<Object> toClient = new LinkedBlockingQueue();
 
-    public Client() {
-
-    }
+    public Client() {}
 
     @Override
     public void run() {
 
         String name = null;
         try {
-            System.out.println("in Client, just before taking name");
-            name = (String) toClient.take();
+            name = (String) toClient.take(); //Waiting for GUI to send name to Client
             goToWaiting("Waiting for opponent");
         } catch (InterruptedException e) {
             e.printStackTrace();
@@ -37,17 +37,12 @@ public class Client implements Runnable {
             ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream());
             ObjectInputStream in = new ObjectInputStream(socket.getInputStream());
 
-
             while (true) {
-
-                System.out.println("in Client, just before add name");
-                gr = (GameRound) in.readObject(); //add names if needed, ergo, first round.
-
+                gr = (GameRound) in.readObject();
                 if (gr.gameover) {
                     goToEndResults();
                     break;
                 }
-
                 if (gr.playerNames.isEmpty()) {
                     gr.playerNames.add("Unknown");
                     gr.playerNames.add("Unknown");
@@ -56,70 +51,56 @@ public class Client implements Runnable {
                     isPlayer1 = true;
                     gr.playerNames.add(0, name);
                     gr.playerNames.remove("Unknown");
-                    System.out.println("I'm player 1");
                 } else if (gr.playerNames.get(1).equalsIgnoreCase("Unknown")) {
                     isPlayer1 = false;
                     gr.playerNames.add(1, name);
                     gr.playerNames.remove("Unknown");
-                    System.out.println("I'm player 2");
                 }
 
-                System.out.println("in Client gr.category = " + gr.category);
-
-                if (gr.category == null) { //Choose category and answer questions
-                    System.out.println("in Client: gr.category is null.");
-                    getCategory();
-                    System.out.println("in Client: gr.category is now: " + gr.category);
-                    answerQuestions();
-                    showResults();
-
-                } else if (gr.category != null) { //Just answer questions
-                    System.out.println("in Client: gr.category is " + gr.category);
-                    answerQuestions();
-                    showResults();
+                if (gr.category == null) {
+                    goToChooseCategory();
+                    goToQuestionPanel();
+                    goToResultsAndReview();
+                } else if (gr.category != null) {
+                    goToQuestionPanel();
+                    goToResultsAndReview();
                 }
                 out.writeObject(gr);
                 goToWaiting("End of Round, waiting for opponent/server");
             }
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
+        } catch (IOException | ClassNotFoundException | InterruptedException e) {
             e.printStackTrace();
         }
     }
 
-    private void getCategory() {
-        try {
-            System.out.println("GetCategory() toGUI.put CATEGORY");
+    /**
+     * Sends GUI to ChooseCategory-view. <br>
+     * Set category in GameRound after GUI has completed it's task. <br>
+     * Removes category from list so it can't be chosen again.
+     * @throws InterruptedException
+     */
+    private void goToChooseCategory() throws InterruptedException{
             toGUI.put("CATEGORY");
-            System.out.println("GetCategory() toGUI.put categoryList");
-//            toGUI.put(gr.categoryList);
-
-            System.out.println("GetCategory() toClient.take String");
-            gr.category = (String) toClient.take();
-            System.out.println("GetCategory() gr.category taken, now :" + gr.category);
-            gr.categoryList.remove(gr.category); //TODO Serverside
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+            gr.category = (String) toClient.take();  //Wait for GUI to select category
+            gr.categoryList.remove(gr.category);
     }
 
-    public void answerQuestions() {
-        try {
+    /**
+     * Sets activeQuestions in GameRound to correct questions for curren category. <br>
+     * Sends GUI to QuestionPanel-view. <br>
+     * Puts awnsers in GameRound when GUI has completed it's task.
+     * @throws InterruptedException
+     */
+    private void goToQuestionPanel() throws InterruptedException {
             gr.activeQuestions.clear();
-            for (Question q : gr.qlist) {
+            for (Question q : gr.qlist) {  //Make list of questions to awnser this round.
                 if (q.getCategory().equalsIgnoreCase(gr.category)) {
                     gr.activeQuestions.add(q);
-                    System.out.println(q.toString());
                 }
             }
             toGUI.put("QUESTION");
-
             toClient.take();
-
-            ArrayList<String> answerPC = PointCount.getAnswers();
-            for (String answer : answerPC) {
+            for (String answer : PointCount.getAnswers()) { //Add answers to players answers(Results)-list
                 if (isPlayer1) {
                     gr.player1Results.add(answer);
                 } else {
@@ -127,50 +108,38 @@ public class Client implements Runnable {
                 }
             }
 
-            //roundTotal version
-            if (isPlayer1) {
+            if (isPlayer1) { //Add round score to players score-list.
                 gr.player1Score.add(PointCount.getRoundTotal());
             } else {
                 gr.player2Score.add(PointCount.getRoundTotal());
             }
             PointCount.reset();
-
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
     }
 
-    public void showResults() {
-        try {
-            //i hope its here we are supposed to go to the result scene
-            int roundTotal = PointCount.playerRoundTotal(); //the round total
-
-            PointCount.testPointCount();
-            System.out.println("Reached showResult");
-
+    /**
+     * Sends GUI to ResultsAndReview-view
+     * @throws InterruptedException
+     */
+    private void goToResultsAndReview() throws InterruptedException {
             toGUI.put("RESULTS");
-            toGUI.put(gr); //HODEI TEST!!!
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+            toGUI.put(gr);
     }
 
-    public void goToWaiting(String message) {
-        try {
+    /**
+     * Sends GUI to Waiting-panel with argumented message.
+     * @param message
+     * @throws InterruptedException
+     */
+    private void goToWaiting(String message) throws InterruptedException {
             toGUI.put("WAITING");
             toGUI.put(message);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
     }
 
-    private void goToEndResults(){
-        try {
+    /**
+     * Sends GUI to EndResults-view.
+     * @throws InterruptedException
+     */
+    private void goToEndResults() throws InterruptedException {
             toGUI.put("END_RESULTS");
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
     }
 }

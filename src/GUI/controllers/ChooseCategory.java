@@ -4,20 +4,15 @@ import Client.Client;
 import GUI.models.GUIutils;
 import javafx.animation.RotateTransition;
 import javafx.animation.ScaleTransition;
-import javafx.animation.TranslateTransition;
-import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.control.Label;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.shape.Arc;
 import javafx.scene.shape.Circle;
 import javafx.util.Duration;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.io.IOException;
-import java.util.ArrayList;
+
 import java.util.List;
 import java.util.concurrent.BlockingQueue;
 
@@ -31,14 +26,12 @@ import java.util.concurrent.BlockingQueue;
 public class ChooseCategory {
     BlockingQueue toGUI = Client.toGUI;
     BlockingQueue toClient = Client.toClient;
-//    public List<String> categoryList = new ArrayList<>();
     public List<String> categoryList = Client.gr.categoryList;
     String category;
     public Label categoryL1;
     public Arc category1;
     public Arc category3;
     public Label categoryL3;
-    public Arc category2;
     public Label categoryL2;
     public Group categoriesCircle;
     public AnchorPane mainPane;
@@ -49,12 +42,12 @@ public class ChooseCategory {
 
     GUIutils util;
     ScaleTransition st;
+
+    /**
+     * initializes setting text to category Labels, adding MouseEvent for each category group and initating GUIutils
+     */
     public void initialize() {
-//        try {
-//            categoryList = (ArrayList<String>) toGUI.take();
-//        } catch (InterruptedException e) {
-//            e.printStackTrace();
-//        }
+
         categoryL1.setText(categoryList.get(0));
         categoryL2.setText(categoryList.get(1));
         categoryL3.setText(categoryList.get(2));
@@ -77,19 +70,26 @@ public class ChooseCategory {
         util = new GUIutils(mainPane);
     }
 
-    public void goNextPanel() {
-//        util.changeScene("../view/QuestionsPanel.fxml");
-        try{
+    /**
+     * uses GUIutils changeSceneNew() to load the scene set added by Client in toGUI
+     */
+    private void goNextPanel() {
+
+        try {
             String nextPane = (String) toGUI.take();
             util.changeSceneNew(nextPane);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
+        } catch (InterruptedException | IOException e) {
             e.printStackTrace();
         }
     }
 
-    public void buttonAnimation(Group group) {
+    /**
+     * adds to toClient the category selected and
+     * animates theCircle with a rotateTransition
+     * and applies a ScaleTransition to Group assigned in the parameter
+     * @param group a javafx group
+     */
+    private void buttonAnimation(Group group) {
 
         setGroupUserInteraction(false);
 
@@ -98,7 +98,7 @@ public class ChooseCategory {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        RotateTransition rt=new RotateTransition(Duration.millis(5000),theCircle);
+        RotateTransition rt = new RotateTransition(Duration.millis(5000), theCircle);
         rt.setByAngle(9000);
         rt.play();
         group.toFront();
@@ -108,10 +108,14 @@ public class ChooseCategory {
         st.setCycleCount(2);
         st.setAutoReverse(true);
         st.play();
-        st.setOnFinished(e->goNextPanel()); //here we call to go next panel, here we should call to send to client/server, and wait response.
+        st.setOnFinished(e -> goNextPanel());
     }
 
-    public void setGroupUserInteraction(boolean status) {
+    /**
+     * Sets disable depending on the status sent in the argument
+     * @param status a boolean
+     */
+    private void setGroupUserInteraction(boolean status) {
         if (status) {
             category1group.setDisable(false);
             category2group.setDisable(false);

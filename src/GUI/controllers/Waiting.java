@@ -36,7 +36,10 @@ public class Waiting {
     TranslateTransition ts;
     GUIutils util;
 
-
+    /**
+     * initiates methods: sets the message put by Client in toGui, sets Pane for GUIutils
+     * and runs startThreadMethod
+     */
     public void initialize() {
         try {
             message.setText((String) toGUI.take());
@@ -49,6 +52,9 @@ public class Waiting {
 
     }
 
+    /**
+     * Sequential indefinite transition animation of circles. sets scale transition to each circle.
+     */
     private void circleSeq() {
         sq = new SequentialTransition();
         sq.setAutoReverse(true);
@@ -61,6 +67,9 @@ public class Waiting {
         sq.play();
     }
 
+    /**
+     * translate transition for the circleGroup (moves them down and then up)
+     */
     private void groupTransition() {
         ts = new TranslateTransition(Duration.seconds(0.5), circleGroup);
         ts.setByY(circleGroup.getTranslateY() + 30);
@@ -70,6 +79,9 @@ public class Waiting {
         ts.setOnFinished(e -> circleSeq());
     }
 
+    /**
+     * scale transition scales by half and goes back
+     */
     private void setScaleTrans() {
         st = new ScaleTransition();
         st.setByX(0.5);
@@ -79,7 +91,9 @@ public class Waiting {
         st.setDuration(Duration.seconds(0.5));
     }
 
-
+    /**
+     * uses GUIutils changeSceneNew to load next scene
+     */
     private void goToNextWindow() {
         try {
             util.changeSceneNew(nextPane);
@@ -88,20 +102,19 @@ public class Waiting {
         }
     }
 
+    /**
+     * a thread which "picks up" from toGUI the reference for the next pane and
+     * stops animations if they are running
+     */
     private void startThreadMethod() {
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-
-                    String temp = (String) toGUI.take();
-                    nextPane = temp;
-                    if (ts.getStatus() == Animation.Status.RUNNING) ts.stop();
-                    else if (sq.getStatus() == Animation.Status.RUNNING) sq.stop();
-                    goToNextWindow();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
+        new Thread(() -> {
+            try {
+                nextPane = (String) toGUI.take();
+                if (ts.getStatus() == Animation.Status.RUNNING) ts.stop();
+                else if (sq.getStatus() == Animation.Status.RUNNING) sq.stop();
+                goToNextWindow();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
             }
         }).start();
     }
