@@ -25,6 +25,10 @@ public class EndResults {
     private int player2Score;
     private int Winner_Loser_Draw; //0,1,2
 
+    /**
+     * Sets the data: players names,calculates the total score and check who had more points to set a trophy image
+     * in players "side" in the GUI.
+     */
     public void initialize(){
         player1L.setText(Client.gr.playerNames.get(0));
         player2L.setText(Client.gr.playerNames.get(1));
@@ -36,6 +40,9 @@ public class EndResults {
         trophyImage.setVisible(Winner_Loser_Draw == 0);
     }
 
+    /**
+     * calculates the total score of the integer list from Client.gr
+     */
     private void countScore(){
         for(Integer i: Client.gr.player1Score){
             player1Score += i;
@@ -45,6 +52,9 @@ public class EndResults {
         }
     }
 
+    /**
+     * sets the players status based on its score: 0 win, 1 lost and 2 draw.
+     */
     private void setWinOrLose(){
         if(player1Score == player2Score) {
             Winner_Loser_Draw = 2;
