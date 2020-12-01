@@ -37,6 +37,14 @@ public class QuestionFactory {
 
     public QuestionFactory() {
         try {
+            Properties p = new Properties();
+            p.load(new FileInputStream("src\\config.properties"));
+            test = Boolean.parseBoolean(p.getProperty("test", "false"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        try {
             updateList("src/OpenTDB.txt");
         } catch (NullPointerException e) {
             //If reading fails, use standard 1200 questions.

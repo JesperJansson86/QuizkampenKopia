@@ -18,6 +18,4 @@ public class GameRound implements Serializable {
     public List<Integer> player1Score = new ArrayList<>();
     public List<Integer> player2Score = new ArrayList<>();
     public List<Question> activeQuestions = new ArrayList();
-
-
 }

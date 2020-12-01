@@ -14,9 +14,7 @@ public class StartupGameServer {
     protected static BlockingQueue<Object> waitForPLayer2 = new LinkedBlockingQueue();
 
     public static void main(String[] args) throws IOException {
-
         StartupGameServer gs = new StartupGameServer();
-
     }
 
     /**

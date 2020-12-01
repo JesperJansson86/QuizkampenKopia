@@ -28,24 +28,13 @@ public class GUIutils {
     }
 
     public String nextPane(String nextPane) {
-        if (nextPane.equalsIgnoreCase("CATEGORY")) {
-            System.out.println("In GUIutils: It's time for Category!");
-            return "../view/ChooseCategory.fxml";
-        } else if (nextPane.equalsIgnoreCase("QUESTION")) {
-            System.out.println("In GUIutils: It's time for Question!");
-            return "../view/QuestionsPanel.fxml";
-        } else if (nextPane.equalsIgnoreCase("RESULTS")){
-            System.out.println("In GUIutils: It's time for Results!");
-            return "../view/ResultsAndReview.fxml";
-        } else if(nextPane.equalsIgnoreCase("WAITING")){
-            System.out.println("In GUIutils: It's time for Waiting!");
-            return "../view/Waiting.fxml";
-        } else if(nextPane.equalsIgnoreCase("END_RESULTS")){
-            System.out.println("In GUIutils: It's time for End Results!");
-            return "../view/EndResults.fxml";
-        } else {
-            System.out.println("In GUIutils: It's null! WADUHEK!?!");
-            return null;
+        switch(nextPane){
+            case "CATEGORY" -> { return "../view/ChooseCategory.fxml"; }
+            case "QUESTION" -> { return "../view/QuestionsPanel.fxml"; }
+            case "RESULTS" -> { return "../view/ResultsAndReview.fxml"; }
+            case "WAITING" -> { return "../view/Waiting.fxml"; }
+            case "END_RESULTS" -> { return "../view/EndResults.fxml"; }
+            default -> { return null; }
         }
     }
 
