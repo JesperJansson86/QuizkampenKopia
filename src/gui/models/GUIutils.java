@@ -20,12 +20,7 @@ public class GUIutils {
         this.mainPane = mainPane;
     }
 
-    public void changeScene(String fxml) throws IOException {
-        Parent pane = FXMLLoader.load(getClass().getResource(fxml));
-        Stage primaryStage = (Stage) mainPane.getScene().getWindow();
-        primaryStage.getScene().setRoot(pane);
-    }
-    public void changeSceneNew(String nextPane) throws IOException {
+    public void changeScene(String nextPane) throws IOException {
         String fxml = nextPane(nextPane);
         Parent pane = FXMLLoader.load(getClass().getResource(fxml));
         Stage primaryStage = (Stage) mainPane.getScene().getWindow();

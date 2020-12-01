@@ -6,7 +6,7 @@ import java.io.*;
 import java.net.Socket;
 import java.util.Properties;
 
-public class ServerThreadNew extends Thread {
+public class ServerThread extends Thread {
     private Socket socket;
     private Socket socket2;
     private ServerLogic sl = new ServerLogic();
@@ -14,7 +14,7 @@ public class ServerThreadNew extends Thread {
     private Properties p = new Properties();
 
 
-    public ServerThreadNew(Socket socket)  {
+    public ServerThread(Socket socket)  {
         this.socket = socket;
     }
 

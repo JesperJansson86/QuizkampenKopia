@@ -91,11 +91,11 @@ public class Waiting {
     }
 
     /**
-     * uses GUIutils changeSceneNew to load next scene
+     * uses GUIutils changeScene to load next scene
      */
     private void goToNextWindow() {
         try {
-            util.changeSceneNew(nextPane);
+            util.changeScene(nextPane);
         } catch (IOException e) {
             e.printStackTrace();
         }

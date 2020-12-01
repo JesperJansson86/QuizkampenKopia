@@ -44,7 +44,7 @@ public class Intro {
             try {
                 Client.toClient.put(nameField.getText());
                 String nextScene = (String) Client.toGUI.take();
-                util.changeSceneNew(nextScene);
+                util.changeScene(nextScene);
             } catch (InterruptedException | IOException e) {
                 e.printStackTrace();
             }

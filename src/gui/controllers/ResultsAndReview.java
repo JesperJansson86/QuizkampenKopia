@@ -224,13 +224,13 @@ public class ResultsAndReview {
     }
 
     /**
-     * calls GUIutils changeSceneNew method
+     * calls GUIutils changeScene method
      */
     public void goNextPanel() {
 
         try{
             String nextPane = (String) Client.toGUI.take();
-            util.changeSceneNew(nextPane);
+            util.changeScene(nextPane);
         } catch (InterruptedException | IOException e) {
             e.printStackTrace();
         }

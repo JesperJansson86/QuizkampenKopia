@@ -70,13 +70,13 @@ public class ChooseCategory {
     }
 
     /**
-     * uses GUIutils changeSceneNew() to load the scene set added by Client in toGUI
+     * uses GUIutils changeScene() to load the scene set added by Client in toGUI
      */
     private void goNextPanel() {
 
         try {
             String nextPane = (String) Client.toGUI.take();
-            util.changeSceneNew(nextPane);
+            util.changeScene(nextPane);
         } catch (InterruptedException | IOException e) {
             e.printStackTrace();
         }

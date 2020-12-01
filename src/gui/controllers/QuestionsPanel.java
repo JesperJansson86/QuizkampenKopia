@@ -238,7 +238,7 @@ public class QuestionsPanel {
 
             String nextPane = (String) Client.toGUI.take();
 
-            utils.changeSceneNew(nextPane);
+            utils.changeScene(nextPane);
         } catch (InterruptedException | IOException e) {
             e.printStackTrace();
         }
