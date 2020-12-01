@@ -57,9 +57,16 @@ public class Register {
 
     public boolean registerNewUserSuccess() {
         DatabaseConnection connectNow = new DatabaseConnection();
+        System.out.println("THIS: " + connectNow);
+
+
         Connection connectDb = connectNow.getConnection();
+        System.out.println("THIS: " + connectDb);
+
+
         String username = enterUsernameField.getText();
         String password = enterPasswordField.getText();
+
 
         String insertField = "INSERT INTO user_account(username, password) VALUES('" + username + "','" + password + "')";
 
