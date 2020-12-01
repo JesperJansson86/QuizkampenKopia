@@ -4,6 +4,7 @@ import client.Client;
 import gui.models.GUIutils;
 import javafx.animation.RotateTransition;
 import javafx.animation.ScaleTransition;
+import javafx.fxml.FXML;
 import javafx.scene.Group;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
@@ -24,7 +25,7 @@ import java.util.List;
  * Copyright: MIT
  */
 public class ChooseCategory {
-
+    @FXML
     public Label categoryL1;
     public Arc category1;
     public Arc category3;

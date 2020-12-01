@@ -25,7 +25,18 @@ import java.util.List;
 import static javafx.scene.paint.Color.TRANSPARENT;
 
 public class QuestionsPanel {
-    // TODO: 26/11/2020 Figure out what needs to be public/private
+    @FXML
+    public AnchorPane mainPane; //pane that holds the buttons and labels
+    public Label categoryL; //label holds what category questions are
+    public Button answer1; //button that holds answer1
+    public Button answer2; //button that holds answer2
+    public Button answer3; //button that holds answer3
+    public Button answer4; //button that holds answer4
+    public Label question; //holds and shows the question
+    public Label roundNumber; //holds the current round number and displays it
+    public Rectangle rectangleQ; //rectangle with the question inside of it
+    public ProgressBar timeLeftBar; //a progress bar that's inside of the timeline
+
     private static final String GREEN_BCK = "-fx-background-color: #00be00"; //Green
     private static final String GREEN_FILL = "-fx-fill: #00be00"; //Green
     private static final String RED_BCK = "-fx-background-color:red"; //Red
@@ -33,23 +44,12 @@ public class QuestionsPanel {
     private final List<Question> qList = Client.gr.activeQuestions; //list of questions
     private final int actualRound = Client.gr.roundnumber;//holds the round number
     private final int secondsToAnswer = 5; //how long the user has to answer // TODO: 26/11/2020 Maybe we should make this a setting in the config ?
-    @FXML
-    public AnchorPane mainPane; //pane that holds the buttons and labels
     public QuestionsPanelModel model; //model holds the buttons, question and the timeBar
-    public Label categoryL; //label holds what category questions are
-    public Button answer1; //button that holds answer1
-    public Button answer2; //button that holds answer2
-    public Button answer3; //button that holds answer3
-    public Button answer4; //button that holds answer4
-    public Label question; //holds and shows the question
     public KeyFrame setQuestions; //sets the right questions
     public KeyFrame cleanQuestions;//removes the previous questions
-    public Label roundNumber; //holds the current round number and displays it
-    public Rectangle rectangleQ; //rectangle with the question inside of it
     public Timeline roundTime; //uses the timeLeftBar to represent how much time the user has left ot answer the question
-    public ProgressBar timeLeftBar; //a progress bar that's inside of the timeline
-    public Group resultRects; // tbe squares inside of rectangleQ that change color based on right or wrong answer
     public GUIutils utils; // for changing view when done
+    public Group resultRects; // tbe squares inside of rectangleQ that change color based on right or wrong answer
 
     /**
      * at start initiates questionList by copying the list from MainClasses.QuestionFactory
@@ -111,7 +111,6 @@ public class QuestionsPanel {
         roundTime.play();
         roundTime.setOnFinished(e -> nextWindow());
     }
-
 
     /**
      * checks if the user pressed the right answer, if its right it paints green, if not it paints red and paints green right answer

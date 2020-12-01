@@ -2,6 +2,7 @@ package gui.controllers;
 
 import client.Client;
 import gui.models.GUIutils;
+import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -17,12 +18,13 @@ import java.io.IOException;
  * Copyright: MIT
  */
 public class Intro {
-
+    @FXML
     public Label message;
     public Button startB;
     public TextField nameField;
     public AnchorPane introPane;
-   private GUIutils util;
+
+    private GUIutils util;
 
     /**
      * sets the messages string to null and initiates GUIutils with controllers AnchorPane as argument

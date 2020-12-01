@@ -119,7 +119,6 @@ public class Client implements Runnable {
      */
     private void goToResultsAndReview() throws InterruptedException {
             toGUI.put("RESULTS");
-            toGUI.put(gr);
     }
 
     /**
