@@ -16,7 +16,6 @@ import java.io.IOException;
  */
 public class GUIutils {
     Pane mainPane;
-
     public GUIutils(Pane mainPane) {
         this.mainPane = mainPane;
     }
@@ -54,4 +53,5 @@ public class GUIutils {
             return null;
         }
     }
+
 }

@@ -10,15 +10,9 @@ import java.util.ArrayList;
  * Copyright: MIT
  **/
 public class PointCount {
-
-
-    private static int roundTotal; //total points the user have in the current round
-
     private static final ArrayList<Integer> pointHolder = new ArrayList<>(); //holds point for each question
-
     private static final ArrayList<String> answers = new ArrayList<>(); //holds the user answers in input order
-
-
+    private static int roundTotal; //total points the user have in the current round
 
     /**
      * adds 1 or 0 to pointHolder
@@ -26,27 +20,15 @@ public class PointCount {
      * @param point 1 or 0 depending on correct answer or not
      */
     public static void playerPointCount(int point) {
-
         pointHolder.add(point); //adds point to pointHolder
-
-        System.out.println(pointHolder.toString());//TEST: printout of the ArrayList
-
     }
 
     /**
      * counts and returns the pointTotal of the round
      */
-    public static int playerRoundTotal() {
-
-        //for loops that adds the ints in pointHolder to pointTotal
-        for (int integer : pointHolder) {
-
+    public static void playerRoundTotal() {
+        for (int integer : pointHolder)//for loops that adds the ints in pointHolder to pointTotal
             roundTotal = roundTotal + integer; //adds the number in point holder to the point total
-        }
-
-        System.out.println("Round total:" + roundTotal);
-
-        return roundTotal;
     }
 
     /**
@@ -59,56 +41,27 @@ public class PointCount {
     }
 
     /**
+     * Getter for an ArrayList that holds the answers that the user pressed in string form
+     *
      * @return returns a list with correct answers
      */
     public static ArrayList<String> getAnswers() {
         return answers;
     }
 
-    public static ArrayList<Integer> getPointHolder() {
-        return pointHolder;
-    }
-
+    /**
+     * Getter for the players total score of the round
+     *
+     * @return roundTotal
+     */
     public static int getRoundTotal() {
         return roundTotal;
     }
 
     /**
-     * @return returns the total score for all the rounds in the game
+     * Clears point holder & sets the value of roundTotal to 0
      */
-    public static int playerGameTotal() {
-
-        /*
-
-        // TODO: 20/11/2020 remake server side
-        int total = 0;
-        for (int i = 0; i < nbrRounds; i++) {
-
-            total = total + roundTotal;
-
-        }
-
-        return total;
-        */
-
-
-        return 0;
-    }
-
-    /**
-     * Prints out all the data currently in PointCount, for testing purposes.
-     */
-    public static void testPointCount() {
-
-        //test printouts
-        System.out.println("PointCount Test : \n");
-        System.out.println("playerPointCount: "+pointHolder.toString()); //test: sOut pointHolder[][]
-        System.out.println("roundTotal: " + roundTotal); //test: sOut for round total ArrayList<Integer>
-        System.out.println("answers: " + getAnswers()); //test: sOut for answers ArrayList<String>
-        System.out.println("\n");
-    }
-
-    public static void reset(){
+    public static void reset() {
         pointHolder.clear();
         roundTotal = 0;
     }

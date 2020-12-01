@@ -14,7 +14,7 @@ import javafx.util.Duration;
 import java.io.IOException;
 
 import java.util.List;
-import java.util.concurrent.BlockingQueue;
+
 
 /**
  * Created by Hodei Eceiza
@@ -24,10 +24,7 @@ import java.util.concurrent.BlockingQueue;
  * Copyright: MIT
  */
 public class ChooseCategory {
-    BlockingQueue toGUI = Client.toGUI;
-    BlockingQueue toClient = Client.toClient;
-    public List<String> categoryList = Client.gr.categoryList;
-    String category;
+
     public Label categoryL1;
     public Arc category1;
     public Arc category3;
@@ -40,8 +37,10 @@ public class ChooseCategory {
     public Group category3group;
     public Circle theCircle;
 
-    GUIutils util;
-    ScaleTransition st;
+    private List<String> categoryList = Client.gr.categoryList;
+    private  String category;
+    private GUIutils util;
+    private ScaleTransition st;
 
     /**
      * initializes setting text to category Labels, adding MouseEvent for each category group and initating GUIutils
@@ -76,7 +75,7 @@ public class ChooseCategory {
     private void goNextPanel() {
 
         try {
-            String nextPane = (String) toGUI.take();
+            String nextPane = (String) Client.toGUI.take();
             util.changeSceneNew(nextPane);
         } catch (InterruptedException | IOException e) {
             e.printStackTrace();
@@ -94,7 +93,7 @@ public class ChooseCategory {
         setGroupUserInteraction(false);
 
         try {
-            toClient.put(category);
+            Client.toClient.put(category);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }

@@ -11,7 +11,6 @@ import javafx.scene.shape.Circle;
 import javafx.util.Duration;
 
 import java.io.IOException;
-import java.util.concurrent.BlockingQueue;
 
 /**
  * Created by Hodei Eceiza
@@ -21,7 +20,6 @@ import java.util.concurrent.BlockingQueue;
  * Copyright: MIT
  */
 public class Waiting {
-    BlockingQueue toGUI = Client.toGUI;
     @FXML
     public Label message;
     public Group circleGroup;
@@ -30,11 +28,12 @@ public class Waiting {
     public Circle circleYellow;
     public Circle circleGreen;
     public AnchorPane waitingPane;
-    public String nextPane;
-    SequentialTransition sq;
-    ScaleTransition st;
-    TranslateTransition ts;
-    GUIutils util;
+
+    private String nextPane;
+    private SequentialTransition sq;
+    private ScaleTransition st;
+    private TranslateTransition ts;
+    private GUIutils util;
 
     /**
      * initiates methods: sets the message put by Client in toGui, sets Pane for GUIutils
@@ -42,7 +41,7 @@ public class Waiting {
      */
     public void initialize() {
         try {
-            message.setText((String) toGUI.take());
+            message.setText((String) Client.toGUI.take());
             util = new GUIutils(waitingPane);
             groupTransition();
         } catch (InterruptedException e) {
@@ -109,7 +108,7 @@ public class Waiting {
     private void startThreadMethod() {
         new Thread(() -> {
             try {
-                nextPane = (String) toGUI.take();
+                nextPane = (String) Client.toGUI.take();
                 if (ts.getStatus() == Animation.Status.RUNNING) ts.stop();
                 else if (sq.getStatus() == Animation.Status.RUNNING) sq.stop();
                 goToNextWindow();
