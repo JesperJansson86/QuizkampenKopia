@@ -1,13 +1,13 @@
-package GUI.controllers;
+package gui.controllers;
 
-import Client.Client;
-import GUI.models.DatabaseConnection;
-import GUI.models.GUIutils;
-import javafx.application.Platform;
-import javafx.concurrent.Task;
+
+import client.Client;
+import gui.models.DatabaseConnection;
+import gui.models.GUIutils;
+
 import javafx.event.ActionEvent;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
+
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 
@@ -71,7 +71,7 @@ public class Intro {
                         username = usernameField.getText();
                         toClient.put(username);
                         String nextScene = (String) toGUI.take();
-                        util.changeSceneNew(nextScene);
+                        util.changeScene(nextScene);
 
                     } else {
                         System.out.println("Invalid login");
@@ -91,7 +91,7 @@ public class Intro {
         try {
             toClient.put(uuid.toString());
             String nextScene = (String) toGUI.take();
-            util.changeSceneNew(nextScene);
+            util.changeScene(nextScene);
         } catch (InterruptedException | IOException e) {
             e.printStackTrace();
             System.out.println("Något gick fel");
@@ -100,7 +100,7 @@ public class Intro {
 
     public void registerButtonOn(ActionEvent actionEvent) {
         try {
-            util.changeScene("../view/Register.fxml");
+            util.switchIntroReg("../view/Register.fxml");
         } catch (IOException e) {
             e.printStackTrace();
         }

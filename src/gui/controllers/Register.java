@@ -1,7 +1,7 @@
-package GUI.controllers;
+package gui.controllers;
 
-import GUI.models.DatabaseConnection;
-import GUI.models.GUIutils;
+import gui.models.DatabaseConnection;
+import gui.models.GUIutils;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -49,7 +49,7 @@ public class Register {
 
     public void backToIntroScene() {
         try {
-            util.changeScene("../view/Intro.fxml");
+            util.switchIntroReg("../view/Intro.fxml");
         } catch (IOException e) {
             e.printStackTrace();
         }
