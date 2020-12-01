@@ -1,4 +1,4 @@
-package MainClasses;
+package mainClasses;
 
 /**
  * Created by Hodei Eceiza

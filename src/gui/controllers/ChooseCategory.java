@@ -1,7 +1,7 @@
-package GUI.controllers;
+package gui.controllers;
 
-import Client.Client;
-import GUI.models.GUIutils;
+import client.Client;
+import gui.models.GUIutils;
 import javafx.animation.RotateTransition;
 import javafx.animation.ScaleTransition;
 import javafx.scene.Group;

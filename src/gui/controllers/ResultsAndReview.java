@@ -1,13 +1,12 @@
-package GUI.controllers;
+package gui.controllers;
 
-import Client.Client;
-import GUI.models.GUIutils;
-import MainClasses.GameRound;
+import client.Client;
+import gui.models.GUIutils;
+import mainClasses.GameRound;
 import javafx.animation.RotateTransition;
 import javafx.animation.TranslateTransition;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
-import javafx.scene.control.Button;
 import javafx.scene.control.ContentDisplay;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
@@ -28,7 +27,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.BlockingQueue;
 
-import static javafx.scene.transform.Rotate.Y_AXIS;
 import static javafx.scene.transform.Rotate.Z_AXIS;
 
 /**

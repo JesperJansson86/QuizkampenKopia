@@ -1,8 +1,8 @@
-package GUI.controllers;
+package gui.controllers;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
-import Client.Client;
+import client.Client;
 import javafx.scene.image.ImageView;
 
 /**

@@ -1,6 +1,6 @@
-package Server;
+package server;
 
-import MainClasses.GameRound;
+import mainClasses.GameRound;
 
 import java.io.*;
 import java.net.Socket;

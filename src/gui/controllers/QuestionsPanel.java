@@ -1,10 +1,10 @@
-package GUI.controllers;
+package gui.controllers;
 
-import Client.Client;
-import GUI.models.GUIutils;
-import GUI.models.QuestionsPanelModel;
-import MainClasses.PointCount;
-import MainClasses.Question;
+import client.Client;
+import gui.models.GUIutils;
+import gui.models.QuestionsPanelModel;
+import mainClasses.PointCount;
+import mainClasses.Question;
 import javafx.animation.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;

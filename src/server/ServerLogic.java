@@ -1,7 +1,7 @@
-package Server;
+package server;
 
-import MainClasses.GameRound;
-import MainClasses.QuestionFactory;
+import mainClasses.GameRound;
+import mainClasses.QuestionFactory;
 
 import java.io.*;
 import java.util.Properties;

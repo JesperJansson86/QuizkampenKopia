@@ -1,4 +1,4 @@
-import Client.Client;
+import client.Client;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.event.EventHandler;
@@ -16,10 +16,10 @@ public class Main extends Application {
         @Override
         public void start(Stage primaryStage) throws Exception{ ;
             Thread t = new Thread(new Client());
-            Parent root = FXMLLoader.load(getClass().getResource("GUI/view/Intro.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("gui/view/Intro.fxml"));
             primaryStage.setTitle("FakeQuizDuel");
             primaryStage.setScene(new Scene(root));
-            primaryStage.getIcons().add(new Image("GUI/resources/logo.png"));
+            primaryStage.getIcons().add(new Image("gui/resources/logo.png"));
             primaryStage.setResizable(false);
             primaryStage.show();
             t.start();

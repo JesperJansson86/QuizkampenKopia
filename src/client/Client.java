@@ -1,9 +1,9 @@
-package Client;
+package client;
 
-import MainClasses.GameRound;
-import MainClasses.PointCount;
-import MainClasses.Question;
-import Server.*;
+import mainClasses.GameRound;
+import mainClasses.PointCount;
+import mainClasses.Question;
+import server.*;
 
 import java.io.*;
 import java.net.Socket;

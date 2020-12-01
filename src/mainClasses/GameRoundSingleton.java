@@ -1,7 +1,5 @@
-package MainClasses;
+package mainClasses;
 
-
-import Client.Client;
 
 import java.util.ArrayList;
 import java.util.List;

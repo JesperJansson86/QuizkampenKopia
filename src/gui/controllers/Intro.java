@@ -1,10 +1,7 @@
-package GUI.controllers;
+package gui.controllers;
 
-import Client.Client;
-import GUI.models.GUIutils;
-import javafx.application.Platform;
-import javafx.concurrent.Task;
-import javafx.event.ActionEvent;
+import client.Client;
+import gui.models.GUIutils;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;

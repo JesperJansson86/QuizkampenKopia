@@ -1,8 +1,6 @@
-package GUI.models;
+package gui.models;
 
-import MainClasses.Question;
-import MainClasses.QuestionFactory;
-import javafx.event.ActionEvent;
+import mainClasses.Question;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 

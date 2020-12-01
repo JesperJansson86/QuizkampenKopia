@@ -6,7 +6,7 @@
 <?import javafx.scene.shape.Circle?>
 
 <?import javafx.scene.text.Font?>
-<AnchorPane fx:id="waitingPane" prefHeight="470.0" prefWidth="500.0" style="-fx-background-color: #5858db;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.controllers.Waiting">
+<AnchorPane fx:id="waitingPane" prefHeight="470.0" prefWidth="500.0" style="-fx-background-color: #5858db;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.controllers.Waiting">
    <children>
       <Group fx:id="circleGroup" layoutX="210.0" layoutY="250.0">
          <children>

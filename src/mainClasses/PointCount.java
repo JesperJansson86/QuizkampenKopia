@@ -1,4 +1,4 @@
-package MainClasses;
+package mainClasses;
 
 import java.util.ArrayList;
 
