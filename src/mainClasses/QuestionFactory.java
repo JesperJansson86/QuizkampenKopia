@@ -86,6 +86,7 @@ public class QuestionFactory {
             if (!categories.contains(string))
                 categories.add(string);
         }
+        Collections.shuffle(categories);
     }
 
     /**
